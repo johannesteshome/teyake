@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Take Exam</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+  <link rel="stylesheet" href="../style-reset.css" />
+  <link rel="stylesheet" href="takeexam.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="modal">
+      <div class="modal-content">
+        <h1 style="text-align: center">Enter Exam</h1>
+        <form class="flex flex-col gap-4">
+          <input type="text" placeholder="Name" id="student-name" required />
+          <input type="email" placeholder="Email" id="student-email" required />
+          <input type="text" placeholder="ID" id="student-id" required />
+          <input type="text" placeholder="Key" id="exam-key" required />
+          <button type="submit" id="enter-exam">Enter</button>
+        </form>
+        <p id="errorMsg"></p>
+      </div>
+    </div>
+    <main class="hidden">
+      <div class="exam-container">
+
+        <?php
+
+        ?>
+
+      </div>
+      <button id="submit-exam" class="hidden">Submit</button>
+    </main>
+  </div>
+
+  <div class="result hidden">
+    <div class="result-box flex flex-col items-center justify-center">
+      <h2 class="text-center" id="result-student-name">Student Name</h2>
+      <h3 class="text-center" id="result-exam-name">Exam name</h3>
+      <p>You scored <span id="score">6</span>/<span id="result-max">10</span> </p>
+      <a href="../index.php" id="finish-exam"><button>Done</button></a>
+    </div>
+  </div>
+
+  <div class="warning-modal hidden" id="warning-modal">
+    <div class="warning-modal-content">
+      <h2>You're not allowed to leave fullscreen mode!</h2>
+
+      <p>Go back to fullscreen mode in <span id="remainingSeconds">0</span> or your test will be disqualified.</p>
+
+      <p class="warning-btns">
+        <button type="button" id="back-to-exam">Back to Exam</button>
+        <button type="button" id="exit-exam"">Exit Anyways</button>
+          </p>
+      </div>
+    </div>
+  </body>
+  <script src=" takeexam.js" type="module"></script>
+
+</html>
