@@ -517,7 +517,6 @@ document.querySelector("#done-preview").addEventListener("click", function () {
   currentTeacher.exams.push(test.key);
   localStorage.setItem("teachers", JSON.stringify(allTeachers));
   localStorage.setItem("exams", JSON.stringify(allExams));
-  test = allExams[0];
   document.getElementById("finishedTest").value = JSON.stringify(test);
   test = null;
   // window.open("dashboard.php", "_parent");
