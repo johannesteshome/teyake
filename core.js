@@ -23,6 +23,7 @@ class Exam {
       date.getMonth() + 1
     }/${date.getFullYear()}`;
     this.status = "open";
+    this.duration = 0;
   }
 }
 

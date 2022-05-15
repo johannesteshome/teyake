@@ -216,6 +216,7 @@ document
     }
     test.key = result;
     test.teacherID = currentTeacher.id;
+    test.duration = Number(document.querySelector('[name = "exam-duration"]'));
     // console.log(test);
   });
 //
@@ -223,7 +224,6 @@ document
 //
 let totalChoice = 0;
 document.querySelector("#add-choice").addEventListener("click", function (evt) {
-  evt.preventDefault();
   if (totalChoice >= 5) {
     alert("Cant have more than 5 answers");
     return;
@@ -285,8 +285,7 @@ qnum.textContent = `Question ${questionNum}`;
 document
   .querySelector("#add-question")
   .addEventListener("click", function (evt) {
-    // evt.preventDefault();
-
+    evt.preventDefault();
     if (choiceList.childNodes.length === 0 || questionPrompt.value === "") {
       console.log("null");
       return;
@@ -518,10 +517,12 @@ document.querySelector("#done-preview").addEventListener("click", function () {
   currentTeacher.exams.push(test.key);
   localStorage.setItem("teachers", JSON.stringify(allTeachers));
   localStorage.setItem("exams", JSON.stringify(allExams));
+  test = allExams[0];
+  document.getElementById("finishedTest").value = JSON.stringify(test);
   test = null;
-  window.open("dashboard.php", "_parent");
+  // window.open("dashboard.php", "_parent");
+  document.newExam.submit();
 });
-
 //Close Preview
 document
   .querySelector("#cancel-preview")

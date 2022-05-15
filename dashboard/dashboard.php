@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if($_SESSION["login"] != "ok"){
+    header('Location: ../auth/signin.php');
+  }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +32,7 @@
             <path d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z" />
           </svg>
         </a>
-        <a href="../index.php" class="transition" id="logout">Log Out</a>
+        <a href="../index.php?action=logout" class="transition" id="logout">Log Out</a>
       </div>
     </header>
     <main>
@@ -114,7 +123,7 @@
         <div class="add-exam-container">
           <div class="page add-exam flex flex-col items-center">
             <div class="input-card add-exam-name">
-              <form action="previewExam()" method="GET">
+              <form action="addExam.php" method="POST" name="newExam" enctype=”multipart/form-data”>
                 <h2 class="input-card-title text-center bg-primary text-white">
                   Create New Exam
                 </h2>
@@ -180,8 +189,13 @@
                 Add Questions
                 <button type="button" id="finalize-btn">Finalize Exam</button>
               </h2>
+
+              <div class="hidden" id="submit-form">
+                <input type="hidden" name="finishedTest" id="finishedTest" value="">
+              </div>
+
               </form>
-              <form class="write-exam-content flex flex-col" action="addQuestion()" method="GET">
+              <form class="write-exam-content flex flex-col" action="" method="POST" enctype=”multipart/form-data”>
                 <span id="question-number">Question 1</span>
                 <textarea name="" id="question-prompt" cols="30" rows="5"></textarea>
                 <div class="write-exam-btns flex justify-between items-center">
@@ -190,14 +204,14 @@
                       <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                   </button>
-                  <button type="submit" id="add-question">
+                  <button type="button" id="add-question">
                     Add Question
                   </button>
                 </div>
                 <div class="choice-container"></div>
               </form>
             </div>
-            <form action="cancelExam()" method="GET">
+            <form action="cancelExam()" method="POST" enctype=”multipart/form-data”>
               <button id="cancel-exam" type="button">Cancel Exam</button>
             </form>
           </div>
