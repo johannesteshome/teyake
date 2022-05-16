@@ -14,7 +14,7 @@ class Exam{
             $name = "";
             $questions = [];
             $key = 0;
-            $date = date("Y/m/d");
+            $date = date("Y-m-d");
             $status = "open";
             $duration = 0;
         }

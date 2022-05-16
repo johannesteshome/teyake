@@ -51,77 +51,8 @@
 
             // header('Location: ../dashboard/dashboard.php');
 
-        
-
-
-
-
-
-        //Declaring received data from the database
-        $rec_questions = [];
-        $rec_answers = [];
-
-        //Query to receive answer from database
-        $exam_key = 903;
-        $retrieve_answer_query = "SELECT AnswerList FROM answer WHERE ExamKey = ".$exam_key;        
-        $rec_answer_row = mysqli_query($conn, $retrieve_answer_query);
-        //Storing retreived answer
-        // echo "<pre>";
-        //     var_dump($rec_answer_row);
-        // echo "</pre>";
-        if (mysqli_num_rows($rec_answer_row) > 0) {
-                $row = mysqli_fetch_assoc($rec_answer_row);
-              echo "Answers: " . $row["AnswerList"]. "<br>";  
-              $rec_answers = json_decode($row["AnswerList"]);
-          } 
-          else {
-            echo "0 results";
-          }
-        //Query to receive question from Database
-        $retrieve_question_query = "SELECT QuestionList FROM question WHERE ExamKey = ".$exam_key;        
-        $rec_question_row = mysqli_query($conn, $retrieve_question_query);
-        //Storing retreived questions
-        echo "<pre>";
-        var_dump($rec_question_row);
-        echo "</pre>";
-        if (mysqli_num_rows($rec_question_row) > 0) {
-                $row = mysqli_fetch_assoc($rec_question_row);
-                // echo "<pre>";
-                // var_dump(json_decode($row["QuestionList"]));
-                // echo "</pre>";
-                $rec_questions = json_decode($row["QuestionList"]);
-          } else {
-            echo "0 results";
-          }
-        
-          for($x = 0; $x < count($rec_questions);$x++){
-            array_push($rec_questions[$x], $rec_answers[$x]);
-         }
-        //  echo "<pre>";
-        //  var_dump($rec_questions);
-        //  echo "</pre>";
-        //  echo "</br>";
-
-        //retrieve Exam Query
-        $retrieve_exam_query = "SELECT Name, Status, Duration, Date FROM exam WHERE ExamKey = ".$exam_key;
-        $retrieve_exam_row = mysqli_query($conn, $retrieve_exam_query);
-        if (mysqli_num_rows($retrieve_exam_row) > 0) {
-            $row = mysqli_fetch_assoc($retrieve_exam_row);
-            echo "<pre>";
-            var_dump($row);
-            echo "</pre>";
-            // $retrieve_exam = json_decode($row);
-      } 
-      $rec_examinerid_row = mysqli_query($conn, "SELECT ExaminerID FROM exam WHERE ExamKey = ".$exam_key);
-      if (mysqli_num_rows($rec_examinerid_row) > 0) {
-              $row = mysqli_fetch_assoc($rec_examinerid_row);
-              $rec_examinerid = $row["ExaminerID"];
-        }
-
-        
-    };
-
-
+          };
+          mysqli_close($conn);
     echo "</pre>";
 ?>
 

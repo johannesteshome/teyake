@@ -78,43 +78,43 @@ document.addEventListener("keydown", function (evt) {
 });
 
 //Setting a default key to be entered as an exam-key
-let studKey = "-1";
+// let studKey = "-1";
 
 // event listeners for all 3 input areas on the home page
-enterSidebarBtn.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  if (enterSidebarField.value == "") {
-    alert("enter a key");
-    return;
-  }
-  studKey = enterSidebarField.value;
-  console.log(studKey);
-  localStorage.setItem("studKey", studKey);
+// enterSidebarBtn.addEventListener("click", function (evt) {
+//   evt.preventDefault();
+//   if (enterSidebarField.value == "") {
+//     alert("enter a key");
+//     return;
+//   }
+//   studKey = enterSidebarField.value;
+//   console.log(studKey);
+//   localStorage.setItem("studKey", studKey);
 
-  window.open("takeexam/takeexam.php", "_parent");
-});
-enterHeadBtn.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  if (enterHeadField.value == "") {
-    alert("enter a key");
-    return;
-  }
-  studKey = enterHeadField.value;
-  localStorage.setItem("studKey", studKey);
-  console.log(studKey);
-  window.open("takeexam/takeexam.php", "_parent");
-});
-enterIntroBtn.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  if (enterIntroField.value == "") {
-    alert("enter a key");
-    return;
-  }
-  studKey = enterIntroField.value;
-  localStorage.setItem("studKey", studKey);
-  console.log(studKey);
-  window.open("takeexam/takeexam.php", "_parent");
-});
+//   window.open("takeexam/examinee-form.php", "_parent");
+// });
+// enterHeadBtn.addEventListener("click", function (evt) {
+//   evt.preventDefault();
+//   if (enterHeadField.value == "") {
+//     alert("enter a key");
+//     return;
+//   }
+//   studKey = enterHeadField.value;
+//   localStorage.setItem("studKey", studKey);
+//   console.log(studKey);
+//   window.open("takeexam/examinee-form.php", "_parent");
+// });
+// enterIntroBtn.addEventListener("click", function (evt) {
+//   evt.preventDefault();
+//   if (enterIntroField.value == "") {
+//     alert("enter a key");
+//     return;
+//   }
+//   studKey = enterIntroField.value;
+//   localStorage.setItem("studKey", studKey);
+//   console.log(studKey);
+//   window.open("takeexam/examinee-form.php", "_parent");
+// });
 
 // Values set for the switching menu
 const subjects = [

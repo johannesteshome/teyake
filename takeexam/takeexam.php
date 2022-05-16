@@ -1,3 +1,58 @@
+<?php
+  include_once "../database.php";
+  include_once "../core.php";
+
+    // echo "<pre>";
+    //   var_dump($_POST);
+    //   echo "</pre>";
+    $exam_key = $_POST["examKey"];
+    // $exam_key = "903";
+
+    //retrieve Exam Query
+    $retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = " . $exam_key;
+    $retrieve_exam_row = mysqli_query($conn, $retrieve_exam_query);
+    if (mysqli_num_rows($retrieve_exam_row) > 0) {
+      $exam_row = mysqli_fetch_assoc($retrieve_exam_row);
+      // echo "<pre>";
+      // var_dump($exam_row);
+      // echo "</pre>";
+    }
+    //Declaring received data from the database
+    $rec_questions = [];
+    //Query to receive question from Database
+    $retrieve_question_query = "SELECT QuestionList FROM question WHERE ID = " . $exam_row["QuestionID"];
+    $rec_question_row = mysqli_query($conn, $retrieve_question_query);
+    //Storing retreived questions
+    if (mysqli_num_rows($rec_question_row) > 0) {
+      $row = mysqli_fetch_assoc($rec_question_row);
+      $rec_questions = json_decode($row["QuestionList"]);
+    } else {
+      echo "0 results";
+    }
+  
+    for ($x = 0; $x < count($rec_questions); $x++) {
+      array_push($rec_questions[$x], 0);
+    }
+
+    $current_exam = new Exam();
+
+    $current_exam->name = $exam_row["Name"];
+    $current_exam->teacherID = $exam_row["ExaminerID"];
+    $current_exam->status = $exam_row["Status"];
+    $current_exam->duration = $exam_row["Duration"];
+    $current_exam->key = $exam_row["ExamKey"];
+    $current_exam->questions = $rec_questions;
+    $current_exam->date = $exam_row["Date"];
+
+    $current_exam = json_encode($current_exam);
+
+    echo "<p class=\"hidden\" id = \"current-exam\">".$current_exam."</p>";
+    
+
+  // if(isset)
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,19 +68,6 @@
 
 <body>
   <div class="container">
-    <div class="modal">
-      <div class="modal-content">
-        <h1 style="text-align: center">Enter Exam</h1>
-        <form class="flex flex-col gap-4">
-          <input type="text" placeholder="Name" id="student-name" required />
-          <input type="email" placeholder="Email" id="student-email" required />
-          <input type="text" placeholder="ID" id="student-id" required />
-          <input type="text" placeholder="Key" id="exam-key" required />
-          <button type="submit" id="enter-exam">Enter</button>
-        </form>
-        <p id="errorMsg"></p>
-      </div>
-    </div>
     <main class="hidden">
       <div class="exam-container">
 
