@@ -4,6 +4,9 @@
     session_unset();
     session_destroy();
   }
+  if(isset($_GET["exam"]) && $_GET["exam"] == "none"){
+    echo "<script> alert(\"This exam does not exist\"); </script>";
+  }
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | Teyake</title>
     <link rel="stylesheet" href="style-reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/public//css/index.css" />
 </head>
 
 <body id="top">
@@ -23,7 +26,7 @@
     <div class="container text-white">
         <!-- The sidebar/menu component which is only visible on sreen sizes below 1150px -->
         <div class="sidebar transition">
-            <form action="#" class="enter-exam-sidebar flex flex-col">
+            <form action="/teyake/takeexam/examinee-form.php" method="GET" class="enter-exam-sidebar flex flex-col">
                 <label for="exam-key" class="enter-exam-label font-semibold">Student</label>
                 <div class="enter-exam-input">
                     <input type="text" name="exam-key" class="exam-key" id="exam-key-sidebar" placeholder="Enter Exam Key" />
@@ -90,7 +93,7 @@
                 </div>
                 <!-- Exam Key input Section -->
                 <div class="flex flex-col items-center gap-2">
-                    <form action="#" class="enter-exam-head flex text-center">
+                    <form action="/teyake/takeexam/examinee-form.php" method="GET" class="enter-exam-head flex text-center">
                         <div class="enter-exam-input">
                             <input type="text" name="exam-key" id="exam-key-header" class="exam-key" placeholder="Enter Exam Key" />
                             <button type="submit" class="btn enter-exam-btn enter-exam-head-btn" id="enter-exam-head-btn">
@@ -109,7 +112,7 @@
             <div class="hero"></div>
             <div class="intro-content">
                 <!-- Exam Key input section -->
-                <form action="#" class="enter-exam-intro flex flex-col items-center text-center">
+                <form action="/teyake/takeexam/examinee-form.php" method="GET" class="enter-exam-intro flex flex-col items-center text-center">
                     <div class="enter-exam-input">
                         <input type="text" name="exam-key" id="exam-key-intro" class="exam-key" placeholder="Enter Exam Key" />
                         <button type="submit" class="btn enter-exam-btn" id="enter-exam-intro-btn">

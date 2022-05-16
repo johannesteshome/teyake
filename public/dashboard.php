@@ -195,6 +195,8 @@
               </div>
 
               </form>
+
+              
               <form class="write-exam-content flex flex-col" action="" method="POST" enctype=”multipart/form-data”>
                 <span id="question-number">Question 1</span>
                 <textarea name="" id="question-prompt" cols="30" rows="5"></textarea>

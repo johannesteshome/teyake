@@ -5,9 +5,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How It Works | Teyake</title>
+    <title>About Us | Teyake</title>
     <link rel="stylesheet" href="style-reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/about-us.css" />
 </head>
 
 <body id="top">
@@ -34,9 +34,8 @@
             <div class="sidebar-links">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="./support.php">How It Works</a></li>
-                    <li><a href="../about_us/about_us.php">About</a></li>
-
+                    <li><a href="../support/support.php">How It Works</a></li>
+                    <li><a href="./about_us.php">About</a></li>
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
                 </ul>
@@ -67,8 +66,8 @@
                 <nav>
                     <ul class="primary-nav flex">
                         <li><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="./support.php">How it Works</a></li>
-                        <li><a href="../about_us/about_us.php">About Us</a></li>
+                        <li><a href="../support/support.php">How it Works</a></li>
+                        <li class="nav-active"><a href="#">About Us</a></li>
 
                     </ul>
                 </nav>
@@ -120,14 +119,14 @@
             <div class="sidebar-sign-in flex flex-col w-full">
                 <p>Teacher</p>
                 <div class="flex">
-                    <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                    <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                    <button type="button" class="transparent">Sign In</button>
+                    <button type="button">Sign Up</button>
                 </div>
             </div>
             <div class="sidebar-links">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
-                    <li class="nav-active"><a href="./support.php">How It Works</a></li>
+                    <li><a href="../support/support.php">How It Works</a></li>
                     <li><a href="../about_us/about_us.php">About</a></li>
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
@@ -140,79 +139,84 @@
         <main>
             <div class="main-container flex items-center justify-center">
                 <!-- <img src="../resources/images/about_us.jpg" alt="People taking exams">-->
-                <h1 class="accented">How It Works</h1>
+                <h1 class="accented">About Us</h1>
             </div>
-            <!--Start of main content-->
-            <h2 class="text-primary text-center how-title">Its easy to get start with <span class="accented">Teyake.com</span> Here are the fewest steps to use our services</h2>
             <div class="about_us_text flex align-center justify-center flex-row">
-
                 <div class="text-content">
-                    <h2 class="text-primary">Sign Up</h2>
                     <p class="text-primary">
 
-                        In order to create and provide exams you must sign up as a teacher using your institutional email. With the correct institutional email you will be verified and be a qualified exam provider. If you would like to be registered in the system click the link
-                        below.
-
+                        Teyake.com was built by visionary team who wanted to change the problems that arise around exam giving techniques. As we know, the current education system is challenged with several issues like inadequate platforms that fulfills the needs of teachers
+                        and students. The team behind Teyake.com seek to solve this problem by providing a secure and trusted platform for teachers that allows them to create exams which they can easily manage easily and track records and scores of their
+                        students without further ado.
                     </p>
-                    <button class="btn try-it-btn pointer transition">Sign Up Now</button>
                 </div>
 
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/signup.svg" alt="Sign Up">
+                    <img src="../resources/images/about/about_us2.jpg" alt="Team Work">
                 </div>
             </div>
 
 
             <div class="about_us_text flex align-center justify-center flex-row">
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/create.svg" alt="Team Work">
+                    <img src="../resources/images/about/about_us3.jpg" alt="Team Work">
                 </div>
 
                 <div class="text-content">
-                    <h2 class="text-primary">Create Exam</h2>
                     <p class="text-primary">
 
-                        After successfully registering, the sytem will automatically direct you to the dashboard page where you can manage your exams. You can create a new exam by clicking the "New Exam" button.
+                        The team consists of six members from Addis Ababa Science and Technology University. The team believed that digital exams offered advantages such as auto-marking and integrated tools and could eliminate problems like illegible handwriting and excessive
+                        paper waste. At the time, few digital exam platforms existed, and the ones that did felt over-complicated and out of touch with a teacher’s real needs in the classroom. Determined to find a solution that worked in the real world
+                        for teachers
                     </p>
                 </div>
             </div>
+            <div class="btn-container flex justify-center gap-4">
+                <a href="../auth/signin.php"> <button class="btn try-it-btn pointer transition">Try It Now</button></a>
+                <a href="../support/support.php"><button class="btn-light how-btn pointer transition">How It Works</button></a>
+            </div>
+            <div class="team-container flex flex-col gap-4">
+                <h2 class="text-center text-primary ">Our Team</h2>
+                <div class="our_team flex justify-center gap-4">
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Yohannes Teshome</h3>
+                            <p class="text-primary">Graphics Designer</p>
+                        </div>
+                    </div>
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Yohannes Assefa</h3>
+                            <p class="text-primary">Front-end Developer</p>
+                        </div>
+                    </div>
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Yohannes Mesganaw</h3>
+                            <p class="text-primary">Front-end Developer</p>
+                        </div>
+                    </div>
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Yohannes Fantahun</h3>
+                            <p class="text-primary">Front-end Developer</p>
+                        </div>
+                    </div>
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Tsion Moges</h3>
+                            <p class="text-primary">Front-end Developer</p>
+                        </div>
+                    </div>
 
-            <div class="about_us_text flex align-center justify-center flex-row">
-                <div class="text-content">
-                    <h2 class="text-primary">Flexible Scoring</h2>
-                    <p class="text-primary">
 
-                        After grading a score you can edit the weight of each question or the total score of the exam even after the exam is online and examinees has submitted with their final answers allowing a flexible score.
-
-                    </p>
-
-                </div>
-
-                <div class="img-content">
-                    <img src="../resources/images/how_it_works/manage_score.svg" alt="Sign Up">
                 </div>
             </div>
-
-
-            <div class="about_us_text flex align-center justify-center flex-row">
-                <div class="img-content">
-                    <img src="../resources/images/how_it_works/stat.svg" alt="Team Work">
-                </div>
-
-                <div class="text-content">
-                    <h2 class="text-primary">Real-time Statistics</h2>
-                    <p class="text-primary">
-
-                        Apart from just giving exams teachers or exam providers can see real-time statistics about the exams including scores.
-                    </p>
-                </div>
-            </div>
-
-
-            <!--End of main contents-->
-            <!--Buttons-->
-
-
 
         </main>
         <!-- End of main container -->
@@ -254,6 +258,6 @@
       </footer>
       <!-- End of footer -->
     </div>
-    <script src="app.js"></script>
+    <script src="js/about-us.js"></script>
   </body>
 </html>
