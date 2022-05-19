@@ -1,7 +1,7 @@
 <?php
   session_start();
   if($_SESSION["login"] != "ok"){
-    header('Location: ../auth/signin.php');
+    header('Location: signin.php');
   }
 
 
@@ -16,18 +16,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | Teyake</title>
     <link rel="stylesheet" href="css/style-reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 
 <body>
     <div class="container">
         <header class="bg-primary">
             <div class="logo-box bg-secondary">
-                <img src="../assets/teyake_white_fill.png" alt="Teyake Logo" class="logo" />
+                <img src="./media/teyake_white_fill.png" alt="Teyake Logo" class="logo" />
             </div>
             <div class="nav-right">
-                <a href="../My profile/my_profile.php"><svg xmlns="http://www.w3.org/2000/svg"
-                        class="account transition" viewBox="0 0 512 512">
+                <a href="my_profile.php"><svg xmlns="http://www.w3.org/2000/svg" class="account transition"
+                        viewBox="0 0 512 512">
                         <title>Person Circle</title>
                         <path
                             d="M258.9 48C141.92 46.42 46.42 141.92 48 258.9c1.56 112.19 92.91 203.54 205.1 205.1 117 1.6 212.48-93.9 210.88-210.88C462.44 140.91 371.09 49.56 258.9 48zm126.42 327.25a4 4 0 01-6.14-.32 124.27 124.27 0 00-32.35-29.59C321.37 329 289.11 320 256 320s-65.37 9-90.83 25.34a124.24 124.24 0 00-32.35 29.58 4 4 0 01-6.14.32A175.32 175.32 0 0180 259c-1.63-97.31 78.22-178.76 175.57-179S432 158.81 432 256a175.32 175.32 0 01-46.68 119.25z" />
@@ -94,7 +94,31 @@
                                 <p class="date-created">Date Created</p>
                                 <p class="status">Status</p>
                             </div>
-                            <div class="exam-tile-container"></div>
+                            <div class="exam-tile-container">
+                                <?php
+                                include "../shared/includes/database.php";
+                                $rec_questionid_row = mysqli_query($conn, ("SELECT Name, ExamKey, Status, Date, Duration FROM `exam` WHERE ExaminerID=\"".$_SESSION['id']."\" AND Status=\"open\""));
+
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
+                                    while($row = mysqli_fetch_assoc($rec_questionid_row)){
+                                         echo  '<div class= "exam-tile relative">
+                                          <p class="exam-name">'.$row['Name'].'</p>
+                                            <p class="exam-key">'.$row['ExamKey'].'</p>
+                                            <p class="date-created">'.$row['Date'].'</p>
+                                            <p class="status">'.$row['Status'].'</p>
+                                            </div>';
+
+                                        }
+
+                                  }
+
+                                  $conn->close();
+
+                                ?>
+
+
+
+                            </div>
                             <div class="btn-container">
                                 <button type="button" id="add-btn" class="bg-primary text-white transition">
                                     Add Exam
@@ -123,7 +147,35 @@
                                 <p class="date-created">Date Created</p>
                                 <p class="status">Status</p>
                             </div>
-                            <div class="all-exam-container"></div>
+                            <div class="all-exam-container">
+                                <?php
+                                include "../shared/includes/database.php";
+                                $rec_questionid_row = mysqli_query($conn, ("SELECT Name, ExamKey, Status, Date, Duration FROM `exam` WHERE ExaminerID=\"".$_SESSION['id']."\""));
+
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
+                                    while($row = mysqli_fetch_assoc($rec_questionid_row)){
+                                         echo  '<div class= "exam-tile relative">
+                                          <p class="exam-name">'.$row['Name'].'</p>
+                                            <p class="exam-key">'.$row['ExamKey'].'</p>
+                                            <p class="date-created">'.$row['Date'].'</p>
+                                            <div id="status">
+                                            <p class="status">'.$row['Status'].'</p>
+                                            <button class="toggle-exam">'."close".'</button>
+                                            <button class="remove-exam"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                          </svg></button>
+                                            </div>
+                                            </div>';
+
+                                        }
+
+                                  }
+
+                                  $conn->close();
+
+                                ?>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,6 +337,6 @@
         </main>
     </div>
 </body>
-<script src="main.js?2" type="module"></script>
+<script src="./js/dashboard.js" type="module"></script>
 
 </html>

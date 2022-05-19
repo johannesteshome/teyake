@@ -1,5 +1,5 @@
 ("use strict");
-import { Exam } from "../core.js";
+import { Exam } from "../../shared/core.js";
 
 const dashboardHome = document.querySelector(".dashboard-home");
 const examListPage = document.querySelector(".exam-list");
@@ -46,7 +46,8 @@ if (!!localStorage.getItem("teachers")) {
 }
 
 //Selecting the current logged in teacher
-let currentTeacher = allTeachers.find((teacher) => teacher.id == currentSignin);
+let currentTeacher = allTeachers[1];
+console.log(allTeachers);
 console.log(currentTeacher);
 let currentTeacherStudents = allStudents.filter((student) => {
   return currentTeacher.exams.includes(student.examkey);
@@ -95,97 +96,92 @@ if (avg.length != 0)
 //
 //Display active exams on home page
 //
-function showActive() {
-  document.querySelector(".exam-tile-container").innerHTML = "";
-  allExams = JSON.parse(localStorage.getItem("exams"));
-  allExams
-    .filter((test) => {
-      return test.status == "open" && test.teacherID == Number(currentSignin);
-      //
-    })
-    .forEach((exam) => {
-      let cont = document.createElement("div");
-      cont.className = "exam-tile relative";
-      cont.innerHTML = `<p class="exam-name">${exam.name}</p>
-      <p class="exam-key">${exam.key}</p>
-      <p class="date-created">${exam.date}</p>
-      <p class="status">${exam.status}</p>
-      `;
-      document.querySelector(".exam-tile-container").appendChild(cont);
-    });
+// function showActive() {
+//   document.querySelector(".exam-tile-container").innerHTML = "";
+//   allExams = JSON.parse(localStorage.getItem("exams"));
+//   allExams
+//     .filter((test) => {
+//       return test.status == "open" && test.teacherID == Number(currentSignin);
+//       //
+//     })
+//     .forEach((exam) => {
+//       let cont = document.createElement("div");
+//       cont.className = "exam-tile relative";
+//       cont.innerHTML = `<p class="exam-name">${exam.name}</p>
+//       <p class="exam-key">${exam.key}</p>
+//       <p class="date-created">${exam.date}</p>
+//       <p class="status">${exam.status}</p>
+//       `;
+//       document.querySelector(".exam-tile-container").appendChild(cont);
+//     });
 
-  if (
-    allExams.filter((test) => {
-      return test.status == "open" && test.teacherID == Number(currentSignin);
-    }).length == 0
-  ) {
-    let text = document.createElement("p");
-    text.className = "text-center active-notif";
-    text.textContent = "You have no open exams at the moment";
-    document.querySelector(".exam-tile-container").appendChild(text);
-  }
-}
-showActive();
+//   if (
+//     allExams.filter((test) => {
+//       return test.status == "open" && test.teacherID == Number(currentSignin);
+//     }).length == 0
+//   ) {
+//     let text = document.createElement("p");
+//     text.className = "text-center active-notif";
+//     text.textContent = "You have no open exams at the moment";
+//     document.querySelector(".exam-tile-container").appendChild(text);
+//   }
+// }
+// showActive();
 //
 //Display all Exams in Exam list page
 //
 function showAllExams() {
   document.querySelector(".all-exam-container").innerHTML = ``;
   allExams = JSON.parse(localStorage.getItem("exams"));
-  allExams
-    .filter((test) => {
-      return test.teacherID == Number(currentSignin);
-    })
-    .forEach((exam) => {
-      let cont = document.createElement("div");
-      cont.className = "exam-tile relative";
-      cont.innerHTML = `<p class="exam-name">${exam.name}</p>
+  allExams.forEach((exam) => {
+    let cont = document.createElement("div");
+    cont.className = "exam-tile relative";
+    cont.innerHTML = `<p class="exam-name">${exam.name}</p>
       <p class="exam-key">${exam.key}</p>
       <p class="date-created">${exam.date}</p>
       <div id ="status"> 
       <span class = "status">${exam.status}</span> 
       </div>`;
-      let btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "toggle-exam";
-      btn.innerHTML = `${exam.status == "closed" ? "open" : "close"}`;
-      cont.lastChild.appendChild(btn);
-      let removeBtn = document.createElement("button");
-      removeBtn.type = "button";
-      removeBtn.className = "remove-exam";
-      removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+    let btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "toggle-exam";
+    btn.innerHTML = `${exam.status == "closed" ? "open" : "close"}`;
+    cont.lastChild.appendChild(btn);
+    let removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "remove-exam";
+    removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
       <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
     </svg>`;
-      cont.lastChild.appendChild(removeBtn);
-      btn.addEventListener("click", () => {
-        let toggle = btn.parentElement.parentElement.childNodes[2].textContent;
-        let found = allExams.find((exam) => exam.key == toggle);
-        found.status = found.status == "open" ? "closed" : "open";
-        localStorage.setItem("exams", JSON.stringify(allExams));
-        showAllExams();
-        showActive();
-      });
-      removeBtn.addEventListener("click", () => {
-        let removeKey =
-          btn.parentElement.parentElement.childNodes[2].textContent;
-        if (
-          confirm(
-            "Are you sure you want to remove this exam?\nChanges cannot be undone!"
-          ) == true
-        ) {
-          allExams = allExams.filter((exam) => exam.key != removeKey);
-          localStorage.setItem("exams", JSON.stringify(allExams));
-          showActive();
-          showAllExams();
-        } else {
-          console.log("You canceled!");
-        }
-      });
-      document.querySelector(".all-exam-container").appendChild(cont);
+    cont.lastChild.appendChild(removeBtn);
+    btn.addEventListener("click", () => {
+      let toggle = btn.parentElement.parentElement.childNodes[2].textContent;
+      let found = allExams.find((exam) => exam.key == toggle);
+      found.status = found.status == "open" ? "closed" : "open";
+      localStorage.setItem("exams", JSON.stringify(allExams));
+      showAllExams();
+      showActive();
     });
+    removeBtn.addEventListener("click", () => {
+      let removeKey = btn.parentElement.parentElement.childNodes[2].textContent;
+      if (
+        confirm(
+          "Are you sure you want to remove this exam?\nChanges cannot be undone!"
+        ) == true
+      ) {
+        allExams = allExams.filter((exam) => exam.key != removeKey);
+        localStorage.setItem("exams", JSON.stringify(allExams));
+        showActive();
+        showAllExams();
+      } else {
+        console.log("You canceled!");
+      }
+    });
+    document.querySelector(".all-exam-container").appendChild(cont);
+  });
   localStorage.setItem("exams", JSON.stringify(allExams));
 }
-showAllExams();
+//showAllExams();
 
 document.querySelector("#add-btn").addEventListener("click", function () {
   links[2].click();
@@ -215,7 +211,7 @@ document
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     test.key = result;
-    test.teacherID = currentTeacher.id;
+    test.teacherID = 0;
     test.duration = Number(document.querySelector('[name = "exam-duration"]'));
     // console.log(test);
   });
@@ -519,7 +515,7 @@ document.querySelector("#done-preview").addEventListener("click", function () {
   localStorage.setItem("exams", JSON.stringify(allExams));
   document.getElementById("finishedTest").value = JSON.stringify(test);
   test = null;
-  // window.open("dashboard.php", "_parent");
+  // window.open("../dashboard.php", "_parent");
   document.newExam.submit();
 });
 //Close Preview
@@ -528,14 +524,14 @@ document
   .addEventListener("click", function (evt) {
     evt.preventDefault();
     test = null;
-    window.open("dashboard.php", "_parent");
+    window.open("../dashboard.php", "_parent");
   });
 //Cancel the Written Exam
 document
   .querySelector("#cancel-exam")
   .addEventListener("click", function (evt) {
     evt.preventDefault();
-    window.open("dashboard.php", "_parent");
+    window.open("../dashboard.php", "_parent");
   });
 
 //

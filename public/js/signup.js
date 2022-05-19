@@ -1,4 +1,4 @@
-import { Teacher } from "../core.js";
+import { Teacher } from "../../shared/core.js";
 ("use strict");
 
 const fullName = document.getElementById("fullname-input");

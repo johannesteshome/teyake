@@ -320,7 +320,7 @@ h1 {
 
 .hero {
   width: 100%;
-  background-image: url(assets/backdrop.jpg);
+  background-image: url(../media/backdrop.jpg);
   min-height: 150px;
   background-position: center;
   background-size: cover;
@@ -592,7 +592,7 @@ h1 {
   position: absolute;
   left: 0.5rem;
   top: -23px;
-  background: url(assets/home/quote.png);
+  background: url(../media/home/quote.png);
   width: 45px;
   aspect-ratio: 1;
   background-position: center;
@@ -604,7 +604,7 @@ h1 {
   position: absolute;
   right: 0.5rem;
   bottom: -23px;
-  background: url(assets/home/quote.png);
+  background: url(../media/home/quote.png);
   width: 45px;
   aspect-ratio: 1;
   background-position: center;

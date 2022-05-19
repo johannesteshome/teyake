@@ -1,5 +1,3 @@
-import { Teacher } from "../core.js";
-
 let allTeachers = [];
 let currentTeacher;
 if (!!localStorage.getItem("teachers")) {
@@ -96,7 +94,7 @@ save.addEventListener("click", () => {
   localStorage.setItem("teachers", JSON.stringify(allTeachers));
   console.log(allTeachers);
 
-  window.open("../dashboard/dashboard.php", "_parent");
+  window.open("../dashboard.php", "_parent");
 });
 
 function usernameTaken(uname) {

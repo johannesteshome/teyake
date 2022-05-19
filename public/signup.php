@@ -51,24 +51,24 @@ header('Location: signin.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up | Teyake</title>
     <link rel="stylesheet" href="css/style-reset.css" />
-    <link rel="stylesheet" href="signup.css" />
+    <link rel="stylesheet" href="css/signup.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="header">
             <div class="header-left">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
+                <img src="./media/images/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
-                        <li class=""><a href="../index.html">Home</a></li>
+                        <li class=""><a href="../index.php">Home</a></li>
                         <li class="nav-active"><a href="#">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-right flex items-center">
                 <div class="sign-in flex gap-4">
-                    <a href="signin.html"><button type="button">Sign In</button></a>
+                    <a href="signin.php"><button type="button">Sign In</button></a>
                     <!-- <button type="button">Sign Up</button> -->
                 </div>
                 <!-- Exam Key input Section -->
@@ -193,6 +193,6 @@ header('Location: signin.php');
         </main>
     </div>
 </body>
-<script src="signup.js" type="module"></script>
+<script src="js/signup.js" type="module"></script>
 
 </html>

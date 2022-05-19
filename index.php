@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home | Teyake</title>
     <link rel="stylesheet" href="./public/css/style-reset.css" />
-    <link rel="stylesheet" href="/public//css/index.css" />
+    <link rel="stylesheet" href="./public/css/index.css" />
 </head>
 
 <body id="top">
@@ -26,7 +26,7 @@
     <div class="container text-white">
         <!-- The sidebar/menu component which is only visible on sreen sizes below 1150px -->
         <div class="sidebar transition">
-            <form action="/teyake/takeexam/examinee-form.php" method="GET" class="enter-exam-sidebar flex flex-col">
+            <form action="./public/examinee-form.php" method="GET" class="enter-exam-sidebar flex flex-col">
                 <label for="exam-key" class="enter-exam-label font-semibold">Student</label>
                 <div class="enter-exam-input">
                     <input type="text" name="exam-key" class="exam-key" id="exam-key-sidebar"
@@ -39,15 +39,15 @@
             <div class="sidebar-sign-in flex flex-col w-full">
                 <p>Teacher</p>
                 <div class="flex">
-                    <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                    <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                    <a href="./public/signin.php"><button type="button">Sign In</button></a>
+                    <a href="./public/signup.php"><button type="button">Sign Up</button></a>
                 </div>
             </div>
             <div class="sidebar-links">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="./support/support.php">How It Works</a></li>
-                    <li><a href="./about_us/about_us.php">About</a></li>
+                    <li><a href="./public/support.php">How It Works</a></li>
+                    <li><a href="./public/about_us.php">About</a></li>
 
 
                     <li><a href="#testimonals">Testimonials</a></li>
@@ -57,7 +57,7 @@
         <!-- End of Sidebar Component -->
         <!-- Header for mobile view -->
         <header class="">
-            <img src="./assets/teyake_white_fill.png" class="logo" />
+            <img src="./public/media/teyake_white_fill.png" class="logo" />
             <span class="menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
@@ -69,12 +69,12 @@
         <!-- Header for Desktop view only above 1150px -->
         <div class="header">
             <div class="header-left">
-                <img src="./assets/teyake_white_fill.png" class="logo" />
+                <img src="./public/media/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
                         <li class="nav-active"><a href="#">Home</a></li>
-                        <li><a href="./support/support.php">How it Works</a></li>
-                        <li><a href="./about_us/about_us.php">About Us</a></li>
+                        <li><a href="./public/support.php">How it Works</a></li>
+                        <li><a href="./public/about_us.php">About Us</a></li>
 
                     </ul>
                 </nav>
@@ -82,14 +82,14 @@
             <div class="header-right flex items-center justify-between">
                 <div class="sign-in flex flex-col items-center justify-center gap-1">
                     <div class="flex gap-4">
-                        <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                        <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                        <a href="./public/signin.php"><button type="button">Sign In</button></a>
+                        <a href="./public/signup.php"><button type="button">Sign Up</button></a>
                     </div>
                     <p class="text-center">Teachers</p>
                 </div>
                 <!-- Exam Key input Section -->
                 <div class="flex flex-col items-center gap-2">
-                    <form action="/teyake/takeexam/examinee-form.php" method="GET"
+                    <form action="./public/examinee-form.php" method="GET"
                         class="enter-exam-head flex text-center">
                         <div class="enter-exam-input">
                             <input type="text" name="exam-key" id="exam-key-header" class="exam-key"
@@ -112,7 +112,7 @@
             <div class="hero"></div>
             <div class="intro-content">
                 <!-- Exam Key input section -->
-                <form action="/teyake/takeexam/examinee-form.php" method="GET"
+                <form action="./public/examinee-form.php" method="GET"
                     class="enter-exam-intro flex flex-col items-center text-center">
                     <div class="enter-exam-input">
                         <input type="text" name="exam-key" id="exam-key-intro" class="exam-key"
@@ -134,8 +134,8 @@
                     equips you with all the power and function you need to create exams
                     for your students, your way.
                 </p>
-                <a href="auth/signup.php"><button class="intro-btn btn">Sign Up For Your Free Trial</button></a>
-                <a href="./support/support.php"><button class="intro-btn btn">See how it works</button></a>
+                <a href="./public/signup.php"><button class="intro-btn btn">Sign Up For Your Free Trial</button></a>
+                <a href="./public/support.php"><button class="intro-btn btn">See how it works</button></a>
 
             </div>
         </section>
@@ -146,7 +146,7 @@
             <div class="card-list-container">
                 <div class="card-list">
                     <div class="card">
-                        <img src="assets/home/tools.png" alt="Educational tools illustration" class="card-img" />
+                        <img src="media/home/tools.png" alt="Educational tools illustration" class="card-img" />
                         <h2 class="card-title">Everything you need</h2>
                         <p class="card-text">
                             Create comprehensive exams with powerful tools that are easy to
@@ -154,7 +154,7 @@
                         </p>
                     </div>
                     <div class="card">
-                        <img src="assets/home/computer.png" alt="Simple computer illustration" class="card-img" />
+                        <img src="./public/media/home/computer.png" alt="Simple computer illustration" class="card-img" />
                         <h2 class="card-title">Make it simple</h2>
                         <p class="card-text">
                             Conduct exams with confidence and control thanks to our intuituve
@@ -162,7 +162,7 @@
                         </p>
                     </div>
                     <div class="card">
-                        <img src="assets/home/empower.png" alt="Empowering students illustration" class="card-img" />
+                        <img src="./public/media/home/empower.png" alt="Empowering students illustration" class="card-img" />
                         <h2 class="card-title">Empower Every Student</h2>
                         <p class="card-text">
                             Customize exams to empower each student's individual needs and let
@@ -174,7 +174,7 @@
             </div>
             <!-- End of card list -->
             <div class="credits" id="testimonals">
-                <img class="quotation-mark" src="./assets/home/quote.png" alt="quotation mark" />
+                <img class="quotation-mark" src="./public/media/home/quote.png" alt="quotation mark" />
                 <p>
                     The best service in my practice. Everything works very quickly and
                     practically. For me <span class="accented">Teyake.com</span> became
@@ -265,16 +265,16 @@
                                         d="M11.1628 10.4454L5.16314 17.1117C5.03514 17.253 4.85649 17.333 4.66716 17.333H0.66738C0.404728 17.333 0.166074 17.1783 0.0580799 16.9384C-0.048581 16.697 -0.00458339 16.4157 0.171407 16.2211L5.76977 10.0001L0.171407 3.78041C-0.00458339 3.58442 -0.0499143 3.3031 0.0580799 3.06311C0.166074 2.82179 0.404728 2.66713 0.66738 2.66713H4.66716C4.85649 2.66713 5.03514 2.74846 5.16314 2.88712L11.1628 9.55343C11.3908 9.80675 11.3908 10.1934 11.1628 10.4454Z"
                                         fill="#DBDBDB"></path>
                                 </svg>
-                                <p>Teacher Uploaded assets</p>
+                                <p>Teacher Uploaded media</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <a href="auth/signin.php" class="btn subject-details-btn">
+                <a href="./public/signin.php" class="btn subject-details-btn">
                     Try It Now
                 </a>
-                <a href="./support/support.php" class="btn-light subject-details-btn-two">
+                <a href="./public/support.php" class="btn-light subject-details-btn-two">
                     How It Works</a>
 
 
@@ -286,10 +286,10 @@
         <footer>
             <nav class="footer-nav">
                 <div>
-                    <a href="teyake.com" class="footer-logo"><img src="./assets/teyake_white_fill.png"
+                    <a href="teyake.com" class="footer-logo"><img src="./public/media/teyake_white_fill.png"
                             class="logo" /></a>
                     <ul class="p-0">
-                        <li><a href="auth/signin.php">Teacher Sign In</a></li>
+                        <li><a href="./public/signin.php">Teacher Sign In</a></li>
                         <li><a href="#exam-key">Student Exam Key</a></li>
                     </ul>
                 </div>
@@ -298,9 +298,9 @@
                     <h3>Menu</h3>
                     <ul class="p-0">
                         <li><a href="./index.php">Home</a></li>
-                        <li><a href="./support/support.php">How it works</a></li>
-                        <li><a href="auth/signup.php">Free Trial</a></li>
-                        <li><a href="./about_us/about_us.php">About</a></li>
+                        <li><a href="./public/support.php">How it works</a></li>
+                        <li><a href="./public/signup.php">Free Trial</a></li>
+                        <li><a href="./public/about_us.php">About</a></li>
 
                         <li><a href="#testimonals">Testimonials</a></li>
 
@@ -320,7 +320,7 @@
         </footer>
         <!-- End of footer -->
     </div>
-    <script src="app.js"></script>
+    <script src="./public/js/index.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ svg {
 .container {
   min-width: 100%;
   min-height: 100vh;
-  background: url("../assets/backdrop2.jpg");
+  background: url("../media/backdrop2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;

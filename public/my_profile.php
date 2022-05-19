@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="css/style-reset.css">
-    <link rel="stylesheet" href="profile_style.css" />
-    <script src="app.js" defer type="module"></script>
+    <link rel="stylesheet" href="css/my-profile.css" />
+    <script src="js/dashboard.js" defer type="module"></script>
 </head>
 
 <body>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How It Works | Teyake</title>
     <link rel="stylesheet" href="css/style-reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/support.css" />
 </head>
 
 <body id="top">
@@ -25,18 +25,18 @@
                     </button>
                 </div>
             </form>
-            <div class="sidebar-sign-in flex flex-col w-full">
+            <div class="sidebar-sign-in flex flex-col w-full"> 
                 <p>Teacher</p>
                 <div class="flex">
-                    <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                    <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                    <a href="signin.php"><button type="button">Sign In</button></a>
+                    <a href="signup.php"><button type="button">Sign Up</button></a>
                 </div>
             </div>
             <div class="sidebar-links">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
                     <li><a href="./support.php">How It Works</a></li>
-                    <li><a href="../about_us/about_us.php">About</a></li>
+                    <li><a href="./about_us.php">About</a></li>
 
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
@@ -46,7 +46,7 @@
         <!-- End of Sidebar Component -->
         <!-- Header for mobile view -->
         <header class="">
-            <img src="./assets/teyake_white_fill.png" class="logo" />
+            <img src="./media/images/teyake_white_fill.png" class="logo" />
             <span class="menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
@@ -58,12 +58,12 @@
         <!-- Header for Desktop view only above 1150px -->
         <div class="header">
             <div class="header-left">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
+                <img src="./media/images/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
                         <li><a href="../index.php">Home</a></li>
                         <li class="nav-active"><a href="./support.php">How it Works</a></li>
-                        <li><a href="../about_us/about_us.php">About Us</a></li>
+                        <li><a href="./about_us.php">About Us</a></li>
 
                     </ul>
                 </nav>
@@ -71,8 +71,8 @@
             <div class="header-right flex items-center justify-between">
                 <div class="sign-in flex flex-col items-center justify-center gap-1">
                     <div class="flex gap-4">
-                        <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                        <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                        <a href="./signin.php"><button type="button">Sign In</button></a>
+                        <a href="./signup.php"><button type="button">Sign Up</button></a>
                     </div>
                     <p class="text-center">Teachers</p>
                 </div>
@@ -97,7 +97,7 @@
         <!-- The sidebar/menu component which is only visible on sreen sizes below 1150px -->
         <div class="sidebar transition">
             <div class="sidebar-head flex justify-between items-center">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
+                <img src="./media/images/teyake_white_fill.png" class="logo" />
                 <span class="menu-close-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -126,7 +126,7 @@
                 <ul>
                     <li><a href="../index.php">Home</a></li>
                     <li class="nav-active"><a href="./support.php">How It Works</a></li>
-                    <li><a href="../about_us/about_us.php">About</a></li>
+                    <li><a href="./about_us.php">About</a></li>
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
                 </ul>
@@ -159,14 +159,14 @@
                 </div>
 
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/signup.svg" alt="Sign Up">
+                    <img src="./media/images/how_it_works/signup.svg" alt="Sign Up">
                 </div>
             </div>
 
 
             <div class="about_us_text flex align-center justify-center flex-row">
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/create.svg" alt="Team Work">
+                    <img src="./media/images/how_it_works/create.svg" alt="Team Work">
                 </div>
 
                 <div class="text-content">
@@ -193,14 +193,14 @@
                 </div>
 
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/manage_score.svg" alt="Sign Up">
+                    <img src="./media/images/how_it_works/manage_score.svg" alt="Sign Up">
                 </div>
             </div>
 
 
             <div class="about_us_text flex align-center justify-center flex-row">
                 <div class="img-content">
-                    <img src="../resources/images/how_it_works/stat.svg" alt="Team Work">
+                    <img src="./media/images/how_it_works/stat.svg" alt="Team Work">
                 </div>
 
                 <div class="text-content">
@@ -225,10 +225,10 @@
         <footer>
             <nav class="footer-nav">
                 <div>
-                    <a href="teyake.com" class="footer-logo"><img src="../assets/teyake_white_fill.png"
+                    <a href="teyake.com" class="footer-logo"><img src="./media/images/teyake_white_fill.png"
                             class="logo" /></a>
                     <ul class="p-0">
-                        <li><a href="../auth/signin.php">Teacher Sign In</a></li>
+                        <li><a href="./signin.php">Teacher Sign In</a></li>
                         <li><a href="#exam-key">Student Exam Key</a></li>
                     </ul>
                 </div>
@@ -236,10 +236,10 @@
                 <div class="footer-menu">
                     <h3>Menu</h3>
                     <ul class="p-0">
-                        <li><a href="./index.php">Home</a></li>
-                        <li><a href="./support/support.php">How it works</a></li>
-                        <li><a href="auth/signup.php">Free Trial</a></li>
-                        <li><a href="./about_us/about_us.php">About</a></li>
+                        <li><a href="../index.php">Home</a></li>
+                        <li><a href="./support.php">How it works</a></li>
+                        <li><a href="./signup.php">Free Trial</a></li>
+                        <li><a href="./about_us.php">About</a></li>
 
                         <li><a href="../index.php#testimonals">Testimonials</a></li>
                     </ul>
@@ -258,7 +258,7 @@
         </footer>
         <!-- End of footer -->
     </div>
-    <script src="app.js"></script>
+    <script src="../shared/core.js"></script>
 </body>
 
 </html>

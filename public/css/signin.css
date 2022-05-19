@@ -17,7 +17,7 @@ svg {
 .container {
   min-width: 100%;
   min-height: 100vh;
-  background: url("../assets/backdrop2.jpg");
+  background: url("../media/backdrop2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -35,7 +35,7 @@ svg {
 }
 #exam-key {
   background-color: rgb(231, 230, 230);
-  color:black;
+  color: black;
   width: 90%;
   height: 2.5rem;
   border-radius: 2rem;
@@ -165,20 +165,19 @@ svg {
 
 /* newly added ones are here */
 
-:root{
-  --line-border:#accfbede;
-  --button-color:rgba(91, 208, 101, 0.433);
+:root {
+  --line-border: #accfbede;
+  --button-color: rgba(91, 208, 101, 0.433);
   --textfield-color: rgb(112, 121, 64);
 }
 
-
 * {
- box-sizing: border-box;
- margin: 0;
- text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  text-decoration: none;
 }
 
-body{
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,87 +186,86 @@ body{
   margin: 0%;
 }
 
-main{
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:max(18rem, 50%);
+  width: max(18rem, 50%);
 }
 
-.login-container{
+.login-container {
   /* border: .2rem solid var(--line-border); */
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background:rgba(67, 57, 57, 0.891);
+  background: rgba(67, 57, 57, 0.891);
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.inputs{
+.inputs {
   flex: 1;
 }
-.text-field{
+.text-field {
   margin-top: 0.5rem;
 }
 
-#login-email #uname{
+#login-email #uname {
   margin-bottom: 0.5rem;
 }
 
-.login-container > a{
+.login-container > a {
   text-decoration: none;
- padding:0;
- margin: 0;
+  padding: 0;
+  margin: 0;
 }
-button:hover{
+button:hover {
   background-color: rgb(19, 70, 53);
-  color:rgb(128, 128, 122);
+  color: rgb(128, 128, 122);
 }
-button:active{
-  transform: scale(.99);
+button:active {
+  transform: scale(0.99);
 }
 
-.text-field{
-  padding: .5rem;
+.text-field {
+  padding: 0.5rem;
   border-radius: 1em;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   width: 100%;
   border-style: none;
-  color:#fff;
+  color: #fff;
   background-color: var(--textfield-color);
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
-button{
+button {
   border: none;
-  border-top-left-radius: .5rem;
-  border-top-right-radius: .5rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   width: 100%;
-  padding: .5rem;
+  padding: 0.5rem;
   background-color: var(--secondary-color);
 }
 
-h1{
+h1 {
   font-weight: normal;
   display: flex;
   justify-content: center;
 }
 
-::placeholder{
-  color:#e0e0e0;
+::placeholder {
+  color: #e0e0e0;
 }
 
-
-#errorMsg{
-  color:red;
+#errorMsg {
+  color: red;
   justify-content: center;
   display: flex;
 }

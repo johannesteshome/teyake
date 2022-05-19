@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"]==='POST'){
       if($email == $examiner['Email'] && password_verify($password ,$examiner['Password'])){
         $_SESSION["login"] = "ok";
         $_SESSION["id"] = $examiner["ID"];
-        header('Location: ../dashboard/dashboard.php');
+        header('Location: dashboard.php');
         $count++;
       }
 }
@@ -46,40 +46,17 @@ if($count == 0){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up | Teyake</title>
     <link rel="stylesheet" href="css/style-reset.css" />
-    <link rel="stylesheet" href="signin.css" />
+    <link rel="stylesheet" href="css/signin.css" />
 </head>
 
 <body>
     <div class="container text-white">
-        <div class="header">
-            <div class="header-left">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
-                <nav>
-                    <ul class="primary-nav flex">
-                        <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="#">Sign In</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-right flex items-center">
-                <div class="sign-in flex gap-4">
-                    <!-- <button type="button">Sign In</button> -->
-                    <a href="signup.php"><button type="button">Sign Up</button></a>
-                </div>
-                <!-- Exam Key input Section -->
-                <div class="flex flex-col items-center gap-2">
-                    <form action="#" class="enter-exam-head flex text-center items-center">
-                        <div class="enter-exam-input">
-                            <input type="text" name="exam-key" id="exam-key" placeholder="Enter Exam Key" />
-                            <button type="submit" class="btn enter-exam-btn enter-exam-head-btn">
-                                Next
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- End of exam key input section -->
-            </div>
-        </div>
+
+
+        <?php include "../shared/includes/header.php" ?>
+
+
+
         <main class="sign-in-page flex items-center justify-center">
             <div class="login-container flex flex-col items-center justify-center">
                 <h1>Sign In</h1>
@@ -103,9 +80,5 @@ if($count == 0){
     </div>
 </body>
 <!-- <script src="signin.js" type="module"></script> -->
-<script>
-localStorage.setItem("current", 1);
-console.log("current set");
-</script>
 
 </html>
