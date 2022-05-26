@@ -70,6 +70,7 @@ if($count == 0){
                                 placeholder="Password" />
                         </label>
                     </div>
+                    <a style="color:white" href="forgot-password.php">Forgot Password?</a>
                     <span id="errorMsg">
                         <php? echo $error; ?>
                     </span>
