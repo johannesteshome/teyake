@@ -21,10 +21,15 @@ if($_SERVER["REQUEST_METHOD"]==='POST'){
  $count = 0;
   foreach($examiners as $i => $examiner){
       if($email == $examiner['Email'] && password_verify($password ,$examiner['Password'])){
-        $_SESSION["login"] = "ok";
-        $_SESSION["id"] = $examiner["ID"];
-        header('Location: dashboard.php');
-        $count++;
+          var_dump($examiner);
+          if($examiner['verified']=='1'){
+              $_SESSION["login"] = "ok";
+              $_SESSION["id"] = $examiner["ID"];
+              header('Location: dashboard.php');
+              $count++;
+          }else{
+            header('Location: email-verification.php?email='.$examiner['Email']);
+          }
       }
 }
 if($count == 0){

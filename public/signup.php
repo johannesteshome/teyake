@@ -34,7 +34,7 @@ $statement->bindValue(':Sex', $newTeacher->gender);
 $statement->bindValue(':PhoneNo', $newTeacher->phoneNo);
 
 $statement->execute();
-header('Location: signin.php');
+header('Location: email-verification.php?email='.$newTeacher->email);
 }
 
 ?>
