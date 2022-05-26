@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2022 at 10:02 AM
+-- Generation Time: May 26, 2022 at 10:14 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.28
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,13 @@ CREATE TABLE `answer` (
   `ExamKey` varchar(11) NOT NULL,
   `AnswerList` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`ID`, `ExamKey`, `AnswerList`) VALUES
+(4, 'NDAX8', '[1]');
 
 -- --------------------------------------------------------
 
@@ -65,13 +72,22 @@ CREATE TABLE `department` (
 
 CREATE TABLE `exam` (
   `Name` varchar(60) NOT NULL,
-  `CourseID` int(11) NOT NULL,
+  `CourseID` int(11) DEFAULT NULL,
   `ExamKey` varchar(5) NOT NULL,
-  `QuestionID` int(11) NOT NULL,
-  `AnswerID` int(11) NOT NULL,
+  `QuestionID` int(11) DEFAULT NULL,
+  `AnswerID` int(11) DEFAULT NULL,
   `ExaminerID` int(11) NOT NULL,
-  `Status` tinyint(1) NOT NULL
+  `Status` varchar(10) DEFAULT NULL,
+  `Duration` int(10) NOT NULL,
+  `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`Name`, `CourseID`, `ExamKey`, `QuestionID`, `AnswerID`, `ExaminerID`, `Status`, `Duration`, `Date`) VALUES
+('test', NULL, 'NDAX8', 9, 4, 1, 'open', 12, '2026-05-22');
 
 -- --------------------------------------------------------
 
@@ -83,13 +99,14 @@ CREATE TABLE `examinee` (
   `ID` int(11) NOT NULL,
   `FullName` varchar(60) NOT NULL,
   `Email` varchar(60) NOT NULL,
-  `Section` varchar(2) NOT NULL,
-  `DeptID` int(11) NOT NULL,
-  `InstID` int(11) NOT NULL,
+  `Section` varchar(2) DEFAULT NULL,
+  `DeptID` int(11) DEFAULT NULL,
+  `InstID` int(11) DEFAULT NULL,
   `ExamKey` varchar(25) NOT NULL,
   `Sex` char(1) NOT NULL,
-  `Score` float NOT NULL,
-  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`AnswerList`))
+  `Score` float DEFAULT NULL,
+  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `SchoolID` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -107,16 +124,17 @@ CREATE TABLE `examiner` (
   `DeptID` int(11) DEFAULT NULL,
   `InstID` int(11) DEFAULT NULL,
   `PhoneNo` bigint(20) NOT NULL,
-  `ImageURL` varchar(60) DEFAULT NULL
+  `ImageURL` varchar(60) DEFAULT NULL,
+  `verified` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `examiner`
 --
 
-INSERT INTO `examiner` (`ID`, `FullName`, `Email`, `Password`, `Sex`, `DeptID`, `InstID`, `PhoneNo`, `ImageURL`) VALUES
-(1, 'yohannes assefa', 'mail@mail.com', '$2y$10$cVHyhonzjIDbSwLruAQCOeK7id39ESQv66ifUgMC9EsW2pKYIOQqC', 'M', NULL, NULL, 912121212, NULL),
-(4, 'Yohannes ASSefa', 'yoniassefayoni@gmail.com', '$2y$10$xw5lPmWnGLK3GePi98To4.iRmfB527q6QPhpkr4EboINC/nzk0xGW', 'M', NULL, NULL, 912121212, NULL);
+INSERT INTO `examiner` (`ID`, `FullName`, `Email`, `Password`, `Sex`, `DeptID`, `InstID`, `PhoneNo`, `ImageURL`, `verified`) VALUES
+(1, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$xw5lPmWnGLK3GePi98To4.iRmfB527q6QPhpkr4EboINC/nzk0xGW', 'M', NULL, NULL, 912121212, NULL, 1),
+(5, 'Shewe Yefetene', 'assefayohannes123@gmail.com', '$2y$10$SE8u0P6OT54bx3WS.MaSUOKdjBc0Koja83bR0c.UkbexVqzlqT9Uy', 'M', NULL, NULL, 912121212, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -131,6 +149,15 @@ CREATE TABLE `institution` (
   `Phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `institution`
+--
+
+INSERT INTO `institution` (`ID`, `Name`, `Address`, `Phone`) VALUES
+(1, 'Addis Ababa Science and Technology University', 'Akaki-Kality Sub City, Addis Ababa', '0912121212'),
+(2, 'Addis Ababa University', '6 Kilo, Addis Ababa', '0911111111'),
+(3, 'Unity University College', 'Bole SubCity, Addis Ababa', '0910101010');
+
 -- --------------------------------------------------------
 
 --
@@ -140,9 +167,15 @@ CREATE TABLE `institution` (
 CREATE TABLE `question` (
   `ID` int(11) NOT NULL,
   `ExamKey` varchar(11) NOT NULL,
-  `QuestionList` longtext NOT NULL,
-  `ChoiceList` longtext NOT NULL
+  `QuestionList` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`ID`, `ExamKey`, `QuestionList`) VALUES
+(9, 'NDAX8', '[[\"alstkdfa\",\"asdg\",\"asdga\",null,null,null]]');
 
 --
 -- Indexes for dumped tables
@@ -216,7 +249,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -234,25 +267,25 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `examinee`
 --
 ALTER TABLE `examinee`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `examiner`
 --
 ALTER TABLE `examiner`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `institution`
 --
 ALTER TABLE `institution`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
