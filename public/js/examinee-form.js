@@ -1,4 +1,4 @@
-import { Student, Exam, Teacher } from "../core.js";
+import { Student, Teacher, Exam } from "../../shared/core.js";
 
 const inputKey = document.querySelector("#exam-key");
 const enterBtn = document.querySelector("#enter-exam");
@@ -27,37 +27,37 @@ if (studKey == "-1") {
 }
 
 if (studKey != "-1") {
-    document.querySelector("#exam-key").value = studKey;
-  }
-  let student = new Student();
+  document.querySelector("#exam-key").value = studKey;
+}
+let student = new Student();
 
-  enterBtn.addEventListener("click", function (evt) {
-    evt.preventDefault();
-    let key = inputKey.value;
-    let isValid = false;
-    const emailPattern = new RegExp(/\w+@\w+.\w+(\.\w+)?$/);
-    const namePattern = new RegExp(/^\w+.[ ]\w+.$/);
-  
-    if (!emailPattern.test(studEmail.value)) {
-      erorrLabel.innerText = "Invalid Email Address.";
-      studEmail.focus();
-      return;
-    }
-  
-    if (!namePattern.test(studName.value)) {
-      erorrLabel.innerText = "Invalid Full Name";
-      studName.focus();
-      return;
-    }
-  
-    if (
-      inputKey.value == "" ||
-      studName.value == "" ||
-      studEmail.value == "" ||
-      studID.value == ""
-    ) {
-      erorrLabel.innerText = "Empty Fields";
-      return;
-    }
-    document.forms[0].submit();
+enterBtn.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  let key = inputKey.value;
+  let isValid = false;
+  const emailPattern = new RegExp(/\w+@\w+.\w+(\.\w+)?$/);
+  const namePattern = new RegExp(/^\w+.[ ]\w+.$/);
+
+  if (!emailPattern.test(studEmail.value)) {
+    erorrLabel.innerText = "Invalid Email Address.";
+    studEmail.focus();
+    return;
+  }
+
+  if (!namePattern.test(studName.value)) {
+    erorrLabel.innerText = "Invalid Full Name";
+    studName.focus();
+    return;
+  }
+
+  if (
+    inputKey.value == "" ||
+    studName.value == "" ||
+    studEmail.value == "" ||
+    studID.value == ""
+  ) {
+    erorrLabel.innerText = "Empty Fields";
+    return;
+  }
+  document.forms[0].submit();
 });

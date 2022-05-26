@@ -1,5 +1,3 @@
-import { Teacher } from "../core.js";
-
 let allTeachers = [];
 let currentTeacher;
 if (!!localStorage.getItem("teachers")) {
@@ -7,9 +5,10 @@ if (!!localStorage.getItem("teachers")) {
   currentTeacher = JSON.parse(localStorage.getItem("current"));
 }
 
-const teacher = allTeachers[0];
+const teacher = allTeachers.find((teacher) => teacher.id == currentTeacher);
 
 const fullName = document.getElementById("name");
+const username = document.getElementById("username");
 const phoneNo = document.getElementById("phone");
 const email = document.getElementById("email");
 const instit = document.getElementById("institution");
@@ -17,6 +16,12 @@ const instit = document.getElementById("institution");
 const save = document.getElementById("save-edit-btn");
 const changepassbtn = document.getElementById("changepass-btn");
 const passContainer = document.querySelector(".password-changer");
+
+fullName.value = teacher.name;
+username.value = teacher.username;
+phoneNo.value = teacher.phone;
+email.value = teacher.email;
+instit.value = teacher.institution;
 
 const erorrLabel = document.getElementById("errorMsg");
 console.log(teacher);
@@ -46,6 +51,13 @@ save.addEventListener("click", () => {
     fullName.focus();
     return;
   }
+  if (usernameTaken(username.value)) {
+    erorrLabel.innerText =
+      "username is Already taken Please choose another one.";
+    username.autofocus();
+    return;
+  }
+
   if (usernamePattern.test(username.value)) {
     erorrLabel.innerText = "Invalid Username spaces are not allowed.";
     username.autofocus();
@@ -82,8 +94,19 @@ save.addEventListener("click", () => {
   localStorage.setItem("teachers", JSON.stringify(allTeachers));
   console.log(allTeachers);
 
-  window.open("../dashboard/dashboard.php", "_parent");
+  window.open("../dashboard.php", "_parent");
 });
+
+function usernameTaken(uname) {
+  if (allTeachers.length == 0) {
+    return false;
+  }
+
+  for (let i = 0; i < allTeachers.length; i++) {
+    if (allTeachers[i] == uname && i != currentTeacher) return true;
+  }
+  return false;
+}
 
 changepassbtn.addEventListener("click", () => {
   passContainer.classList.toggle("hidden");

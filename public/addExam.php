@@ -1,8 +1,6 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
-    echo "<pre>";
 
+    echo "<pre>";
         session_start();
 
         if($_SESSION['login'] != 'ok'){
@@ -33,18 +31,10 @@
         $examDate = date("d/m/y");
         $questions = json_encode($exam->questions);
 
-        $insert_exam_query = $conn->prepare('INSERT INTO exam (Name, ExamKey, ExaminerID, Status, Duration, Date) VALUES (?,?,?,?,?,?)'); // assuming $mysqli is the connection
-          $insert_exam_query->bind_param("ssisis", $examName, $examKey, $examiner_id, $examStatus, $examDuration, $examDate);
-          $insert_exam_query->execute();
-        
-        // if(
-        // } else {
-        //     $error = $conn->errno . ' ' . $conn->error;
-        //     echo $error; // 1054 Unknown column 'foo' in 'field list'
-        // }
 
-
-
+        $insert_exam_query = $conn->prepare('INSERT INTO exam (Name, ExamKey, ExaminerID, Status, Duration, Date) VALUES (?,?,?,?,?,?)');
+        $insert_exam_query->bind_param("ssisis", $examName, $examKey, $examiner_id, $examStatus, $examDuration, $examDate);
+        $insert_exam_query->execute();
         
         
         $insert_question_query = $conn->prepare("INSERT INTO question (ExamKey, QuestionList) VALUES (?,?)");

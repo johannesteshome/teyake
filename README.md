@@ -1,2 +1,0 @@
-# teyake.com
-teyake

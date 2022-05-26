@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2022 at 08:57 AM
+-- Generation Time: May 15, 2022 at 10:02 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,13 +32,6 @@ CREATE TABLE `answer` (
   `ExamKey` varchar(11) NOT NULL,
   `AnswerList` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `answer`
---
-
-INSERT INTO `answer` (`ID`, `ExamKey`, `AnswerList`) VALUES
-(1, '903', '[2,3,4,2,3,1]');
 
 -- --------------------------------------------------------
 
@@ -72,22 +65,13 @@ CREATE TABLE `department` (
 
 CREATE TABLE `exam` (
   `Name` varchar(60) NOT NULL,
-  `CourseID` int(11) DEFAULT NULL,
+  `CourseID` int(11) NOT NULL,
   `ExamKey` varchar(5) NOT NULL,
-  `QuestionID` int(11) DEFAULT NULL,
-  `AnswerID` int(11) DEFAULT NULL,
+  `QuestionID` int(11) NOT NULL,
+  `AnswerID` int(11) NOT NULL,
   `ExaminerID` int(11) NOT NULL,
-  `Status` varchar(10) DEFAULT NULL,
-  `Duration` int(10) NOT NULL,
-  `Date` date NOT NULL
+  `Status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `exam`
---
-
-INSERT INTO `exam` (`Name`, `CourseID`, `ExamKey`, `QuestionID`, `AnswerID`, `ExaminerID`, `Status`, `Duration`, `Date`) VALUES
-('The New Test', NULL, '903', 6, 1, 1, 'open', 10, '2015-05-22');
 
 -- --------------------------------------------------------
 
@@ -99,22 +83,14 @@ CREATE TABLE `examinee` (
   `ID` int(11) NOT NULL,
   `FullName` varchar(60) NOT NULL,
   `Email` varchar(60) NOT NULL,
-  `Section` varchar(2) DEFAULT NULL,
-  `DeptID` int(11) DEFAULT NULL,
-  `InstID` int(11) DEFAULT NULL,
+  `Section` varchar(2) NOT NULL,
+  `DeptID` int(11) NOT NULL,
+  `InstID` int(11) NOT NULL,
   `ExamKey` varchar(25) NOT NULL,
   `Sex` char(1) NOT NULL,
-  `Score` float DEFAULT NULL,
-  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `SchoolID` varchar(20) NOT NULL
+  `Score` float NOT NULL,
+  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`AnswerList`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `examinee`
---
-
-INSERT INTO `examinee` (`ID`, `FullName`, `Email`, `Section`, `DeptID`, `InstID`, `ExamKey`, `Sex`, `Score`, `AnswerList`, `SchoolID`) VALUES
-(2, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, '903', 'M', NULL, NULL, '123');
 
 -- --------------------------------------------------------
 
@@ -140,7 +116,7 @@ CREATE TABLE `examiner` (
 
 INSERT INTO `examiner` (`ID`, `FullName`, `Email`, `Password`, `Sex`, `DeptID`, `InstID`, `PhoneNo`, `ImageURL`) VALUES
 (1, 'yohannes assefa', 'mail@mail.com', '$2y$10$cVHyhonzjIDbSwLruAQCOeK7id39ESQv66ifUgMC9EsW2pKYIOQqC', 'M', NULL, NULL, 912121212, NULL),
-(4, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$xw5lPmWnGLK3GePi98To4.iRmfB527q6QPhpkr4EboINC/nzk0xGW', 'M', NULL, NULL, 912121212, NULL);
+(4, 'Yohannes ASSefa', 'yoniassefayoni@gmail.com', '$2y$10$xw5lPmWnGLK3GePi98To4.iRmfB527q6QPhpkr4EboINC/nzk0xGW', 'M', NULL, NULL, 912121212, NULL);
 
 -- --------------------------------------------------------
 
@@ -155,15 +131,6 @@ CREATE TABLE `institution` (
   `Phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `institution`
---
-
-INSERT INTO `institution` (`ID`, `Name`, `Address`, `Phone`) VALUES
-(1, 'Addis Ababa Science and Technology University', 'Akaki-Kality Sub City, Addis Ababa', '0912121212'),
-(2, 'Addis Ababa University', '6 Kilo, Addis Ababa', '0911111111'),
-(3, 'Unity University College', 'Bole SubCity, Addis Ababa', '0910101010');
-
 -- --------------------------------------------------------
 
 --
@@ -173,15 +140,9 @@ INSERT INTO `institution` (`ID`, `Name`, `Address`, `Phone`) VALUES
 CREATE TABLE `question` (
   `ID` int(11) NOT NULL,
   `ExamKey` varchar(11) NOT NULL,
-  `QuestionList` longtext NOT NULL
+  `QuestionList` longtext NOT NULL,
+  `ChoiceList` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `question`
---
-
-INSERT INTO `question` (`ID`, `ExamKey`, `QuestionList`) VALUES
-(6, '903', '[[\"What is one of the big differences between traditional media and social media?\",\"participatory production\",\"social media reaches only a few people at a time\",\"the management structure of the companies\",\"traditional media offers no way for audiences to communicate with media producers\",null],[\"Which of the following is NOT a fundamental area of change regarding people\'s media habits?\",\"conversation\",\"collaboration\",\"choice\",\"communication\",\"curation\"],[\"An important lesson learned in online political campaigns in recent years and other collaborative efforts that had online components is...\",\"people much prefer to do their own thing and not work in groups\",\"there is always a couple people who disrupt the work of others in the group\",\"people need to be able to meet face to face at times as well as online\",\"social media has still not lived up to its promise of helping people collaborate\",null],[\"A portable chunk of code that can be embedded in Web pages to give extra functionality is known as a\",\"folksonomy\",\"widget\",\"curator\",\"wiki\",null],[\"Creating a website or group that looks like it originated from concerned grassroots efforts of citizens is known as\",\"lurking\",\"trolling\",\"phishing\",\"astroturfing\",\"puppeting\"],[\"A website that lets anyone add, edit, or delete pages of content is called a forum\",\"True\",\"False\",null,null,null]]');
 
 --
 -- Indexes for dumped tables
@@ -255,7 +216,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -273,7 +234,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `examinee`
 --
 ALTER TABLE `examinee`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `examiner`
@@ -285,13 +246,13 @@ ALTER TABLE `examiner`
 -- AUTO_INCREMENT for table `institution`
 --
 ALTER TABLE `institution`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

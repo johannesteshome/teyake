@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us | Teyake</title>
-    <link rel="stylesheet" href="style-reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style-reset.css" />
+    <link rel="stylesheet" href="css/about-us.css" />
 </head>
 
 <body id="top">
@@ -18,23 +18,24 @@
             <form action="#" class="enter-exam-sidebar flex flex-col">
                 <label for="exam-key" class="enter-exam-label font-semibold">Student</label>
                 <div class="enter-exam-input">
-                    <input type="text" name="exam-key" class="exam-key" id="exam-key-sidebar" placeholder="Enter Exam Key" />
+                    <input type="text" name="exam-key" class="exam-key" id="exam-key-sidebar"
+                        placeholder="Enter Exam Key" />
                     <button type="submit" class="btn enter-exam-btn" id="enter-exam-sidebar-btn">
-                Next
-              </button>
+                        Next
+                    </button>
                 </div>
             </form>
             <div class="sidebar-sign-in flex flex-col w-full">
                 <p>Teacher</p>
                 <div class="flex">
-                    <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                    <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                    <a href="signin.php"><button type="button">Sign In</button></a>
+                    <a href="signup.php"><button type="button">Sign Up</button></a>
                 </div>
             </div>
             <div class="sidebar-links">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="../support/support.php">How It Works</a></li>
+                    <li><a href="support.php">How It Works</a></li>
                     <li><a href="./about_us.php">About</a></li>
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
@@ -44,30 +45,24 @@
         <!-- End of Sidebar Component -->
         <!-- Header for mobile view -->
         <header class="">
-            <img src="./assets/teyake_white_fill.png" class="logo" />
-            <span class="menu-btn"><svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd"
-            /></svg
-          >
-          </span>
+            <img src="media/teyake_white_fill.png" class="logo" />
+            <span class="menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd" />
+                </svg>
+            </span>
         </header>
         <!-- End of Mobile View Header -->
         <!-- Header for Desktop view only above 1150px -->
         <div class="header">
             <div class="header-left">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
+                <img src="media/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
                         <li><a href="../index.php">Home</a></li>
-                        <li><a href="../support/support.php">How it Works</a></li>
-                        <li class="nav-active"><a href="#">About Us</a></li>
+                        <li><a href="support.php">How it Works</a></li>
+                        <li class="nav-active"><a href="about_us.php">About Us</a></li>
 
                     </ul>
                 </nav>
@@ -75,8 +70,8 @@
             <div class="header-right flex items-center justify-between">
                 <div class="sign-in flex flex-col items-center justify-center gap-1">
                     <div class="flex gap-4">
-                        <a href="auth/signin.php"><button type="button">Sign In</button></a>
-                        <a href="auth/signup.php"><button type="button">Sign Up</button></a>
+                        <a href="signin.php"><button type="button">Sign In</button></a>
+                        <a href="signup.php"><button type="button">Sign Up</button></a>
                     </div>
                     <p class="text-center">Teachers</p>
                 </div>
@@ -86,11 +81,12 @@
                         <div class="enter-exam-input">
                             <input type="text" name="exam-key" id="exam-key" placeholder="Enter Exam Key" />
                             <button type="submit" class="btn enter-exam-btn enter-exam-head-btn">
-                  Next
-                </button>
+                                Next
+                            </button>
                         </div>
                     </form>
-                    <label for="exam-key" class="enter-exam-label text-center">Students enter your exam key above</label>
+                    <label for="exam-key" class="enter-exam-label text-center">Students enter your exam key
+                        above</label>
                 </div>
                 <!-- End of exam key input section -->
             </div>
@@ -100,20 +96,22 @@
         <!-- The sidebar/menu component which is only visible on sreen sizes below 1150px -->
         <div class="sidebar transition">
             <div class="sidebar-head flex justify-between items-center">
-                <img src="../assets/teyake_white_fill.png" class="logo" />
+                <img src="media/teyake_white_fill.png" class="logo" />
                 <span class="menu-close-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </span>
             </div>
             <form action="#" class="enter-exam-sidebar flex flex-col">
                 <label for="exam-key" class="enter-exam-label font-semibold">Student</label>
                 <div class="enter-exam-input">
                     <input type="text" name="exam-key" id="exam-key" placeholder="Enter Exam Key" />
                     <button type="submit" class="btn enter-exam-btn">
-              Next
-            </button>
+                        Next
+                    </button>
                 </div>
             </form>
             <div class="sidebar-sign-in flex flex-col w-full">
@@ -126,8 +124,8 @@
             <div class="sidebar-links">
                 <ul>
                     <li><a href="../index.php">Home</a></li>
-                    <li><a href="../support/support.php">How It Works</a></li>
-                    <li><a href="../about_us/about_us.php">About</a></li>
+                    <li><a href="support.php">How It Works</a></li>
+                    <li><a href="about_us.php">About</a></li>
 
                     <li><a href="../index.php#testimonals">Testimonials</a></li>
                 </ul>
@@ -138,42 +136,51 @@
         <!-- Main container -->
         <main>
             <div class="main-container flex items-center justify-center">
-                <!-- <img src="../resources/images/about_us.jpg" alt="People taking exams">-->
+                <!-- <img src="media/images/about_us.jpg" alt="People taking exams">-->
                 <h1 class="accented">About Us</h1>
             </div>
             <div class="about_us_text flex align-center justify-center flex-row">
                 <div class="text-content">
                     <p class="text-primary">
 
-                        Teyake.com was built by visionary team who wanted to change the problems that arise around exam giving techniques. As we know, the current education system is challenged with several issues like inadequate platforms that fulfills the needs of teachers
-                        and students. The team behind Teyake.com seek to solve this problem by providing a secure and trusted platform for teachers that allows them to create exams which they can easily manage easily and track records and scores of their
+                        Teyake.com was built by visionary team who wanted to change the problems that arise around exam
+                        giving techniques. As we know, the current education system is challenged with several issues
+                        like inadequate platforms that fulfills the needs of teachers
+                        and students. The team behind Teyake.com seek to solve this problem by providing a secure and
+                        trusted platform for teachers that allows them to create exams which they can easily manage
+                        easily and track records and scores of their
                         students without further ado.
                     </p>
                 </div>
 
                 <div class="img-content">
-                    <img src="../resources/images/about/about_us2.jpg" alt="Team Work">
+                    <img src="media/images/about/about_us2.jpg" alt="Team Work">
                 </div>
             </div>
 
 
             <div class="about_us_text flex align-center justify-center flex-row">
                 <div class="img-content">
-                    <img src="../resources/images/about/about_us3.jpg" alt="Team Work">
+                    <img src="media/images/about/about_us3.jpg" alt="Team Work">
                 </div>
 
                 <div class="text-content">
                     <p class="text-primary">
 
-                        The team consists of six members from Addis Ababa Science and Technology University. The team believed that digital exams offered advantages such as auto-marking and integrated tools and could eliminate problems like illegible handwriting and excessive
-                        paper waste. At the time, few digital exam platforms existed, and the ones that did felt over-complicated and out of touch with a teacher’s real needs in the classroom. Determined to find a solution that worked in the real world
+                        The team consists of six members from Addis Ababa Science and Technology University. The team
+                        believed that digital exams offered advantages such as auto-marking and integrated tools and
+                        could eliminate problems like illegible handwriting and excessive
+                        paper waste. At the time, few digital exam platforms existed, and the ones that did felt
+                        over-complicated and out of touch with a teacher’s real needs in the classroom. Determined to
+                        find a solution that worked in the real world
                         for teachers
                     </p>
                 </div>
             </div>
             <div class="btn-container flex justify-center gap-4">
-                <a href="../auth/signin.php"> <button class="btn try-it-btn pointer transition">Try It Now</button></a>
-                <a href="../support/support.php"><button class="btn-light how-btn pointer transition">How It Works</button></a>
+                <a href="signin.php"> <button class="btn try-it-btn pointer transition">Try It Now</button></a>
+                <a href="support.php"><button class="btn-light how-btn pointer transition">How It
+                        Works</button></a>
             </div>
             <div class="team-container flex flex-col gap-4">
                 <h2 class="text-center text-primary ">Our Team</h2>
@@ -224,9 +231,10 @@
         <footer>
             <nav class="footer-nav">
                 <div>
-                    <a href="teyake.com" class="footer-logo"><img src="../assets/teyake_white_fill.png" class="logo" /></a>
+                    <a href="../index.php" class="footer-logo"><img src="media/teyake_white_fill.png"
+                            class="logo" /></a>
                     <ul class="p-0">
-                        <li><a href="../auth/signin.php">Teacher Sign In</a></li>
+                        <li><a href="../signin.php">Teacher Sign In</a></li>
                         <li><a href="#exam-key">Student Exam Key</a></li>
                     </ul>
                 </div>
@@ -236,8 +244,8 @@
                     <ul class="p-0">
                         <li><a href="./index.php">Home</a></li>
                         <li><a href="./support/support.php">How it works</a></li>
-                        <li><a href="auth/signup.php">Free Trial</a></li>
-                        <li><a href="./about_us/about_us.php">About</a></li>
+                        <li><a href="signup.php">Free Trial</a></li>
+                        <li><a href="about_us.php">About</a></li>
 
                         <li><a href="../index.php#testimonals">Testimonials</a></li>
                     </ul>
@@ -247,17 +255,16 @@
                 <div>Copyright &copy; <span id="current-year"></span> - Teyake.com</div>
                 <a href="#top" class="up-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fill-rule="evenodd"
-                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                clip-rule="evenodd"
-              />
-          </a>
-          </button>
-        </div>
-      </footer>
-      <!-- End of footer -->
+                        <path fill-rule="evenodd"
+                            d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                            clip-rule="evenodd" />
+                </a>
+                </button>
+            </div>
+        </footer>
+        <!-- End of footer -->
     </div>
-    <script src="app.js"></script>
-  </body>
+    <script src="js/about-us.js"></script>
+</body>
+
 </html>

@@ -99,7 +99,7 @@
                                 include "../shared/includes/database.php";
                                 $rec_questionid_row = mysqli_query($conn, ("SELECT Name, ExamKey, Status, Date, Duration FROM `exam` WHERE ExaminerID=\"".$_SESSION['id']."\" AND Status=\"open\""));
 
-                                if ($rec_questionid_row) {
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
                                     while($row = mysqli_fetch_assoc($rec_questionid_row)){
                                          echo  '<div class= "exam-tile relative">
                                           <p class="exam-name">'.$row['Name'].'</p>
@@ -152,7 +152,7 @@
                                 include "../shared/includes/database.php";
                                 $rec_questionid_row = mysqli_query($conn, ("SELECT Name, ExamKey, Status, Date, Duration FROM `exam` WHERE ExaminerID=\"".$_SESSION['id']."\""));
 
-                                if ($rec_questionid_row) {
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
                                     while($row = mysqli_fetch_assoc($rec_questionid_row)){
                                          echo  '<div class= "exam-tile relative">
                                           <p class="exam-name">'.$row['Name'].'</p>

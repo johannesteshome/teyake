@@ -309,7 +309,7 @@ header {
 /* Content Section */
 
 .main-container {
-    background-image: url("../resources/images/how_it_works/how_bg.jpg");
+    background-image: url("../media/images/how_it_works/how_bg.jpg");
     background-position: center;
     background-size: cover;
     height: 80vh;
