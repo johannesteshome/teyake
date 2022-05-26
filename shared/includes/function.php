@@ -34,12 +34,12 @@ function send_mail($recipient,$subject,$message)
   $mail->Port       = 587;
   $mail->Host       = "smtp.gmail.com";
   //$mail->Host       = "smtp.mail.yahoo.com";
-  $mail->Username   = "assefayohannes123@gmail.com";
-  $mail->Password   = "yiswrcoogfarnorp";
+  $mail->Username   = "teyake.com@gmail.com";
+  $mail->Password   = "dfcwpzyzxjcvavmy";
 
   $mail->IsHTML(true);
   $mail->AddAddress($recipient, "esteemed customer");
-  $mail->SetFrom("assefayohannes123@gmail.com", "Teyake.com");
+  $mail->SetFrom("teyake.com@gmail.com", "Teyake.com");
   //$mail->AddReplyTo("reply-to-email", "reply-to-name");
   //$mail->AddCC("cc-recipient-email", "cc-recipient-name");
   $mail->Subject = $subject;
