@@ -93,7 +93,11 @@
                 </div>
                 <!-- Exam Key input Section -->
                 <div class="flex flex-col items-center gap-2">
+<<<<<<< Updated upstream
                     <form action="/teyake/takeexam/examinee-form.php" method="GET" class="enter-exam-head flex text-center">
+=======
+                    <form action="./public/examinee-form.php" method="GET" class="enter-exam-head flex text-center">
+>>>>>>> Stashed changes
                         <div class="enter-exam-input">
                             <input type="text" name="exam-key" id="exam-key-header" class="exam-key" placeholder="Enter Exam Key" />
                             <button type="submit" class="btn enter-exam-btn enter-exam-head-btn" id="enter-exam-head-btn">
@@ -155,6 +159,7 @@
                 use and quick to apply.
               </p>
             </div>
+<<<<<<< Updated upstream
             <div class="card">
               <img
                 src="assets/home/computer.png"
@@ -166,6 +171,43 @@
                 Conduct exams with confidence and control thanks to our intuituve
                 software that simplifies technical complexity
               </p>
+=======
+        </section>
+        <!-- End of intro Content -->
+        <!-- Main container -->
+        <main>
+            <!-- Card List container -->
+            <div class="card-list-container">
+                <div class="card-list">
+                    <div class="card">
+                        <img src="media/home/tools.png" alt="Educational tools illustration" class="card-img" />
+                        <h2 class="card-title">Everything you need</h2>
+                        <p class="card-text">
+                            Create comprehensive exams with powerful tools that are easy to
+                            use and quick to apply.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <img src="./public/media/home/computer.png" alt="Simple computer illustration"
+                            class="card-img" />
+                        <h2 class="card-title">Make it simple</h2>
+                        <p class="card-text">
+                            Conduct exams with confidence and control thanks to our intuituve
+                            software that simplifies technical complexity
+                        </p>
+                    </div>
+                    <div class="card">
+                        <img src="./public/media/home/empower.png" alt="Empowering students illustration"
+                            class="card-img" />
+                        <h2 class="card-title">Empower Every Student</h2>
+                        <p class="card-text">
+                            Customize exams to empower each student's individual needs and let
+                            their knowledge shine.
+                        </p>
+                    </div>
+                </div>
+                <button class="btn card-list-btn">How it works</button>
+>>>>>>> Stashed changes
             </div>
             <div class="card">
               <img
