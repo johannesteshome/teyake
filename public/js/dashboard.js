@@ -80,18 +80,18 @@ logoutBtn.addEventListener("click", function () {
 //
 //Home Page Stat Cards data
 //
-document.querySelector("#studCount").textContent =
-  currentTeacherStudents.length;
-document.querySelector("#examCount").textContent = allExams.filter((test) => {
-  return test.teacherID == Number(currentSignin);
-}).length;
-let avg = [];
-currentTeacherStudents.forEach((student) => {
-  avg.push(student.marked.reduce((prev, next) => prev + next));
-});
-if (avg.length != 0)
-  document.querySelector("#avgScore").textContent =
-    avg.reduce((prev, next) => prev + next) / avg.length;
+// document.querySelector("#studCount").textContent =
+//   currentTeacherStudents.length;
+// document.querySelector("#examCount").textContent = allExams.filter((test) => {
+//   return test.teacherID == Number(currentSignin);
+// }).length;
+// let avg = [];
+// currentTeacherStudents.forEach((student) => {
+//   avg.push(student.marked.reduce((prev, next) => prev + next));
+// });
+// if (avg.length != 0)
+//   document.querySelector("#avgScore").textContent =
+//     avg.reduce((prev, next) => prev + next) / avg.length;
 
 //
 //Display active exams on home page
