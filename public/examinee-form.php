@@ -4,17 +4,17 @@ include_once "../shared/includes/database.php";
 
 
 if(!isset($_GET["exam-key"])){
-  header('Location: /teyake/index.php');
+  header('Location: ../index.php');
 }
 
 $exam_key = $_GET["exam-key"];
 
 $dummy_key = $exam_key;
 
-$retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = " . $exam_key;
+$retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = '".$exam_key."'";
 $retrieve_exam_row = mysqli_query($conn, $retrieve_exam_query);
 if (!mysqli_num_rows($retrieve_exam_row)) {
-  header('Location: /teyake/index.php?exam=none');
+  header('Location: ../index.php?exam=none');
 }
 
 $retrieve_institution_query = "SELECT Name, ID FROM institution";
@@ -36,7 +36,7 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
     <div class="modal">
       <div class="modal-content">
         <h1 style="text-align: center">Enter Exam</h1>
-        <form action="/teyake/takeexam/takeexam.php" method="POST" class="flex flex-col gap-4">
+        <form action="takeexam.php" method="POST" class="flex flex-col gap-4 examinee-form">
           <input type="text" placeholder="Name" id="student-name" name="examineeName" required value="Yohannes Assefa"/>
           <input type="email" placeholder="Email" id="student-email" name="examineeEmail" required  value="mail@mail.com"/>
           <input type="text" placeholder="ID" id="student-id" name="examineeID" required value="123"/>

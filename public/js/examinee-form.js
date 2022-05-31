@@ -21,11 +21,6 @@ if (!!localStorage.getItem("studKey")) {
   studKey = localStorage.getItem("studKey");
 }
 
-if (studKey == "-1") {
-  alert("no key");
-  console.log("no key");
-}
-
 if (studKey != "-1") {
   document.querySelector("#exam-key").value = studKey;
 }
