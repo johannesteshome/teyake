@@ -1,5 +1,5 @@
 <?php
-  include_once "../shared/includes/database.php";
+ include_once "../shared/includes/database.php";
   include_once "../shared/core.php";
 
     // echo "<pre>";
@@ -8,7 +8,7 @@
     $exam_key = $_POST["examKey"];
 
     //retrieve Exam Query
-    $retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = " . $exam_key;
+    $retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = '".$exam_key."'";
     $retrieve_exam_row = mysqli_query($conn, $retrieve_exam_query);
     if (mysqli_num_rows($retrieve_exam_row) > 0) {
       $exam_row = mysqli_fetch_assoc($retrieve_exam_row);
@@ -16,7 +16,7 @@
     //Declaring received data from the database
     $rec_questions = [];
     //Query to receive question from Database
-    $retrieve_question_query = "SELECT QuestionList FROM question WHERE ID = " . $exam_row["QuestionID"];
+    $retrieve_question_query = "SELECT QuestionList FROM question WHERE ID = '".$exam_row["QuestionID"]."'";
     $rec_question_row = mysqli_query($conn, $retrieve_question_query);
     //Storing retreived questions
     if (mysqli_num_rows($rec_question_row) > 0) {
@@ -45,7 +45,7 @@
     echo "<p class=\"hidden\" id = \"current-exam\">".$current_exam."</p>";
     
     echo "<pre>";
-      var_dump($_POST);
+      // var_dump($_POST);
       echo "</pre>";
 
 
@@ -59,7 +59,7 @@
 
     
     if(!($_POST["institution"] == "none")){
-      $update_examineeInst_row = mysqli_query($conn, "UPDATE examinee SET InstID = " . $_POST["institution"] . " WHERE examinee.SchoolID =". $_POST["examineeID"]);
+      $update_examineeInst_row = mysqli_query($conn, "UPDATE examinee SET InstID = '". $_POST["institution"]."' WHERE examinee.SchoolID ='". $_POST["examineeID"]."'");
     }
 
 ?>
@@ -77,17 +77,21 @@
 </head>
 
 <body>
-  <div class="container">
+    <div class="overlay"> 
+      <button type = "button" id="startExam">Start Exam</button>
+    </div>
+  <div class="container blur">
     <main class="hidden">
-      <div class="exam-container">
-
-      <input type="hidden" name="examineeAnswers" id="">
-
-      </div>
-      <button id="submit-exam" type="submit" class="hidden">Submit</button>
+     <form action="mark-exam.php" method="get">
+     <div class="exam-container">
+        
+        <input type="hidden" name="examineeAnswers" id="examineeAnswers">
+  
+        </div>
+        <button id="submit-exam" type="submit" class="hidden">Submit</button>
+     </form>
     </main>
   </div>
-
   <div class="result hidden">
     <div class="result-box flex flex-col items-center justify-center">
       <h2 class="text-center" id="result-student-name">Student Name</h2>
@@ -105,11 +109,11 @@
 
       <p class="warning-btns">
         <button type="button" id="back-to-exam">Back to Exam</button>
-        <button type="button" id="exit-exam"">Exit Anyways</button>
+        <button type="button" id="exit-exam">Exit Anyways</button>
           </p>
       </div>
     </div>
   </body>
-  <script src=" takeexam.js" type="module"></script>
+  <script src="./js/takeexam.js" type="module"></script>
 
 </html>

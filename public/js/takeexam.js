@@ -1,4 +1,4 @@
-import { Student, Exam, Teacher } from "../core.js";
+import { Student, Exam, Teacher } from "../../shared/core.js";
 
 const inputKey = document.querySelector("#exam-key");
 const enterBtn = document.querySelector("#enter-exam");
@@ -15,6 +15,9 @@ const finishExam = document.querySelector("#finish-exam");
 const warningModal = document.querySelector("#warning-modal");
 const remainingSeconds = document.querySelector("#remainingSeconds");
 const erorrLabel = document.getElementById("errorMsg");
+const startExam = document.getElementById("startExam");
+const overlay = document.querySelector(".overlay");
+const pageContainer = document.querySelector(".container");
 
 let leaveExamWarningTimeout = null;
 let warningTimerInterval = null;
@@ -23,11 +26,6 @@ let warningSeconds = 11;
 let studKey = "-1";
 if (!!localStorage.getItem("studKey")) {
   studKey = localStorage.getItem("studKey");
-}
-
-if (studKey == "-1") {
-  alert("no key");
-  console.log("no key");
 }
 
 let allExams = [];
@@ -53,14 +51,27 @@ if (!!localStorage.getItem("teachers")) {
 let student = new Student();
 let currentExam;
 
-console.log(currentExam);
-console.log(JSON.stringify(allExams[0]));
+function fullScreen(){
+  document.documentElement.requestFullscreen();
+  pageContainer.classList.remove("blur");
+  overlay.classList.add("hidden");
 
-currentExam = JSON.parse(document.getElementById("current-exam").textContent);
-console.log(currentExam);
-document.querySelector("#submit-exam").classList.remove("hidden");
-document.querySelector("main").classList.remove("hidden");
-showExam();
+}
+startExam.addEventListener("click", (evt)=>{
+  console.log(currentExam);
+  console.log(JSON.stringify(allExams[0]));
+  
+  currentExam = JSON.parse(document.getElementById("current-exam").textContent);
+  console.log(currentExam);
+  document.querySelector("#submit-exam").classList.remove("hidden");
+  document.querySelector("main").classList.remove("hidden");
+  showExam();
+  fullScreen();
+});
+
+
+
+
 
 // enterBtn.addEventListener("click", function (evt) {
 //   evt.preventDefault();
@@ -114,55 +125,55 @@ showExam();
 //   }
 // });
 
-// document.querySelector("#back-to-exam").addEventListener("click", function () {
-//   document.documentElement.requestFullscreen();
-// });
+document.querySelector("#back-to-exam").addEventListener("click", function () {
+  document.documentElement.requestFullscreen();
+});
 
-// document.querySelector("#exit-exam").addEventListener("click", exitExam);
+document.querySelector("#exit-exam").addEventListener("click", exitExam);
 
-// function exitExam() {
-//   hideModal();
-//   console.log("exitting Exam");
-//   document.querySelector("#submit-exam").click();
-//   clearTimers();
-// }
+function exitExam() {
+  hideModal();
+  console.log("exitting Exam");
+  document.querySelector("#submit-exam").click();
+  clearTimers();
+}
 
-// function hideModal() {
-//   warningModal.classList.add("hidden");
-// }
+function hideModal() {
+  warningModal.classList.add("hidden");
+}
 
-// function showModal() {
-//   warningModal.classList.remove("hidden");
-// }
+function showModal() {
+  warningModal.classList.remove("hidden");
+}
 
-// function clearTimers() {
-//   if (leaveExamWarningTimeout) {
-//     clearTimeout(leaveExamWarningTimeout);
-//   }
-//   if (warningTimerInterval) {
-//     clearInterval(warningTimerInterval);
-//   }
-// }
+function clearTimers() {
+  if (leaveExamWarningTimeout) {
+    clearTimeout(leaveExamWarningTimeout);
+  }
+  if (warningTimerInterval) {
+    clearInterval(warningTimerInterval);
+  }
+}
 
 function showExam() {
-  //   document.addEventListener("fullscreenchange", (event) => {
-  //     if (document.fullscreenElement) {
-  //       clearTimers();
-  //       warningSeconds = 11;
-  //       hideModal();
-  //     } else {
-  //       console.log("not full screen");
-  //       remainingSeconds.textContent = 10;
-  //       showModal();
-  //       leaveExamWarningTimeout = setTimeout(() => {
-  //         exitExam();
-  //       }, warningSeconds * 1000);
-  //       warningTimerInterval = setInterval(() => {
-  //         warningSeconds--;
-  //         remainingSeconds.textContent = warningSeconds;
-  //       }, 1000);
-  //     }
-  //   });
+    document.addEventListener("fullscreenchange", (event) => {
+      if (document.fullscreenElement) {
+        clearTimers();
+        warningSeconds = 11;
+        hideModal();
+      } else {
+        console.log("not full screen");
+        remainingSeconds.textContent = 10;
+        showModal();
+        leaveExamWarningTimeout = setTimeout(() => {
+          exitExam();
+        }, warningSeconds * 1000);
+        warningTimerInterval = setInterval(() => {
+          warningSeconds--;
+          remainingSeconds.textContent = warningSeconds;
+        }, 1000);
+      }
+    });
 
   let examTitle = document.createElement("h1");
   examTitle.textContent = currentExam.name;
@@ -202,7 +213,8 @@ function showExam() {
   console.log(student);
 }
 
-document.querySelector("#submit-exam").addEventListener("click", function () {
+document.querySelector("#submit-exam").addEventListener("click", function (evt) {
+  evt.preventDefault();
   let ansContainer = document.querySelectorAll(".q-container");
   ansContainer.forEach((question, i) => {
     question.childNodes.forEach((choice, j) => {
@@ -211,29 +223,19 @@ document.querySelector("#submit-exam").addEventListener("click", function () {
       }
     });
   });
-  console.log(student.answers);
-  let checking = [];
-  currentExam.questions.forEach((question) => {
-    checking.push(question[6]);
-  });
-  for (let j = 0; j < student.answers.length; j++) {
-    if (student.answers[j] == checking[j]) {
-      student.marked[j] = 1;
-    }
-  }
-  console.log(student.marked);
-  console.log(student.marked.reduce((prev, next) => prev + next));
-  allStudents.push(student);
-  showResult();
-  localStorage.setItem("students", JSON.stringify(allStudents));
+
+  document.getElementById("examineeAnswers").value = JSON.stringify(student.answers);
+  document.forms[0].submit();
+  // showResult();
   // student = null;
+
 });
-function showResult() {
-  document.querySelector(".result").classList.remove("hidden");
-  resultStudName.textContent = student.name;
-  resultExamName.textContent = currentExam.name;
-  resultMax.textContent = student.marked.length;
-  score.textContent = student.marked.reduce((prev, next) => prev + next);
-}
+// function showResult() {
+//   document.querySelector(".result").classList.remove("hidden");
+//   resultStudName.textContent = student.name;
+//   resultExamName.textContent = currentExam.name;
+//   resultMax.textContent = student.marked.length;
+//   score.textContent = student.marked.reduce((prev, next) => prev + next);
+// }
 
 `{"name":"The New Test","questions":[["What is one of the big differences between traditional media and social media?","participatory production","social media reaches only a few people at a time","the management structure of the companies","traditional media offers no way for audiences to communicate with media producers",null,2],["Which of the following is NOT a fundamental area of change regarding people's media habits?","conversation","collaboration","choice","communication","curation",3],["An important lesson learned in online political campaigns in recent years and other collaborative efforts that had online components is...","people much prefer to do their own thing and not work in groups","there is always a couple people who disrupt the work of others in the group","people need to be able to meet face to face at times as well as online","social media has still not lived up to its promise of helping people collaborate",null,4],["A portable chunk of code that can be embedded in Web pages to give extra functionality is known as a","folksonomy","widget","curator","wiki",null,2],["Creating a website or group that looks like it originated from concerned grassroots efforts of citizens is known as","lurking","trolling","phishing","astroturfing","puppeting",3],["A website that lets anyone add, edit, or delete pages of content is called a forum","True","False",null,null,null,1]],"key":903,"teacherID":1,"date":"2/8/2022","status":"open"}`;
