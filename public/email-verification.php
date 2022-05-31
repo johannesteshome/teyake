@@ -7,33 +7,33 @@ if(isset($_GET['status'])){
 
 if(isset($_POST['verify'])){
     //ensure the received code is verified.
-    $pdo = new PDO('mysql:host=localhost;port=3306;dbname=teyake', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if($_POST['verify'] == $_POST['key']){
-        $statement = $pdo->prepare("UPDATE examiner SET verified=\"1\" WHERE Email=\"".$_GET['email']."\"");
-        $statement->execute();
-        header('Location: signin.php');
+        if(!isset($_GET['reset'])){
+            $pdo = new PDO('mysql:host=localhost;port=3306;dbname=teyake', 'root', '');
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $statement = $pdo->prepare("UPDATE examiner SET verified=\"1\" WHERE Email=\"".$_GET['email']."\"");
+            $statement->execute();
+            header('Location: signin.php');
+        }
+        else{
+            header('Location: change-password.php?email='.$_GET['email']);
+        }
     }else{
-
-        header('Location: email-verification.php?email='.$_GET['email'].'&status=not-verified');
+        if(isset($_GET['reset'])){
+            header('Location: email-verification.php?email='.$_GET['email'].'&status=not-verified&reset=true');
+        }
+        else{
+            header('Location: email-verification.php?email='.$_GET['email'].'&status=not-verified');
+            }
     }
 }else{
-
-    
         $verificationKey = randomString(5);
         $email = $_GET['email'];
         //send a mail
         send_mail($email, 'Email Verification', "your code is ".$verificationKey);
-
-
-
 }
 
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 

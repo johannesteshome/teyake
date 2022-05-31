@@ -1,22 +1,17 @@
-<?php
-    include_once "../shared/includes/database.php";
-    include_once '../shared/includes/function.php';
+<?php 
+include_once "../shared/includes/database.php";
 
-   if(isset($_GET['email'])){
-    // $user_select_row = mysqli_query($conn, "SELECT * FROM examiner WHERE Email = \'".$_GET['email']."\'");
-    $user_select_row = mysqli_query($conn, "SELECT * FROM `examiner` WHERE `Email` LIKE '".$_GET['email']."'" );
-    
+if(isset($_POST["password"])){
 
-    if(!$user_select_row){
-        echo "<h1>No Such User exists</h1>";
+    $pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+    if(mysqli_query($conn, "UPDATE examiner SET Password = '" . $pass . "' WHERE examiner.email=\"".$_GET['email']."\"")){
+        echo "<h1>Successful</h1>";
     }
     else{
-        $row = mysqli_fetch_assoc($user_select_row);
-        header('Location: email-verification.php?email='.$row['Email']."&reset=true");
+        echo "<h1>Unsuccessful</h1>";
     }
-
-   }
-
+}
 
 ?>
 <!DOCTYPE html>
@@ -42,9 +37,10 @@
         <?php include "../shared/includes/header.php" ?>
         <main class="sign-in-page flex items-center justify-center">
             <div class="login-container flex flex-col items-center justify-center">
-                <form action="" method="get">
-                    <label for="">Email</label>
-                    <input type="email" name="email">
+                <form action="" method="post">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input type="password" name="confirm-password">
                     <button type="submit">Submit</button>
                 </form>
             </div>
