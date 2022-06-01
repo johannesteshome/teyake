@@ -64,7 +64,26 @@
                                 <path
                                     d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z" />
                             </svg>
-                            <p>Students - <span id="studCount"></span></p>
+                            <p>Students - <span id="studCount">
+                                    <?php 
+                                        include_once '../shared/includes/database.php';
+                                        $rec_examinee_row = mysqli_query($conn, ("SELECT COUNT(ID) AS `StudCount` FROM `examinee` WHERE ExaminerID=\"".$_SESSION['id']."\" AND Status=\"open\""));
+
+                                        if (mysqli_num_rows($rec_examinee_row) > 0) {
+                                            while($row = mysqli_fetch_assoc($rec_examinee_row)){
+                                                 echo  '<div class= "exam-tile relative">
+                                                  <p class="exam-name">'.$row['Name'].'</p>
+                                                    <p class="exam-key">'.$row['ExamKey'].'</p>
+                                                    <p class="date-created">'.$row['Date'].'</p>
+                                                    <p class="status">'.$row['Status'].'</p>
+                                                    </div>';
+        
+                                                }
+        
+                                          }
+
+                                    ?>
+                                </span></p>
                         </div>
                         <div class="stat-card">
                             <svg xmlns="http://www.w3.org/2000/svg" class="account transition" viewBox="0 0 512 512">
