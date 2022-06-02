@@ -7,7 +7,7 @@ if(isset($_GET['status'])){
 
 if(isset($_POST['verify'])){
     //ensure the received code is verified.
-    if($_POST['verify'] == $_POST['key']){
+    if(password_verify($_POST["verify"], $_POST["key"])){
         if(!isset($_GET['reset'])){
             $pdo = new PDO('mysql:host=localhost;port=3306;dbname=teyake', 'root', '');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -31,6 +31,7 @@ if(isset($_POST['verify'])){
         $email = $_GET['email'];
         //send a mail
         send_mail($email, 'Email Verification', "your code is ".$verificationKey);
+        $verificationKey = password_hash($verificationKey, PASSWORD_DEFAULT);
 }
 
 ?>
@@ -46,26 +47,25 @@ if(isset($_POST['verify'])){
     <link rel="stylesheet" href="css/signin.css" />
 
     <style>
-
-        .login-container{
-            overflow:hidden;
-            padding:2rem;
-        }
-
+    .login-container {
+        overflow: hidden;
+        padding: 2rem;
+    }
     </style>
 
 </head>
+
 <body>
     <div class="container text-white">
         <?php include "../shared/includes/header.php" ?>
         <main class="sign-in-page flex items-center justify-center">
             <div class="login-container flex flex-col items-center justify-center">
-            <form action="" method="post">
-                <label for="verify">Verification Code</label>
-                <input type="text" name="verify" id="verify">
-                <input type="hidden" name="key" id="key" value="<?php echo $verificationKey ?>">
-                <button type="submit">Submit</button>
-            </form>
+                <form action="" method="post">
+                    <label for="verify">Verification Code</label>
+                    <input type="text" name="verify" id="verify">
+                    <input type="hidden" name="key" id="key" value="<?php echo $verificationKey ?>">
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </main>
     </div>

@@ -607,29 +607,19 @@ document
     });
     let allQuestions = [...tempQuestions];
     // console.log(allQuestions);
-<<<<<<< HEAD
-    examBankSearch.addEventListener("keypress", (e) => {
-      if (e.key == "Enter") {
-        filterQuesitons();
-      }
-    });
-=======
     examBankSearch.addEventListener("input", filterQuesitons);
->>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
     let filteredQuestions = allQuestions;
     function filterQuesitons() {
       filteredQuestions = [];
 
-      for(let i = 0; i < allQuestions.length; i++){
-        if (allQuestions[i][0].includes(examBankSearch.value) || examBankSearch.value == '') {
-          console.log(examBankSearch.value, allQuestions[i][0])
-          filteredQuestions.push(allQuestions[i])
+      for (let i = 0; i < allQuestions.length; i++) {
+        if (
+          allQuestions[i][0].includes(examBankSearch.value) ||
+          examBankSearch.value == ""
+        ) {
+          console.log(examBankSearch.value, allQuestions[i][0]);
+          filteredQuestions.push(allQuestions[i]);
         }
-<<<<<<< HEAD
-        changePage(1);
-        console.log(filteredQuestions);
-      });
-=======
       }
 
       // filteredQuestions = allQuestions.filter((question, i) => {
@@ -640,8 +630,6 @@ document
       //   console.log(filteredQuestions);
       // });
       rendureSearchFilter();
-    
->>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
     }
     const prevButton = document.getElementById("button_prev");
     const nextButton = document.getElementById("button_next");
@@ -665,32 +653,26 @@ document
       nextButton.addEventListener("click", nextPage);
     };
 
-    let rendureSearchFilter = function (){
-      if(filteredQuestions.length > 0){
+    let rendureSearchFilter = function () {
+      if (filteredQuestions.length > 0) {
         addElements();
         changePage(1);
         pageNumbers();
         selectedPage();
         clickPage();
-      }else{
+      } else {
         listingTable.innerHTML = '<p class="text-center w-full">No Results</p>';
       }
-      console.log(filteredQuestions)
-    }
-
+      console.log(filteredQuestions);
+    };
 
     let addElements = function () {
-<<<<<<< HEAD
-      //   listingTable.innerHTML = "";
-
-=======
-        listingTable.innerHTML = "";
->>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
+      listingTable.innerHTML = "";
       for (let i = 0; i < filteredQuestions.length; i++) {
         let count = 0;
         listingTable.innerHTML += `<div class="question-preview">
           <div class="question-tile">
-              <input type="checkbox" name="" id="${i}">
+              <button type = "button" class = "add-to-selected"> + </button>
               <p class="question-item">${filteredQuestions[i][0]}</p>
           </div>
           <div class="question-description hidden">
@@ -745,14 +727,28 @@ document
       }
 
       const questionItems = document.querySelectorAll(".question-item");
-
+      const addToSelected = document.querySelectorAll(".add-to-selected");
       questionItems.forEach((item) => {
         item.addEventListener("click", (e) => {
           showDescription(e);
         });
       });
-      
+      addToSelected.forEach((item) => {
+        let q = item.nextElementSibling.textContent;
+        let cont = document.createElement("div");
+        item.addEventListener("click", function () {
+          cont.classList.add("selected-question-item");
+          cont.innerHTML = `<p>${q}</p>
+          <button type="button" class="remove-selected"></button>`;
 
+          document.querySelectorAll(".remove-selected").forEach((item) => {
+            item.addEventListener("click", function (e) {
+              e.target.parentNode.remove();
+            });
+          });
+        });
+        document.querySelector(".selected-questions-list").appendChild(cont);
+      });
     };
 
     let selectedPage = function () {
@@ -785,7 +781,6 @@ document
         page = numPages();
       }
       listingTable.childNodes.forEach((child, i) => {
-
         if (!child.classList.contains("hidden")) {
           child.classList.add("hidden");
         }
@@ -817,7 +812,7 @@ document
         changePage(current_page);
       }
     };
-    
+
     let clickPage = function () {
       document.addEventListener("click", function (e) {
         if (
@@ -843,12 +838,41 @@ document
     let numPages = function () {
       return Math.ceil(filteredQuestions.length / records_per_page);
     };
+
+    let selectedQuestionsList = document.querySelector(
+      ".selected-questions-list"
+    ).children;
+    // document.querySelector(".selected-questions-list").innerHTML = "";
+    document.getElementById("add-to-exam").addEventListener("click", addtoExam);
+
+    function addtoExam() {
+      let qlist = [];
+      console.log(selectedQuestionsList);
+      for (let i = 0; i < selectedQuestionsList.length; i++) {
+        if (selectedQuestionsList[i].innerText != "") {
+          qlist.push(selectedQuestionsList[i].innerText);
+        }
+      }
+
+      qlist.forEach((question, i) => {
+        allQuestions.forEach((item, j) => {
+          if (question == item[0]) {
+            test.questions.push(item);
+          }
+        });
+      });
+    }
   }
   let pagination = new Pagination();
   pagination.init();
 })();
 
-
 function showDescription(e) {
   e.target.parentNode.nextElementSibling.classList.toggle("hidden");
 }
+
+document
+  .getElementById("selected-questions-btn")
+  .addEventListener("click", function () {
+    document.querySelector(".selected-questions").classList.toggle("hide");
+  });

@@ -389,8 +389,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="selected-questions">
-                            <p>test</p>
+                        <div class="selected-questions hide">
+                            <span id="selected-questions-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="chevron" fill="none" viewBox="0 0 24 24"
+                                    stroke="#000" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+                                </svg>
+                            </span>
+                            <div class="selected-questions-title">
+                                <h3>Selected Questions</h3>
+                                <button type="button" id="add-to-exam">Add</button>
+                            </div>
+                            <div class="selected-questions-list">
+
+                            </div>
                         </div>
                     </div>
                 </div>
