@@ -542,56 +542,59 @@ document
 //Display Results Page
 //
 
-// currentTeacherStudents.forEach((student) => {
+let currentTeacherStudents = JSON.parse(document.getElementById('result-list').textContent);
+
+
+console.log(currentTeacherStudents)
+
+currentTeacherStudents.forEach((student)=>{
 //   let currentExam = allExams.find((exam) => exam.key == student.examkey);
-//   let checking = [];
+  let checking = JSON.parse(student.CorrectAnswer.AnswerList);
 //   currentExam.questions.forEach((question) => {
 //     checking.push(question[6]);
 //   });
 
-//   let cont = document.createElement("div");
-//   cont.className = "result-container";
-//   cont.innerHTML = `<div class="result-tile">
-//   <p class="student-name">${student.name}</p>
-//   <p class="student-id">${student.id}</p>
-//   <p class="exam-name">${currentExam.name}</p>
-//   <p class="score">${student.marked.reduce((acc, curr) => acc + curr)}/${
-//     student.marked.length
-//   }</p>
-//     </div>
-//     <div class="result-description flex flex-col gap-2 hidden">
-//     <div class="flex">
-//     <p>Question Number:</p>
-//     <span class="monospace"> ${checking.map((_, i) => i + 1).join(" | ")}</span>
-//     </div>
-//     <div class="flex">
-//     <p>Correct Answers: </p>
-//     <span class="monospace">${checking
-//       .map((choice) => {
-//         return String.fromCharCode(choice + 64);
-//       })
-//       .join(" | ")}</span>
-//   </div>
-//         <div class="flex">
-//     <p>Student Answers:
-//     </p>
-//     <span class="monospace">${student.answers
-//       .map((choice) => {
-//         return String.fromCharCode(choice + 64);
-//       })
-//       .join(" | ")}</span>
-//   </div>
-// </div>`;
+  let cont = document.createElement("div");
+  cont.className = "result-container";
+  cont.innerHTML = `<div class="result-tile">
+  <p class="student-name">${student.FullName}</p>
+  <p class="student-id">${student.SchoolID}</p>
+  <p class="exam-name">${student.Name}</p>
+  <p class="score">${student.Score}</p>
+    </div>
+    <div class="result-description flex flex-col gap-2 hidden">
+    <div class="flex">
+    <p>Question Number:</p>
+    <span class="monospace"> ${checking.map((_, i) => i + 1).join(" | ")}</span>
+    </div>
+    <div class="flex">
+    <p>Correct Answers: </p>
+    <span class="monospace">${checking
+      .map((choice) => {
+        return String.fromCharCode(choice + 64);
+      })
+      .join(" | ")}</span>
+  </div>
+        <div class="flex">
+    <p>Student Answers:
+    </p>
+    <span class="monospace">${JSON.parse(student.AnswerList)
+      .map((choice) => {
+        return String.fromCharCode(choice + 64);
+      })
+      .join(" | ")}</span>
+  </div>
+</div>`;
 
-//   document.querySelector(".result-tile-container").appendChild(cont);
-// });
+  document.querySelector(".result-tile-container").appendChild(cont);
+});
 
-// document.querySelectorAll(".result-tile").forEach((tile) => {
-//   tile.addEventListener("click", function (evt) {
-//     evt.preventDefault();
-//     tile.parentElement.childNodes[2].classList.toggle("hidden");
-//   });
-// });
+document.querySelectorAll(".result-tile").forEach((tile) => {
+  tile.addEventListener("click", function (evt) {
+    evt.preventDefault();
+    tile.parentElement.childNodes[2].classList.toggle("hidden");
+  });
+});
 
 (function () {
   "use strict";

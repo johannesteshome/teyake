@@ -421,7 +421,26 @@
                             <p class="exam-name">Exam Name</p>
                             <p class="score">Score</p>
                         </div>
-                        <div class="result-tile-container"></div>
+                        <?php
+                                include "../shared/includes/database.php";
+                                $rec_questionid_row = mysqli_query($conn, ("SELECT FullName,Score,exam.ExamKey, SchoolID , exam.Name, examinee.AnswerList FROM `examinee` INNER JOIN exam ON examinee.ExamKey=exam.ExamKey AND exam.ExaminerID='".$_SESSION['id']."';"));
+                                $studentResult = [];
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
+                                    while($row = mysqli_fetch_assoc($rec_questionid_row)){
+
+                                $rec_answer_row = mysqli_query($conn, ("SELECT AnswerList FROM `answer` WHERE ExamKey='".$row['ExamKey']."'"));
+                                $answer = mysqli_fetch_assoc($rec_answer_row);
+                                $row['CorrectAnswer'] = $answer;
+
+                                        array_push($studentResult, $row);
+
+                                    }
+                                    echo '<p id="result-list" class="hidden">'.json_encode($studentResult).'</p>';
+                                  }
+                                ?>               
+                        <div class="result-tile-container">
+
+                        </div>
                     </div>
                 </div>
             </div>
