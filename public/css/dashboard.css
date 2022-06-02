@@ -388,7 +388,7 @@ main {
 .input-card {
   width: 70%;
   background-color: white;
-  box-shadow: 0px 0px 12px -10px;
+  box-shadow: 0px 0px 20px -10px;
 }
 .input-card-title {
   font-weight: 400;
@@ -469,7 +469,7 @@ main {
   width: 70%;
   background-color: white;
   position: relative;
-  box-shadow: 0px 0px 12px -10px;
+  box-shadow: 0px 0px 20px -10px;
 }
 .write-exam-title {
   font-weight: 400;
@@ -583,6 +583,86 @@ main {
 }
 #cancel-exam:active {
   border: 1px solid black;
+}
+
+.pagination {
+  max-width: 400px;
+  min-width: 300px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  background-color: lightgreen;
+  padding: 20px;
+}
+.pagination .tableList {
+  min-height: 250px;
+  text-indent: 20px;
+}
+.tableList .objectBlock {
+  position: relative;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.pageButton {
+  border: 1px solid black;
+  padding: 5px;
+}
+.clickPageNumber {
+  background-color: lightgrey;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.pagination-block {
+  text-align: center;
+  width: 100%;
+}
+.pagination-block span {
+  display: inline-block;
+}
+.pagination-block .pageButton {
+  background-color: grey;
+  color: white;
+}
+.pagination-block span:hover {
+  cursor: pointer;
+}
+.opacity {
+  opacity: 0.5;
+}
+.outline-none {
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+} /*# sourceMappingURL=pagi.css.map */
+
+.question-tile {
+  display: flex;
+  place-items: center;
+  border-bottom: 1px solid lightgray;
+  transition: 100ms linear;
+  z-index: 1000;
+}
+.question-tile:hover {
+  background-color: #f5f5f5;
+}
+.question-description {
+  padding: 1rem;
+  /* overflow-x: scroll; */
+  border-bottom: 1px solid black;
+  transition: all 250ms ease-in-out;
+}
+.question-description p {
+  width: 160px;
+  font-size: 1.1rem;
+}
+.question-item {
+  padding-block: 1rem;
 }
 
 .preview-exam {

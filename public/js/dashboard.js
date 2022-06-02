@@ -17,6 +17,8 @@ const previewQuestionList = document.querySelector(".preview-question-list");
 const previewContainer = document.querySelector(".preview-content");
 const editModal = document.querySelector(".edit-modal");
 const logoutBtn = document.querySelector("#logout");
+const examList = document.getElementById("all-exams");
+const examBankSearch = document.getElementById("exam-bank-search");
 let pages = [dashboardHome, examListPage, addExamContainer, resultPage];
 
 // let testExam = new Exam("testing");
@@ -24,13 +26,13 @@ let pages = [dashboardHome, examListPage, addExamContainer, resultPage];
 //
 // Grabbing all the necessary data from local storage
 //
-let currentSignin = -1;
-if (!!localStorage.getItem("current"));
-currentSignin = localStorage.getItem("current");
-if (currentSignin === -1 || currentSignin === 0) {
-  alert("please login");
-  console.log("not logged in");
-}
+// let currentSignin = -1;
+// if (!!localStorage.getItem("current"));
+// currentSignin = localStorage.getItem("current");
+// if (currentSignin === -1 || currentSignin === 0) {
+//   alert("please login");
+//   console.log("not logged in");
+// }
 
 let allExams = [];
 if (!!localStorage.getItem("exams")) {
@@ -46,12 +48,12 @@ if (!!localStorage.getItem("teachers")) {
 }
 
 //Selecting the current logged in teacher
-let currentTeacher = allTeachers[1];
-console.log(allTeachers);
-console.log(currentTeacher);
-let currentTeacherStudents = allStudents.filter((student) => {
-  return currentTeacher.exams.includes(student.examkey);
-});
+// let currentTeacher = allTeachers[1];
+// console.log(allTeachers);
+// console.log(currentTeacher);
+// let currentTeacherStudents = allStudents.filter((student) => {
+//   return currentTeacher.exams.includes(student.examkey);
+// });
 //
 //Functions executed at page load
 //
@@ -59,7 +61,9 @@ window.onload = function () {
   links[0].click();
   console.log("sth");
 };
-//
+console.log(examList);
+console.log(JSON.parse(examList.textContent));
+// //
 //event handlers for all navigation links
 //
 links.forEach((link, i) => {
@@ -538,53 +542,268 @@ document
 //Display Results Page
 //
 
-currentTeacherStudents.forEach((student) => {
-  let currentExam = allExams.find((exam) => exam.key == student.examkey);
-  let checking = [];
-  currentExam.questions.forEach((question) => {
-    checking.push(question[6]);
+// currentTeacherStudents.forEach((student) => {
+//   let currentExam = allExams.find((exam) => exam.key == student.examkey);
+//   let checking = [];
+//   currentExam.questions.forEach((question) => {
+//     checking.push(question[6]);
+//   });
+
+//   let cont = document.createElement("div");
+//   cont.className = "result-container";
+//   cont.innerHTML = `<div class="result-tile">
+//   <p class="student-name">${student.name}</p>
+//   <p class="student-id">${student.id}</p>
+//   <p class="exam-name">${currentExam.name}</p>
+//   <p class="score">${student.marked.reduce((acc, curr) => acc + curr)}/${
+//     student.marked.length
+//   }</p>
+//     </div>
+//     <div class="result-description flex flex-col gap-2 hidden">
+//     <div class="flex">
+//     <p>Question Number:</p>
+//     <span class="monospace"> ${checking.map((_, i) => i + 1).join(" | ")}</span>
+//     </div>
+//     <div class="flex">
+//     <p>Correct Answers: </p>
+//     <span class="monospace">${checking
+//       .map((choice) => {
+//         return String.fromCharCode(choice + 64);
+//       })
+//       .join(" | ")}</span>
+//   </div>
+//         <div class="flex">
+//     <p>Student Answers:
+//     </p>
+//     <span class="monospace">${student.answers
+//       .map((choice) => {
+//         return String.fromCharCode(choice + 64);
+//       })
+//       .join(" | ")}</span>
+//   </div>
+// </div>`;
+
+//   document.querySelector(".result-tile-container").appendChild(cont);
+// });
+
+// document.querySelectorAll(".result-tile").forEach((tile) => {
+//   tile.addEventListener("click", function (evt) {
+//     evt.preventDefault();
+//     tile.parentElement.childNodes[2].classList.toggle("hidden");
+//   });
+// });
+
+(function () {
+  "use strict";
+
+  function Pagination() {
+    let allExams;
+    allExams = JSON.parse(document.getElementById("all-exams").textContent);
+    let tempQuestions = new Set();
+    allExams.forEach((exam) => {
+      exam.questions.forEach((question) => {
+        tempQuestions.add(question);
+      });
+    });
+    let allQuestions = [...tempQuestions];
+    // console.log(allQuestions);
+    examBankSearch.addEventListener("change", filterQuesitons);
+    let filteredQuestions = allQuestions;
+    function filterQuesitons() {
+      filteredQuestions = allQuestions.filter((quesiton, i) => {
+        if (quesiton[0].includes(examBankSearch.value)) {
+          return quesiton;
+        }
+        changePage();
+        console.log(filteredQuestions);
+      });
+    }
+    const prevButton = document.getElementById("button_prev");
+    const nextButton = document.getElementById("button_next");
+    const clickPageNumber = document.querySelectorAll(".clickPageNumber");
+    const listingTable = document.getElementById("listingTable");
+
+    let current_page = 1;
+    let records_per_page = 2;
+
+    this.init = function () {
+      addElements();
+      changePage(1);
+      pageNumbers();
+      selectedPage();
+      clickPage();
+      addEventListeners();
+    };
+
+    let addEventListeners = function () {
+      prevButton.addEventListener("click", prevPage);
+      nextButton.addEventListener("click", nextPage);
+    };
+
+    let addElements = function () {
+      //   listingTable.innerHTML = "";
+      for (let i = 0; i < filteredQuestions.length; i++) {
+        let count = 0;
+        listingTable.innerHTML += `<div class="question-preview">
+          <div class="question-tile">
+              <input type="checkbox" name="" id="${i}">
+              <p class="question-item">${filteredQuestions[i][0]}</p>
+          </div>
+          <div class="question-description hidden">
+              ${
+                filteredQuestions[i][++count] == null
+                  ? ""
+                  : "<p>" +
+                    String.fromCharCode(count + 64) +
+                    ". " +
+                    filteredQuestions[i][count] +
+                    "</p>"
+              }
+              ${
+                filteredQuestions[i][++count] == null
+                  ? ""
+                  : "<p>" +
+                    String.fromCharCode(count + 64) +
+                    ". " +
+                    filteredQuestions[i][count] +
+                    "</p>"
+              }
+              ${
+                filteredQuestions[i][++count] == null
+                  ? ""
+                  : "<p>" +
+                    String.fromCharCode(count + 64) +
+                    ". " +
+                    filteredQuestions[i][count] +
+                    "</p>"
+              }
+              ${
+                filteredQuestions[i][++count] == null
+                  ? ""
+                  : "<p>" +
+                    String.fromCharCode(count + 64) +
+                    ". " +
+                    filteredQuestions[i][count] +
+                    "</p>"
+              }
+              ${
+                filteredQuestions[i][++count] == null
+                  ? ""
+                  : "<p>" +
+                    String.fromCharCode(count + 64) +
+                    ". " +
+                    filteredQuestions[i][count] +
+                    "</p>"
+              }
+         
+          </div>
+      </div>`;
+      }
+    };
+
+    let selectedPage = function () {
+      let page_number = document
+        .getElementById("page_number")
+        .getElementsByClassName("clickPageNumber");
+      for (let i = 0; i < page_number.length; i++) {
+        if (i == current_page - 1) {
+          page_number[i].style.opacity = "1.0";
+        } else {
+          page_number[i].style.opacity = "0.5";
+        }
+      }
+    };
+
+    let checkButtonOpacity = function () {
+      current_page == 1
+        ? prevButton.classList.add("opacity")
+        : prevButton.classList.remove("opacity");
+      current_page == numPages()
+        ? nextButton.classList.add("opacity")
+        : nextButton.classList.remove("opacity");
+    };
+
+    let changePage = function (page) {
+      if (page < 1) {
+        page = 1;
+      }
+      if (page > numPages() - 1) {
+        page = numPages();
+      }
+      listingTable.childNodes.forEach((child, i) => {
+        if (i == 0) {
+          return;
+        }
+        if (!child.classList.contains("hidden")) {
+          child.classList.add("hidden");
+        }
+      });
+      // listingTable.childNodes[0].classList.add("test");
+
+      for (
+        var i = (page - 1) * records_per_page;
+        i < page * records_per_page && i < filteredQuestions.length;
+        i++
+      ) {
+        listingTable.childNodes[i + 1].classList.remove("hidden");
+      }
+
+      checkButtonOpacity();
+      selectedPage();
+    };
+
+    let prevPage = function () {
+      if (current_page > 1) {
+        current_page--;
+        changePage(current_page);
+      }
+    };
+
+    let nextPage = function () {
+      if (current_page < numPages()) {
+        current_page++;
+        changePage(current_page);
+      }
+    };
+
+    let clickPage = function () {
+      document.addEventListener("click", function (e) {
+        if (
+          e.target.nodeName == "SPAN" &&
+          e.target.classList.contains("clickPageNumber")
+        ) {
+          current_page = e.target.textContent;
+          changePage(current_page);
+        }
+      });
+    };
+
+    let pageNumbers = function () {
+      let pageNumber = document.getElementById("page_number");
+      pageNumber.innerHTML = "";
+
+      for (let i = 1; i < numPages() + 1; i++) {
+        pageNumber.innerHTML +=
+          "<span class='clickPageNumber'>" + i + "</span>";
+      }
+    };
+
+    let numPages = function () {
+      return Math.ceil(filteredQuestions.length / records_per_page);
+    };
+  }
+  let pagination = new Pagination();
+  pagination.init();
+})();
+
+const questionItems = document.querySelectorAll(".question-item");
+
+questionItems.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    showDescription(e);
   });
-
-  let cont = document.createElement("div");
-  cont.className = "result-container";
-  cont.innerHTML = `<div class="result-tile">
-  <p class="student-name">${student.name}</p>
-  <p class="student-id">${student.id}</p>
-  <p class="exam-name">${currentExam.name}</p>
-  <p class="score">${student.marked.reduce((acc, curr) => acc + curr)}/${
-    student.marked.length
-  }</p>
-    </div>
-    <div class="result-description flex flex-col gap-2 hidden">
-    <div class="flex">
-    <p>Question Number:</p>
-    <span class="monospace"> ${checking.map((_, i) => i + 1).join(" | ")}</span>
-    </div>
-    <div class="flex">
-    <p>Correct Answers: </p>
-    <span class="monospace">${checking
-      .map((choice) => {
-        return String.fromCharCode(choice + 64);
-      })
-      .join(" | ")}</span>
-  </div>
-  <div class="flex">
-    <p>Student Answers:
-    </p>
-    <span class="monospace">${student.answers
-      .map((choice) => {
-        return String.fromCharCode(choice + 64);
-      })
-      .join(" | ")}</span>
-  </div>
-</div>`;
-
-  document.querySelector(".result-tile-container").appendChild(cont);
 });
 
-document.querySelectorAll(".result-tile").forEach((tile) => {
-  tile.addEventListener("click", function (evt) {
-    evt.preventDefault();
-    tile.parentElement.childNodes[2].classList.toggle("hidden");
-  });
-});
+function showDescription(e) {
+  e.target.parentNode.nextElementSibling.classList.toggle("hidden");
+}
