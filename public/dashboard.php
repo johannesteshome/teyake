@@ -4,6 +4,12 @@
     header('Location: signin.php');
   }
 
+  if(isset($_POST['status'])){
+    include "../shared/includes/database.php";
+    $rec_questionid_row = mysqli_query($conn, ("UPDATE exam SET Status='".$_POST['status']."' WHERE ExamKey='".$_POST['ExamKey']."';"));
+
+  }
+
 
 ?>
 
@@ -65,24 +71,14 @@
                                     d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z" />
                             </svg>
                             <p>Students - <span id="studCount">
-                                    <?php 
-                                        // include_once '../shared/includes/database.php';
-                                        // $rec_examinee_row = mysqli_query($conn, ("SELECT COUNT(ID) AS `StudCount` FROM `examinee` WHERE ExaminerID=\"".$_SESSION['id']."\" AND Status=\"open\""));
-
-                                        // if (mysqli_num_rows($rec_examinee_row) > 0) {
-                                        //     while($row = mysqli_fetch_assoc($rec_examinee_row)){
-                                        //          echo  '<div class= "exam-tile relative">
-                                        //           <p class="exam-name">'.$row['Name'].'</p>
-                                        //             <p class="exam-key">'.$row['ExamKey'].'</p>
-                                        //             <p class="date-created">'.$row['Date'].'</p>
-                                        //             <p class="status">'.$row['Status'].'</p>
-                                        //             </div>';
-        
-                                        //         }
-        
-                                        //   }
-
-                                    ?>
+                            <?php
+                                include "../shared/includes/database.php";
+                                $student_count_rec = mysqli_query($conn, ("SELECT COUNT(ID) FROM `examinee` INNER JOIN exam ON examinee.ExamKey=exam.ExamKey AND exam.ExaminerID='".$_SESSION['id']."';"));
+                                if (mysqli_num_rows($student_count_rec) > 0) {
+                                    $row = mysqli_fetch_assoc($student_count_rec);
+                                    echo $row['COUNT(ID)'];
+                                  }
+                                ?> 
                                 </span></p>
                         </div>
                         <div class="stat-card">
@@ -93,7 +89,17 @@
                                 <path
                                     d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z" />
                             </svg>
-                            <p>Exams - <span id="examCount"></span></p>
+                            <p>Exams - <span id="examCount">
+                            <?php
+                                include "../shared/includes/database.php";
+                                $exam_count_rec = mysqli_query($conn, ("SELECT COUNT(ExamKey) FROM exam WHERE ExaminerID='".$_SESSION['id']."';"));
+                                if (mysqli_num_rows($exam_count_rec) > 0) {
+                                    $row = mysqli_fetch_assoc($exam_count_rec);
+                                    echo $row['COUNT(ExamKey)'];
+                                  }
+                                ?> 
+
+                            </span></p>
                         </div>
                         <div class="stat-card">
                             <svg xmlns="http://www.w3.org/2000/svg" class="account transition" viewBox="0 0 512 512">
@@ -173,16 +179,18 @@
 
                                 if (mysqli_num_rows($rec_questionid_row) > 0) {
                                     while($row = mysqli_fetch_assoc($rec_questionid_row)){
+                                        $btn = ($row['Status'] == "open")?"close":"open";
                                          echo  '<div class= "exam-tile relative">
                                           <p class="exam-name">'.$row['Name'].'</p>
                                             <p class="exam-key">'.$row['ExamKey'].'</p>
                                             <p class="date-created">'.$row['Date'].'</p>
                                             <div id="status">
                                             <p class="status">'.$row['Status'].'</p>
-                                            <button class="toggle-exam">'."close".'</button>
-                                            <button class="remove-exam"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                          </svg></button>
+                                            <form action="" method="post">
+                                            <input type="hidden" value="'.$btn.'" name="status">
+                                            <input type="hidden" value="'.$row['ExamKey'].'" name="ExamKey">
+                                            <button type="submit" class="toggle-exam">'.$btn.'</button>
+                                            </form>
                                             </div>
                                             </div>';
 
@@ -437,7 +445,26 @@
                             <p class="exam-name">Exam Name</p>
                             <p class="score">Score</p>
                         </div>
-                        <div class="result-tile-container"></div>
+                        <?php
+                                include "../shared/includes/database.php";
+                                $rec_questionid_row = mysqli_query($conn, ("SELECT FullName,Score,exam.ExamKey, SchoolID , exam.Name, examinee.AnswerList FROM `examinee` INNER JOIN exam ON examinee.ExamKey=exam.ExamKey AND exam.ExaminerID='".$_SESSION['id']."';"));
+                                $studentResult = [];
+                                if (mysqli_num_rows($rec_questionid_row) > 0) {
+                                    while($row = mysqli_fetch_assoc($rec_questionid_row)){
+
+                                $rec_answer_row = mysqli_query($conn, ("SELECT AnswerList FROM `answer` WHERE ExamKey='".$row['ExamKey']."'"));
+                                $answer = mysqli_fetch_assoc($rec_answer_row);
+                                $row['CorrectAnswer'] = $answer;
+
+                                        array_push($studentResult, $row);
+
+                                    }
+                                    echo '<p id="result-list" class="hidden">'.json_encode($studentResult).'</p>';
+                                  }
+                                ?>               
+                        <div class="result-tile-container">
+
+                        </div>
                     </div>
                 </div>
             </div>
