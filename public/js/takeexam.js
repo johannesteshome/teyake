@@ -224,7 +224,9 @@ document.querySelector("#submit-exam").addEventListener("click", function (evt) 
     });
   });
 
-  document.getElementById("examineeAnswers").value = JSON.stringify(student.answers);
+  const ExamAnswer = [student.answers, currentExam.key, document.getElementById("current-examinee").textContent];
+  console.log(ExamAnswer)
+  document.getElementById("examineeAnswers").value = JSON.stringify(ExamAnswer);
   document.forms[0].submit();
   // showResult();
   // student = null;

@@ -29,6 +29,23 @@
     for ($x = 0; $x < count($rec_questions); $x++) {
       array_push($rec_questions[$x], 0);
     }
+    
+
+    //SENDING Examinee DATA
+
+
+    $insert_examinee_query = $conn->prepare('INSERT INTO examinee (FullName, Email, SchoolID, Sex, ExamKey, Section) VALUES (?,?,?,?,?, ?)');
+    $insert_examinee_query->bind_param("ssssss", $_POST["examineeName"], $_POST["examineeEmail"], $_POST["examineeID"], $_POST["sex"], $_POST["examKey"], $_POST["examineeSection"]);
+    $insert_examinee_query->execute();
+    $last_id = mysqli_insert_id($conn);
+
+
+    
+    if(!($_POST["institution"] == "none")){
+      $update_examineeInst_row = mysqli_query($conn, "UPDATE examinee SET InstID = '". $_POST["institution"]."' WHERE examinee.SchoolID ='". $_POST["examineeID"]."'");
+    }
+
+    // CREATE EXAM AND APPEND TO THE P
 
     $current_exam = new Exam();
 
@@ -43,24 +60,13 @@
     $current_exam = json_encode($current_exam);
 
     echo "<p class=\"hidden\" id = \"current-exam\">".$current_exam."</p>";
+    echo "<p class=\"hidden\" id = \"current-examinee\">".$last_id."</p>";
     
     echo "<pre>";
       // var_dump($_POST);
       echo "</pre>";
 
 
-    //SENDING Examinee DATA
-
-
-    $insert_examinee_query = $conn->prepare('INSERT INTO examinee (FullName, Email, SchoolID, Sex, ExamKey, Section) VALUES (?,?,?,?,?, ?)');
-    $insert_examinee_query->bind_param("ssssss", $_POST["examineeName"], $_POST["examineeEmail"], $_POST["examineeID"], $_POST["sex"], $_POST["examKey"], $_POST["examineeSection"]);
-    $insert_examinee_query->execute();
-
-
-    
-    if(!($_POST["institution"] == "none")){
-      $update_examineeInst_row = mysqli_query($conn, "UPDATE examinee SET InstID = '". $_POST["institution"]."' WHERE examinee.SchoolID ='". $_POST["examineeID"]."'");
-    }
 
 ?>
 
@@ -82,7 +88,7 @@
     </div>
   <div class="container blur">
     <main class="hidden">
-     <form action="mark-exam.php" method="get">
+     <form action="mark-exam.php" method="post">
      <div class="exam-container">
         
         <input type="hidden" name="examineeAnswers" id="examineeAnswers">

@@ -48,7 +48,7 @@ if (!!localStorage.getItem("teachers")) {
 }
 
 //Selecting the current logged in teacher
-// let currentTeacher = allTeachers[1];
+let currentTeacher = allTeachers[1];
 // console.log(allTeachers);
 // console.log(currentTeacher);
 // let currentTeacherStudents = allStudents.filter((student) => {
@@ -607,20 +607,41 @@ document
     });
     let allQuestions = [...tempQuestions];
     // console.log(allQuestions);
+<<<<<<< HEAD
     examBankSearch.addEventListener("keypress", (e) => {
       if (e.key == "Enter") {
         filterQuesitons();
       }
     });
+=======
+    examBankSearch.addEventListener("input", filterQuesitons);
+>>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
     let filteredQuestions = allQuestions;
     function filterQuesitons() {
-      filteredQuestions = allQuestions.filter((quesiton, i) => {
-        if (quesiton[0].includes(examBankSearch.value)) {
-          return quesiton;
+      filteredQuestions = [];
+
+      for(let i = 0; i < allQuestions.length; i++){
+        if (allQuestions[i][0].includes(examBankSearch.value) || examBankSearch.value == '') {
+          console.log(examBankSearch.value, allQuestions[i][0])
+          filteredQuestions.push(allQuestions[i])
         }
+<<<<<<< HEAD
         changePage(1);
         console.log(filteredQuestions);
       });
+=======
+      }
+
+      // filteredQuestions = allQuestions.filter((question, i) => {
+      //   if (question[0].includes(examBankSearch.value) || examBankSearch.value == '') {
+      //     console.log(examBankSearch.value, question[0])
+      //     return question;
+      //   }
+      //   console.log(filteredQuestions);
+      // });
+      rendureSearchFilter();
+    
+>>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
     }
     const prevButton = document.getElementById("button_prev");
     const nextButton = document.getElementById("button_next");
@@ -644,9 +665,27 @@ document
       nextButton.addEventListener("click", nextPage);
     };
 
+    let rendureSearchFilter = function (){
+      if(filteredQuestions.length > 0){
+        addElements();
+        changePage(1);
+        pageNumbers();
+        selectedPage();
+        clickPage();
+      }else{
+        listingTable.innerHTML = '<p class="text-center w-full">No Results</p>';
+      }
+      console.log(filteredQuestions)
+    }
+
+
     let addElements = function () {
+<<<<<<< HEAD
       //   listingTable.innerHTML = "";
 
+=======
+        listingTable.innerHTML = "";
+>>>>>>> 833ba2cb5f9144f086907895f6e381565bce3d59
       for (let i = 0; i < filteredQuestions.length; i++) {
         let count = 0;
         listingTable.innerHTML += `<div class="question-preview">
@@ -704,6 +743,16 @@ document
           </div>
       </div>`;
       }
+
+      const questionItems = document.querySelectorAll(".question-item");
+
+      questionItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          showDescription(e);
+        });
+      });
+      
+
     };
 
     let selectedPage = function () {
@@ -736,9 +785,7 @@ document
         page = numPages();
       }
       listingTable.childNodes.forEach((child, i) => {
-        if (i == 0) {
-          return;
-        }
+
         if (!child.classList.contains("hidden")) {
           child.classList.add("hidden");
         }
@@ -750,7 +797,7 @@ document
         i < page * records_per_page && i < filteredQuestions.length;
         i++
       ) {
-        listingTable.childNodes[i + 1].classList.remove("hidden");
+        listingTable.childNodes[i].classList.remove("hidden");
       }
 
       checkButtonOpacity();
@@ -770,7 +817,7 @@ document
         changePage(current_page);
       }
     };
-
+    
     let clickPage = function () {
       document.addEventListener("click", function (e) {
         if (
@@ -801,13 +848,6 @@ document
   pagination.init();
 })();
 
-const questionItems = document.querySelectorAll(".question-item");
-
-questionItems.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    showDescription(e);
-  });
-});
 
 function showDescription(e) {
   e.target.parentNode.nextElementSibling.classList.toggle("hidden");
