@@ -138,6 +138,7 @@
 html {
   scroll-behavior: smooth;
   height: 100%;
+  overflow-y: hidden;
 }
 body {
   height: 100%;
@@ -464,6 +465,7 @@ main {
   background-color: var(--background-light);
   padding-top: 2rem;
   gap: 5rem;
+  overflow-y: hidden;
 }
 .write-exam-card {
   width: 70%;
@@ -585,6 +587,68 @@ main {
   border: 1px solid black;
 }
 
+.selected-questions {
+  position: absolute;
+  z-index: 100;
+  /* left: 0; */
+  width: 70%;
+  bottom: 0;
+  height: 350px;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0px 0px 20px -10px;
+  border-radius: 1rem 1rem 0 0;
+  transition: 250ms ease-in-out;
+}
+
+.selected-questions-title {
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+}
+.selected-questions h3 {
+  width: 100%;
+  text-align: center;
+  padding-block: 0.5rem;
+  color: white;
+}
+
+#selected-questions-btn {
+  position: absolute;
+  z-index: 1000;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: rotateZ(180deg);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0, 0, 5px, 5px;
+}
+#selected-questions-btn > svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25px;
+  aspect-ratio: 1;
+}
+
+.selected-questions.hide {
+  transform: translateY(100%);
+  transition: 250ms ease-in-out;
+}
+
+.selected-questions.hide > #selected-questions-btn {
+  transform: rotateZ(0);
+}
+
+.selected-question-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--primary-color);
+}
 .pagination {
   max-width: 400px;
   min-width: 300px;
