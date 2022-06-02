@@ -65,7 +65,24 @@
                                     d="M256 144c-19.72 0-37.55 7.39-50.22 20.82s-19 32-17.57 51.93C191.11 256 221.52 288 256 288s64.83-32 67.79-71.24c1.48-19.74-4.8-38.14-17.68-51.82C293.39 151.44 275.59 144 256 144z" />
                             </svg>
                             <p>Students - <span id="studCount">
-                                    
+                                    <?php 
+                                        // include_once '../shared/includes/database.php';
+                                        // $rec_examinee_row = mysqli_query($conn, ("SELECT COUNT(ID) AS `StudCount` FROM `examinee` WHERE ExaminerID=\"".$_SESSION['id']."\" AND Status=\"open\""));
+
+                                        // if (mysqli_num_rows($rec_examinee_row) > 0) {
+                                        //     while($row = mysqli_fetch_assoc($rec_examinee_row)){
+                                        //          echo  '<div class= "exam-tile relative">
+                                        //           <p class="exam-name">'.$row['Name'].'</p>
+                                        //             <p class="exam-key">'.$row['ExamKey'].'</p>
+                                        //             <p class="date-created">'.$row['Date'].'</p>
+                                        //             <p class="status">'.$row['Status'].'</p>
+                                        //             </div>';
+        
+                                        //         }
+        
+                                        //   }
+
+                                    ?>
                                 </span></p>
                         </div>
                         <div class="stat-card">
@@ -114,7 +131,7 @@
 
                                   }
 
-                                  $conn->close();
+                                //   $conn->close();
 
                                 ?>
 
@@ -173,7 +190,7 @@
 
                                   }
 
-                                  $conn->close();
+                                //   $conn->close();
 
                                 ?>
 
@@ -263,7 +280,8 @@
                         <button type="button" id="proceed-to-write">Continue</button>
                     </div>
                     <!-- Write Exam -->
-                    <div class="page write-exam flex flex-col items-center hidden">
+                    <div class="page write-exam flex flex-col items-center">
+                        <!-- HIDDEN WAS HERE-->
                         <div class="write-exam-card exam-name">
                             <h2 class="write-exam-title text-center bg-primary text-white flex justify-between">
                                 Add Questions
@@ -300,43 +318,115 @@
                         <form action="cancelExam()" method="POST" enctype=”multipart/form-data”>
                             <button id="cancel-exam" type="button">Cancel Exam</button>
                         </form>
-                    </div>
-                    <div class="preview-exam hidden">
-                        <div class="preview-content hidden">
-                            <h2 class="text-center">Exam Preview</h2>
-                            <div class="preview-btns flex gap-4">
-                                <button type="button" id="done-preview">Done</button>
-                                <button type="button" id="cancel-preview">Cancel</button>
+
+                        <div class="input-card exam-bank-container">
+                            <h2 class="input-card-title text-center bg-primary text-white">
+                                Exam Bank
+                            </h2>
+                            <div class="input-card-content flex flex-col items-center">
+                                <input type="text" id="exam-bank-search" placeholder="Search" name="exam-bank-search" />
                             </div>
-                            <div class="preview-question-list"></div>
-                        </div>
-                        <div class="edit-modal">
-                            <textarea id="edit-question-prompt" cols="30" rows="10"></textarea>
-                            <button type="button" id="done-edit">Done</button>
-                            <button type="button" id="cancel-edit">Cancel</button>
-                            <button type="button" id="add-choice-edit">Add Choice</button>
-                            <div class="edit-choice-list"></div>
+                            <div class="exam-bank">
+                                <?php 
+                                        include_once "../shared/includes/database.php";
+                                        include_once "../shared/core.php";
+
+                                        $examList = [];
+
+                                        $exam_select_row = mysqli_query($conn, "SELECT * FROM `exam` WHERE `ExaminerID`='".$_SESSION['id']."'" );
+                                        // 
+                                        while($row = mysqli_fetch_assoc($exam_select_row)){
+                                            // echo "<pre>";
+                                            //     var_dump($row);
+                                            // echo "</pre>";
+
+                                            $exam = new Exam();
+
+                                            $exam->name = $row["Name"];
+                                            $exam->teacherID = $row["ExaminerID"];
+                                            $exam->key = $row["ExamKey"];
+                                            $exam->date = $row["Date"];
+                                            $exam->status = $row["Status"];
+                                            $exam->duration = $row["Duration"];
+                                            
+                                            $question_row = mysqli_query($conn, "SELECT * FROM `question` WHERE `ExamKey`='".$row['ExamKey']."'" );
+                                            if($q_row = mysqli_fetch_assoc($question_row)){
+                                                $exam->questions = json_decode($q_row["QuestionList"]);
+                                            }
+                                            
+
+                                            $answer_row = mysqli_query($conn, "SELECT * FROM `answer` WHERE `ExamKey`='".$row['ExamKey']."'" );
+                                            if($a_row = mysqli_fetch_assoc($answer_row)){
+                                                $ans = json_decode($a_row["AnswerList"]);
+
+                                            }
+                                            // var_dump($ans);
+                                            
+                                            for ($i=0; $i < count($exam->questions) ; $i++) { 
+                                                array_push($exam->questions[$i], $ans[$i]);
+                                            }
+                                            array_push($examList, $exam);
+                                        }
+                                            $examList = json_encode($examList);
+                                            // var_dump($examList);
+                                            // echo "<br>";
+                                            // echo "<br>";
+                                            // $examListEnc = str_replace( "\\", "", $examListEnc );
+                                            // $examListEnc = str_replace( "\"", "\\\"", $examListEnc );
+                                            // echo "<br>";
+                                            // var_dump($examListEnc);
+
+
+                                            echo "<p class=\"hidden\" id=\"all-exams\">".$examList."</p>"
+                                    ?>
+                                <div class="exam-bank-table" id="listingTable">
+
+                                </div>
+                                <div class="pagination-block">
+                                    <span class="pageButton outline-none" id="button_prev">Prev</span>
+                                    <span id="page_number" class="outline-none"></span>
+                                    <span class="pageButton outline-none" id="button_next">Next</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="results-page flex flex-col items-center justify-center">
-                    <div class="center-content">
-                        <div class="student-results">
-                            <h1 class="text-center bg-primary text-white">
-                                Student Results
-                            </h1>
-                            <div class="result-list-head">
-                                <p class="student-name">Student Name</p>
-                                <p class="student-id">Student ID</p>
-                                <p class="exam-name">Exam Name</p>
-                                <p class="score">Score</p>
-                            </div>
-                            <div class="result-tile-container"></div>
+                <div class="preview-exam hidden">
+                    <div class="preview-content hidden">
+                        <h2 class="text-center">Exam Preview</h2>
+                        <div class="preview-btns flex gap-4">
+                            <button type="button" id="done-preview">Done</button>
+                            <button type="button" id="cancel-preview">Cancel</button>
                         </div>
+                        <div class="preview-question-list"></div>
+                    </div>
+                    <div class="edit-modal">
+                        <textarea id="edit-question-prompt" cols="30" rows="10"></textarea>
+                        <button type="button" id="done-edit">Done</button>
+                        <button type="button" id="cancel-edit">Cancel</button>
+                        <button type="button" id="add-choice-edit">Add Choice</button>
+                        <div class="edit-choice-list"></div>
                     </div>
                 </div>
             </div>
-        </main>
+            <div class="results-page flex flex-col items-center justify-center">
+                <div class="center-content">
+                    <div class="student-results">
+                        <h1 class="text-center bg-primary text-white">
+                            Student Results
+                        </h1>
+                        <div class="result-list-head">
+                            <p class="student-name">Student Name</p>
+                            <p class="student-id">Student ID</p>
+                            <p class="exam-name">Exam Name</p>
+                            <p class="score">Score</p>
+                        </div>
+                        <div class="result-tile-container"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
     </div>
 </body>
 <script src="./js/dashboard.js" type="module"></script>
