@@ -607,14 +607,18 @@ document
     });
     let allQuestions = [...tempQuestions];
     // console.log(allQuestions);
-    examBankSearch.addEventListener("change", filterQuesitons);
+    examBankSearch.addEventListener("keypress", (e) => {
+      if (e.key == "Enter") {
+        filterQuesitons();
+      }
+    });
     let filteredQuestions = allQuestions;
     function filterQuesitons() {
       filteredQuestions = allQuestions.filter((quesiton, i) => {
         if (quesiton[0].includes(examBankSearch.value)) {
           return quesiton;
         }
-        changePage();
+        changePage(1);
         console.log(filteredQuestions);
       });
     }
@@ -642,6 +646,7 @@ document
 
     let addElements = function () {
       //   listingTable.innerHTML = "";
+
       for (let i = 0; i < filteredQuestions.length; i++) {
         let count = 0;
         listingTable.innerHTML += `<div class="question-preview">

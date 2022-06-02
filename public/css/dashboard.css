@@ -463,6 +463,7 @@ main {
   width: 85vw;
   background-color: var(--background-light);
   padding-top: 2rem;
+  padding-bottom: 10rem;
   gap: 5rem;
 }
 .write-exam-card {
@@ -583,6 +584,17 @@ main {
 }
 #cancel-exam:active {
   border: 1px solid black;
+}
+
+.selected-questions {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  width: 30rem;
+  bottom: 0;
+  height: 250px;
+  background-color: grey;
+  margin-top: 30rem;
 }
 
 .pagination {

@@ -280,7 +280,7 @@
                         <button type="button" id="proceed-to-write">Continue</button>
                     </div>
                     <!-- Write Exam -->
-                    <div class="page write-exam flex flex-col items-center">
+                    <div class="page write-exam flex flex-col items-center hidden">
                         <!-- HIDDEN WAS HERE-->
                         <div class="write-exam-card exam-name">
                             <h2 class="write-exam-title text-center bg-primary text-white flex justify-between">
@@ -326,59 +326,59 @@
                             <div class="input-card-content flex flex-col items-center">
                                 <input type="text" id="exam-bank-search" placeholder="Search" name="exam-bank-search" />
                             </div>
-                            <div class="exam-bank">
-                                <?php 
-                                        include_once "../shared/includes/database.php";
-                                        include_once "../shared/core.php";
+                            <?php 
+                                include_once "../shared/includes/database.php";
+                                include_once "../shared/core.php";
 
-                                        $examList = [];
+                                $examList = [];
 
-                                        $exam_select_row = mysqli_query($conn, "SELECT * FROM `exam` WHERE `ExaminerID`='".$_SESSION['id']."'" );
-                                        // 
-                                        while($row = mysqli_fetch_assoc($exam_select_row)){
-                                            // echo "<pre>";
-                                            //     var_dump($row);
-                                            // echo "</pre>";
+                                $exam_select_row = mysqli_query($conn, "SELECT * FROM `exam` WHERE `ExaminerID`='".$_SESSION['id']."'" );
+                                // 
+                                while($row = mysqli_fetch_assoc($exam_select_row)){
+                                    // echo "<pre>";
+                                    //     var_dump($row);
+                                    // echo "</pre>";
 
-                                            $exam = new Exam();
+                                    $exam = new Exam();
 
-                                            $exam->name = $row["Name"];
-                                            $exam->teacherID = $row["ExaminerID"];
-                                            $exam->key = $row["ExamKey"];
-                                            $exam->date = $row["Date"];
-                                            $exam->status = $row["Status"];
-                                            $exam->duration = $row["Duration"];
-                                            
-                                            $question_row = mysqli_query($conn, "SELECT * FROM `question` WHERE `ExamKey`='".$row['ExamKey']."'" );
-                                            if($q_row = mysqli_fetch_assoc($question_row)){
-                                                $exam->questions = json_decode($q_row["QuestionList"]);
-                                            }
-                                            
+                                    $exam->name = $row["Name"];
+                                    $exam->teacherID = $row["ExaminerID"];
+                                    $exam->key = $row["ExamKey"];
+                                    $exam->date = $row["Date"];
+                                    $exam->status = $row["Status"];
+                                    $exam->duration = $row["Duration"];
+                                    
+                                    $question_row = mysqli_query($conn, "SELECT * FROM `question` WHERE `ExamKey`='".$row['ExamKey']."'" );
+                                    if($q_row = mysqli_fetch_assoc($question_row)){
+                                        $exam->questions = json_decode($q_row["QuestionList"]);
+                                    }
+                                    
 
-                                            $answer_row = mysqli_query($conn, "SELECT * FROM `answer` WHERE `ExamKey`='".$row['ExamKey']."'" );
-                                            if($a_row = mysqli_fetch_assoc($answer_row)){
-                                                $ans = json_decode($a_row["AnswerList"]);
+                                    $answer_row = mysqli_query($conn, "SELECT * FROM `answer` WHERE `ExamKey`='".$row['ExamKey']."'" );
+                                    if($a_row = mysqli_fetch_assoc($answer_row)){
+                                        $ans = json_decode($a_row["AnswerList"]);
 
-                                            }
-                                            // var_dump($ans);
-                                            
-                                            for ($i=0; $i < count($exam->questions) ; $i++) { 
-                                                array_push($exam->questions[$i], $ans[$i]);
-                                            }
-                                            array_push($examList, $exam);
-                                        }
-                                            $examList = json_encode($examList);
-                                            // var_dump($examList);
-                                            // echo "<br>";
-                                            // echo "<br>";
-                                            // $examListEnc = str_replace( "\\", "", $examListEnc );
-                                            // $examListEnc = str_replace( "\"", "\\\"", $examListEnc );
-                                            // echo "<br>";
-                                            // var_dump($examListEnc);
+                                    }
+                                    // var_dump($ans);
+                                    
+                                    for ($i=0; $i < count($exam->questions) ; $i++) { 
+                                        array_push($exam->questions[$i], $ans[$i]);
+                                    }
+                                    array_push($examList, $exam);
+                                }
+                                    $examList = json_encode($examList);
+                                    // var_dump($examList);
+                                    // echo "<br>";
+                                    // echo "<br>";
+                                    // $examListEnc = str_replace( "\\", "", $examListEnc );
+                                    // $examListEnc = str_replace( "\"", "\\\"", $examListEnc );
+                                    // echo "<br>";
+                                    // var_dump($examListEnc);
 
 
-                                            echo "<p class=\"hidden\" id=\"all-exams\">".$examList."</p>"
+                                    echo "<p class=\"hidden\" id=\"all-exams\">".$examList."</p>"
                                     ?>
+                            <div class="exam-bank">
                                 <div class="exam-bank-table" id="listingTable">
 
                                 </div>
@@ -388,6 +388,9 @@
                                     <span class="pageButton outline-none" id="button_next">Next</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="selected-questions">
+                            <p>test</p>
                         </div>
                     </div>
                 </div>
