@@ -1,0 +1,77 @@
+FullName Of Examinee	ExamName	SchoolID	Score	
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
+Yohannes mesganaw	new Exam A	21	1
+Yohannes Assefa	Another	123	0
