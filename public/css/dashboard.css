@@ -762,7 +762,8 @@ main {
 }
 
 .preview-btns button:hover,
-.edit-question:hover {
+.edit-question:hover,
+.delete-question:hover {
   background-color: var(--primary-color);
   color: white;
 }
@@ -770,7 +771,8 @@ main {
   display: flex;
   flex-direction: column;
 }
-.edit-question {
+.edit-question,
+.delete-question {
   align-self: flex-end;
   background-color: white;
   border: 1px solid var(--primary-color);
@@ -778,11 +780,28 @@ main {
   padding: 0.25rem 1rem;
   border-radius: 0.5rem;
   margin-top: 0.5rem;
+  display: inline-block;
+}
+.flex-end {
+  justify-content: flex-end;
 }
 .edit-modal {
   max-width: 720px;
   background-color: white;
+  padding: 2rem;
 }
+.edit-modal textarea {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  resize: none;
+}
+.edit-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
 .edit-choice-list {
   display: flex;
   flex-direction: column;

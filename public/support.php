@@ -25,7 +25,7 @@
                     </button>
                 </div>
             </form>
-            <div class="sidebar-sign-in flex flex-col w-full"> 
+            <div class="sidebar-sign-in flex flex-col w-full">
                 <p>Teacher</p>
                 <div class="flex">
                     <a href="signin.php"><button type="button">Sign In</button></a>
@@ -45,54 +45,7 @@
         </div>
         <!-- End of Sidebar Component -->
         <!-- Header for mobile view -->
-        <header class="">
-            <img src="./media/images/teyake_white_fill.png" class="logo" />
-            <span class="menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                        clip-rule="evenodd" />
-                </svg>
-            </span>
-        </header>
-        <!-- End of Mobile View Header -->
-        <!-- Header for Desktop view only above 1150px -->
-        <div class="header">
-            <div class="header-left">
-                <img src="./media/images/teyake_white_fill.png" class="logo" />
-                <nav>
-                    <ul class="primary-nav flex">
-                        <li><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="./support.php">How it Works</a></li>
-                        <li><a href="./about_us.php">About Us</a></li>
-
-                    </ul>
-                </nav>
-            </div>
-            <div class="header-right flex items-center justify-between">
-                <div class="sign-in flex flex-col items-center justify-center gap-1">
-                    <div class="flex gap-4">
-                        <a href="./signin.php"><button type="button">Sign In</button></a>
-                        <a href="./signup.php"><button type="button">Sign Up</button></a>
-                    </div>
-                    <p class="text-center">Teachers</p>
-                </div>
-                <!-- Exam Key input Section -->
-                <div class="flex flex-col items-center gap-2">
-                    <form action="#" class="enter-exam-head flex text-center">
-                        <div class="enter-exam-input">
-                            <input type="text" name="exam-key" id="exam-key" placeholder="Enter Exam Key" />
-                            <button type="submit" class="btn enter-exam-btn enter-exam-head-btn">
-                                Next
-                            </button>
-                        </div>
-                    </form>
-                    <label for="exam-key" class="enter-exam-label text-center">Students enter your exam key
-                        above</label>
-                </div>
-                <!-- End of exam key input section -->
-            </div>
-        </div>
-        <!-- End of Desktop Header -->
+        <?php include "../shared/includes/desktop-header.php" ?>
 
         <!-- The sidebar/menu component which is only visible on sreen sizes below 1150px -->
         <div class="sidebar transition">

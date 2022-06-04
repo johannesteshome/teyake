@@ -326,7 +326,7 @@ document.getElementById("finalize-btn").addEventListener("click", previewExam);
 //
 var toBeEdited = 0;
 function previewExam() {
-  console.log(test);
+  // console.log(test);
   document.querySelector(".preview-exam").classList.remove("hidden");
   previewContainer.classList.toggle("hidden");
   editModal.classList.toggle("hidden");
@@ -348,89 +348,108 @@ function previewExam() {
     qcontainer.id = `${i}`;
     let prompt = document.createElement("h2");
     prompt.id = "question-prompt";
-    console.log(question[0]);
+    // console.log(question[0]);
     prompt.textContent = `${i + 1}.${question[0]}`;
     qcontainer.appendChild(prompt);
     let edit = document.createElement("button");
-    edit.className = "edit-question";
+    edit.classList.add("edit-question", "transition");
     edit.textContent = "Edit Question";
-    qcontainer.appendChild(edit);
+    let del = document.createElement("button");
+    del.classList.add("delete-question", "transition");
+    del.textContent = "Delete Question";
+
+    let qBtns = document.createElement("div");
+    qBtns.classList.add("flex", "flex-end");
+
+    qBtns.appendChild(edit);
+    qBtns.appendChild(del);
+    qcontainer.appendChild(qBtns);
+
+    let choiceContainer = document.createElement("div");
+    choiceContainer.className = "choice-container";
+
     for (let j = 1; j < question.length - 1 && !!question[j]; j++) {
-      var choiceContainer = document.createElement("div");
-      choiceContainer.className = "choice-container";
       let choiceText = document.createElement("p");
       if (j == question[6]) choiceText.classList.add("selected-answer");
       let char = 64;
       choiceText.textContent = `${String.fromCharCode(char + j)}. ${
         question[j]
       }`;
-      // choiceContainer.appendChild(choice);
       choiceContainer.appendChild(choiceText);
-      qcontainer.appendChild(choiceContainer);
     }
-    edit.addEventListener("click", function () {
-      toBeEdited = Number(edit.parentElement.id);
-      console.log(toBeEdited);
-      previewContainer.classList.add("hidden");
-      editModal.classList.remove("hidden");
-      document.querySelector(".edit-choice-list").innerHTML = "";
-      editQuestionPrompt.value = test.questions[toBeEdited][0];
-      for (
-        let j = 1;
-        j < test.questions[toBeEdited].length - 1 &&
-        !!test.questions[toBeEdited][j];
-        j++
-      ) {
-        let cont = document.createElement("div");
-        cont.classList.add(
-          "choice-item",
-          "flex",
-          "items-center",
-          "edit-choice-item"
-        );
-
-        let btn = document.createElement("input");
-        btn.type = "radio";
-        btn.className = "select-choice";
-        btn.name = "choice";
-
-        let inp = document.createElement("input");
-        inp.type = "text";
-        inp.placeholder = "Enter Choice";
-        inp.className = "choice-input";
-        inp.id = "edit-choice-input";
-        inp.value = test.questions[toBeEdited][j];
-
-        let del = document.createElement("button");
-        del.id = "remove-choice";
-        del.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"
-        />
-      </svg>`;
-
-        document.querySelectorAll("#remove-choice").forEach((btn) => {
-          btn.addEventListener("click", function (evt) {
-            evt.preventDefault();
-            console.log("deleting");
-            totalChoice--;
-            btn.parentElement.remove();
-            for (let z = 0; z < 5; z++) {
-              test.questions[toBeEdited][z] = undefined;
-            }
-            for (let z = 0; z < 5; z++) {
-              test.questions[toBeEdited][z] =
-                document.querySelectorAll("#edit-choice-input")[z].value;
-            }
-          });
-        });
-        cont.appendChild(btn);
-        cont.appendChild(inp);
-        cont.appendChild(del);
-        document.querySelector(".edit-choice-list").appendChild(cont);
-      }
+    edit.addEventListener("click", (evt) => {
+      editQuestion(evt);
+    });
+    del.addEventListener("click", (evt) => {
+      delQuestion(evt);
     });
     qcontainer.appendChild(choiceContainer);
     previewQuestionList.appendChild(qcontainer);
+  });
+}
+
+function delQuestion(evt) {
+  let toBeDeleted = Number(evt.target.parentElement.parentElement.id);
+  evt.target.parentElement.parentElement.remove();
+  test.questions.splice(toBeDeleted, 1);
+  previewExam();
+}
+
+function editQuestion(evt) {
+  totalChoice = 0;
+  toBeEdited = Number(evt.target.parentElement.parentElement.id);
+  console.log(toBeEdited);
+  previewContainer.classList.add("hidden");
+  editModal.classList.remove("hidden");
+  document.querySelector(".edit-choice-list").innerHTML = "";
+  editQuestionPrompt.value = test.questions[toBeEdited][0];
+  for (
+    let j = 1;
+    j < test.questions[toBeEdited].length - 1 &&
+    !!test.questions[toBeEdited][j];
+    j++
+  ) {
+    totalChoice++;
+    let cont = document.createElement("div");
+    cont.classList.add(
+      "choice-item",
+      "flex",
+      "items-center",
+      "edit-choice-item"
+    );
+
+    let btn = document.createElement("input");
+    btn.type = "radio";
+    btn.className = "select-choice";
+    btn.name = "choice";
+    if (j == test.questions[toBeEdited][6]) {
+      btn.checked = true;
+    }
+
+    let inp = document.createElement("input");
+    inp.type = "text";
+    inp.placeholder = "Enter Choice";
+    inp.className = "choice-input";
+    inp.id = "edit-choice-input";
+    inp.value = test.questions[toBeEdited][j];
+
+    let del = document.createElement("button");
+    del.id = "remove-choice";
+    del.type = "button";
+    del.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v   5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"
+    />
+  </svg>`;
+    cont.appendChild(btn);
+    cont.appendChild(inp);
+    cont.appendChild(del);
+    document.querySelector(".edit-choice-list").appendChild(cont);
+  }
+  document.querySelectorAll("#remove-choice").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      totalChoice--;
+      btn.parentElement.remove();
+    });
   });
 }
 
@@ -468,9 +487,7 @@ document
       </svg>`;
 
     document.querySelectorAll("#remove-choice").forEach((btn) => {
-      btn.addEventListener("click", function (evt) {
-        evt.preventDefault();
-        console.log("deleting");
+      btn.addEventListener("click", () => {
         totalChoice--;
         btn.parentElement.remove();
       });
@@ -485,23 +502,26 @@ document
 //Saving Edited questions
 //
 document.querySelector("#done-edit").addEventListener("click", function () {
-  console.log("clicked");
+  // console.log("clicked");
   test.questions[toBeEdited][0] = editQuestionPrompt.value;
+  for (let x = 1; x < 6; x++) {
+    test.questions[toBeEdited][x] = null;
+  }
   for (
     let k = 1;
-    k < document.querySelectorAll("#edit-choice-input").length + 1;
+    k <= document.querySelector(".edit-choice-list").childNodes.length;
     k++
   ) {
     test.questions[toBeEdited][k] =
-      document.querySelectorAll("#edit-choice-input")[k - 1].value;
+      document.querySelector(".edit-choice-list").childNodes[
+        k - 1
+      ].childNodes[1].value;
   }
-
-  document.querySelectorAll(".edit-choice-item").forEach((answer, i) => {
-    if (answer.childNodes[0].checked) {
-      test.questions[i][6] = i + 1;
+  document.querySelector(".edit-choice-list").childNodes.forEach((item, i) => {
+    if (item.childNodes[0].checked) {
+      test.questions[toBeEdited][6] = i + 1;
     }
   });
-  console.log(test);
   previewExam();
 });
 
@@ -519,40 +539,42 @@ document.querySelector("#done-preview").addEventListener("click", function () {
   localStorage.setItem("exams", JSON.stringify(allExams));
   document.getElementById("finishedTest").value = JSON.stringify(test);
   test = null;
-  // window.open("../dashboard.php", "_parent");
+  window.open("../dashboard.php", "_parent");
   document.newExam.submit();
 });
 //Close Preview
 document
   .querySelector("#cancel-preview")
   .addEventListener("click", function (evt) {
+    //   document.querySelector(".preview-exam").classList.remove("hidden");
+    // previewContainer.classList.toggle("hidden");
+    // editModal.classList.toggle("hidden");
     evt.preventDefault();
     test = null;
-    window.open("../dashboard.php", "_parent");
+    window.open("./dashboard.php", "_parent");
   });
-//Cancel the Written Exam
+// Cancel the Written Exam
 document
   .querySelector("#cancel-exam")
   .addEventListener("click", function (evt) {
     evt.preventDefault();
-    window.open("../dashboard.php", "_parent");
+    test = null;
+    window.open("./dashboard.php", "_parent");
   });
-
 //
 //Display Results Page
 //
 const resultList = document.getElementById('result-list');
 let currentTeacherStudents = (resultList.textContent != "")?JSON.parse(resultList.textContent):[];
 
+console.log(currentTeacherStudents);
 
-console.log(currentTeacherStudents)
-
-currentTeacherStudents.forEach((student)=>{
-//   let currentExam = allExams.find((exam) => exam.key == student.examkey);
+currentTeacherStudents.forEach((student) => {
+  //   let currentExam = allExams.find((exam) => exam.key == student.examkey);
   let checking = JSON.parse(student.CorrectAnswer.AnswerList);
-//   currentExam.questions.forEach((question) => {
-//     checking.push(question[6]);
-//   });
+  //   currentExam.questions.forEach((question) => {
+  //     checking.push(question[6]);
+  //   });
 
   let cont = document.createElement("div");
   cont.className = "result-container";
@@ -584,7 +606,7 @@ currentTeacherStudents.forEach((student)=>{
       })
       .join(" | ")}</span>
   </div>
-</div>`;
+</div>`; //
 
   document.querySelector(".result-tile-container").appendChild(cont);
 });
@@ -849,11 +871,11 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
     document.getElementById("add-to-exam").addEventListener("click", addtoExam);
 
     function addtoExam() {
-      let qlist = [];
+      let qlist = new Set();
       console.log(selectedQuestionsList);
       for (let i = 0; i < selectedQuestionsList.length; i++) {
         if (selectedQuestionsList[i].innerText != "") {
-          qlist.push(selectedQuestionsList[i].innerText);
+          qlist.add(selectedQuestionsList[i].innerText);
         }
       }
 
