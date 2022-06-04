@@ -541,8 +541,8 @@ document
 //
 //Display Results Page
 //
-
-let currentTeacherStudents = JSON.parse(document.getElementById('result-list').textContent);
+const resultList = document.getElementById('result-list');
+let currentTeacherStudents = (resultList.textContent != "")?JSON.parse(resultList.textContent):[];
 
 
 console.log(currentTeacherStudents)

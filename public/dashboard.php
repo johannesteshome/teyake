@@ -459,8 +459,8 @@
                                         array_push($studentResult, $row);
 
                                     }
-                                    echo '<p id="result-list" class="hidden">'.json_encode($studentResult).'</p>';
-                                  }
+                                }
+                                echo '<p id="result-list" class="hidden">'.json_encode($studentResult).'</p>';
                                 ?>               
                         <div class="result-tile-container">
 
