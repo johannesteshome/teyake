@@ -197,7 +197,6 @@ main {
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  border: solid black 1px;
 }
 
 .signup-header {
