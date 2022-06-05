@@ -12,6 +12,9 @@ if(isset($_POST['email']) && $_POST["email"]){
                 $remaining = ($endTime - $now) * 1000;
                 $answerList = $row["AnswerList"];
             }
+            else{
+                echo "Query Failed";
+            }
             $action = "takeexam.php?inProgress=true&key=".$_POST["key"];
 }else{
     header("Location: ../index.php");

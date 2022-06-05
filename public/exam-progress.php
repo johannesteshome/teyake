@@ -3,8 +3,6 @@
     include_once "../shared/includes/database.php";
 
     $payload = json_decode(file_get_contents('php://input'), true);
-
-
    
     if(isset($payload["examKey"])){
         $query_exam_duration = mysqli_query($conn, ("SELECT duration FROM exam WHERE ExamKey=\"".$payload["examKey"]."\""));
@@ -14,7 +12,7 @@
       }
       date_default_timezone_set("Africa/Addis_Ababa");
     if (isset($payload['addEntry']) && $payload['addEntry']) {
-        $examineeEmail = $payload["examineeEmail"];
+        $examineeEmail = $payload["email"];
         $examKey = $payload["examKey"];
         $endTime = date("Y-m-d H:i:s", strtotime(+$exam_duration." minutes"));
         $answerList = json_encode([]);

@@ -38,7 +38,7 @@
 
                     </p>
                     <a href="signup.php"><button class="btn try-it-btn pointer transition">Sign Up Now</button> </a>
-                    
+
                 </div>
 
                 <div class="img-content">
@@ -101,7 +101,8 @@
         <?php include "../shared/includes/footer.php" ?>
         <!-- End of footer -->
     </div>
-    <script src="../shared/core.js"></script>
+    <script src="../shared/core.js" type="module"></script>
+    <script src="./js/support.js" type="module"></script>
 </body>
 
 </html>

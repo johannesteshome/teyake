@@ -2,10 +2,18 @@
   include_once "../shared/includes/database.php";
   include_once "../shared/core.php";
 
+    
+
+  // var_dump($_POST);
     if(isset($_GET["inProgress"]) && $_GET["inProgress"] == "true"){
       $exam_key = $_GET["key"];
       $inprogress_email = $_POST['email'];
       var_dump($_POST);
+
+      $rec_question_row = mysqli_query($conn, "SELECT ID FROM examinee WHERE ExamKey = '".$exam_key."' AND Email = '".$inprogress_email."'");
+      
+      $row = mysqli_fetch_assoc($rec_question_row);
+      $last_id = $row["ID"];
     }
     if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
       $exam_key = $_POST["examKey"];
@@ -54,9 +62,7 @@
     $current_exam = json_encode($current_exam);
 
     echo "<p class=\"hidden\" id = \"current-exam\">".$current_exam."</p>";
-    if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
-      echo "<p class=\"hidden\" id = \"current-examinee\">".$last_id."</p>";
-    }
+    echo "<p class=\"hidden\" id = \"current-examinee\">".$last_id."</p>";
 
 ?>
 
@@ -86,6 +92,7 @@
                 </div>
                 <button id="submit-exam" type="submit" class="hidden">Submit</button>
             </form>
+            <p class="countdown">12:00</p>
         </main>
     </div>
     <div class="result hidden">
@@ -115,7 +122,7 @@
 if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
   $userData = [
     'examineeName' => $_POST["examineeName"],
-    "examineeEmail" => $_POST["examineeEmail"],
+    "email" => $_POST["examineeEmail"],
     "examineeID" => $_POST["examineeID"],
     "sex" => $_POST["sex"],
     "examKey" => $_POST["examKey"],
@@ -123,11 +130,20 @@ if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
   ];
   }else{
     $userData = [
-      "email" => $inprogress_email
+      "email" => $inprogress_email,
+      "key" => $_GET["key"],
     ];
   }
+  if (isset($_POST['answer-list'])) {
+      $answers = $_POST['answer-list'];
+  }else{
+    $answers = [];
+  }
   ?>
-const userData = <?php echo json_encode($userData) ?>
+const userData = <?php echo json_encode($userData) ?>;
+const answers = <?php echo json_encode($answers) ?>;
+</script>
+<script>
 </script>
 <script src="./js/takeexam.js" type="module"></script>
 

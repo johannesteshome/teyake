@@ -18,7 +18,7 @@ const erorrLabel = document.getElementById("errorMsg");
 const startExam = document.getElementById("startExam");
 const overlay = document.querySelector(".overlay");
 const pageContainer = document.querySelector(".container");
-
+let ansContainer;
 let inProgressExamID = null;
 
 let leaveExamWarningTimeout = null;
@@ -76,6 +76,18 @@ startExam.addEventListener("click", (evt) => {
       document.querySelector("main").classList.remove("hidden");
       showExam();
       fullScreen();
+      if (answers) {
+        ansContainer = document.querySelectorAll(".q-container");
+        if (typeof answers != Object) {
+          let ans = JSON.parse(answers);
+          console.log(typeof ans);
+          ans.forEach((answer, i) => {
+            ansContainer[i].childNodes[answer].childNodes[0].checked = true;
+            console.log(ansContainer[i]);
+            // console.log(ansContainer[i]);
+          });
+        }
+      }
     });
 });
 
@@ -245,7 +257,7 @@ document
   .querySelector("#submit-exam")
   .addEventListener("click", function (evt) {
     evt.preventDefault();
-    let ansContainer = document.querySelectorAll(".q-container");
+    ansContainer = document.querySelectorAll(".q-container");
     ansContainer.forEach((question, i) => {
       question.childNodes.forEach((choice, j) => {
         if (choice.childNodes[0].checked) {
@@ -254,10 +266,24 @@ document
       });
     });
 
+    // fetch("/teyake/public/remove-progress.php", {
+    //   method: "post",
+    //   body: JSON.stringify({
+    //     removeProgress: true,
+    //     email: userData["email"],
+    //     key: userData["key"],
+    //   }),
+    // })
+    //   .then((r) => r.json())
+    //   .then((response) => {});
+    let currExaminee = 0;
+    if (document.getElementById("current-examinee").textContent == 0) {
+    }
     const ExamAnswer = [
       student.answers,
       currentExam.key,
       document.getElementById("current-examinee").textContent,
+      userData["email"],
     ];
     console.log(ExamAnswer);
     document.getElementById("examineeAnswers").value =

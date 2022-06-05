@@ -1,5 +1,5 @@
 <!-- Header for mobile view -->
-<header class="">
+<header class="transition">
     <img src="./media/teyake_white_fill.png" class="logo" />
     <span class="menu-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"

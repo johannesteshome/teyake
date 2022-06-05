@@ -2,7 +2,6 @@
 include_once "../shared/includes/database.php";
 
 
-
 if(!isset($_GET["exam-key"])){
   header('Location: ../index.php');
 }
@@ -45,8 +44,8 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
                     <input type="text" placeholder="Name" id="student-name" name="examineeName" required
                         value="Yohannes Assefa" />
                     <input type="email" placeholder="Email" id="student-email" name="examineeEmail" required
-                        value="mail@mail.com" />
-                    <input type="text" placeholder="ID" id="student-id" name="examineeID" required value="123" />
+                        value="yohannes@mail.com" />
+                    <input type="text" placeholder="ID" id="student-id" name="examineeID" required value="0704/12" />
                     <select name="sex" id="sex">
                         <option value="" disabled>Gender</option>
                         <option value="M" selected>Male</option>
@@ -63,8 +62,7 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
                     </select>
                     <input type="text" placeholder="Section" id="student-section" name="examineeSection" maxlength="1"
                         value="D" />
-                    <input type="text" placeholder="Key" id="exam-key" name="examKey" value="<?php echo $dummy_key ?>"
-                        disabled />
+                    <input type="text" placeholder="Key" id="key" value="<?php echo $dummy_key ?>" disabled />
                     <input type="hidden" placeholder="Key" id="exam-key" name="examKey"
                         value="<?php echo $exam_key ?>" />
                     <button type="submit" id="enter-exam">Enter</button>

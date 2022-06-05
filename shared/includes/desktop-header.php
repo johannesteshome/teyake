@@ -1,5 +1,5 @@
 <!-- Header for Desktop view only above 1150px -->
-<div class="header">
+<div class="header transition">
     <div class="header-left">
         <img src="./media/images/teyake_white_fill.png" class="logo" />
         <nav>
