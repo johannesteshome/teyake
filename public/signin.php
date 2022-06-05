@@ -64,13 +64,13 @@ if($count == 0){
                 <nav>
                     <ul class="primary-nav flex">
                         <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="#">Sign Up</a></li>
+                        <li class="nav-active"><a href="signup.php">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-right flex items-center">
                 <div class="sign-in flex gap-4">
-                    <a href="signin.php"><button type="button">Sign In</button></a>
+                    <a href="signup.php"><button type="button">Sign Up</button></a>
                     <!-- <button type="button">Sign Up</button> -->
                 </div>
                 <!-- Exam Key input Section -->

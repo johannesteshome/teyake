@@ -37,7 +37,8 @@
                         below.
 
                     </p>
-                    <button class="btn try-it-btn pointer transition">Sign Up Now</button>
+                    <a href="signup.php"><button class="btn try-it-btn pointer transition">Sign Up Now</button> </a>
+                    
                 </div>
 
                 <div class="img-content">

@@ -145,7 +145,7 @@
             <div class="card-list-container">
                 <div class="card-list">
                     <div class="card">
-                        <img src="media/home/tools.png" alt="Educational tools illustration" class="card-img" />
+                        <img src="public/media/home/tools.png" alt="Educational tools illustration" class="card-img" />
                         <h2 class="card-title">Everything you need</h2>
                         <p class="card-text">
                             Create comprehensive exams with powerful tools that are easy to
@@ -171,7 +171,8 @@
                         </p>
                     </div>
                 </div>
-                <button class="btn card-list-btn">How it works</button>
+                <a href="public/support.php"><button class="btn card-list-btn" onclick="">How it works</button></a>
+                
             </div>
             <!-- End of card list -->
             <div class="credits" id="testimonals">

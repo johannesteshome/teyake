@@ -62,7 +62,7 @@ header('Location: email-verification.php?email='.$newTeacher->email);
                 <nav>
                     <ul class="primary-nav flex">
                         <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="#">Sign Up</a></li>
+                        <li class="nav-active"><a href="signin.php">Sign In</a></li>
                     </ul>
                 </nav>
             </div>
