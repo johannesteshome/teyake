@@ -15,6 +15,7 @@ const finishExam = document.querySelector("#finish-exam");
 const warningModal = document.querySelector("#warning-modal");
 const remainingSeconds = document.querySelector("#remainingSeconds");
 const erorrLabel = document.getElementById("errorMsg");
+const inProgressLink = document.getElementById("in-progress-link");
 
 let studKey = "-1";
 if (!!localStorage.getItem("studKey")) {
@@ -55,4 +56,10 @@ enterBtn.addEventListener("click", function (evt) {
     return;
   }
   document.forms[0].submit();
+});
+inProgressLink.addEventListener("click", () => {
+  document.querySelector(".in-progress-window").classList.remove("hidden");
+});
+document.querySelector(".overlay").addEventListener("click", () => {
+  document.querySelector(".in-progress-window").classList.add("hidden");
 });

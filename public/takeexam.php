@@ -74,52 +74,65 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Take Exam</title>
-  <link rel="stylesheet" href="css/style-reset.css" />
-  <link rel="stylesheet" href="css/takeexam.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Take Exam</title>
+    <link rel="stylesheet" href="css/style-reset.css" />
+    <link rel="stylesheet" href="css/takeexam.css" />
 </head>
 
 <body>
-    <div class="overlay"> 
-      <button type = "button" id="startExam">Start Exam</button>
+    <div class="overlay">
+        <button type="button" id="startExam">Start Exam</button>
     </div>
-  <div class="container blur">
-    <main class="hidden">
-     <form action="mark-exam.php" method="post">
-     <div class="exam-container">
-        
-        <input type="hidden" name="examineeAnswers" id="examineeAnswers">
-  
+    <div class="container blur">
+        <main class="hidden">
+            <form action="mark-exam.php" method="post">
+                <div class="exam-container">
+
+                    <input type="hidden" name="examineeAnswers" id="examineeAnswers">
+
+                </div>
+                <button id="submit-exam" type="submit" class="hidden">Submit</button>
+            </form>
+        </main>
+    </div>
+    <div class="result hidden">
+        <div class="result-box flex flex-col items-center justify-center">
+            <h2 class="text-center" id="result-student-name">Student Name</h2>
+            <h3 class="text-center" id="result-exam-name">Exam name</h3>
+            <p>You scored <span id="score">6</span>/<span id="result-max">10</span> </p>
+            <a href="../index.php" id="finish-exam"><button>Done</button></a>
         </div>
-        <button id="submit-exam" type="submit" class="hidden">Submit</button>
-     </form>
-    </main>
-  </div>
-  <div class="result hidden">
-    <div class="result-box flex flex-col items-center justify-center">
-      <h2 class="text-center" id="result-student-name">Student Name</h2>
-      <h3 class="text-center" id="result-exam-name">Exam name</h3>
-      <p>You scored <span id="score">6</span>/<span id="result-max">10</span> </p>
-      <a href="../index.php" id="finish-exam"><button>Done</button></a>
     </div>
-  </div>
 
-  <div class="warning-modal hidden" id="warning-modal">
-    <div class="warning-modal-content">
-      <h2>You're not allowed to leave fullscreen mode!</h2>
+    <div class="warning-modal hidden" id="warning-modal">
+        <div class="warning-modal-content">
+            <h2>You're not allowed to leave fullscreen mode!</h2>
 
-      <p>Go back to fullscreen mode in <span id="remainingSeconds">0</span> or your test will be disqualified.</p>
+            <p>Go back to fullscreen mode in <span id="remainingSeconds">0</span> or your test will be disqualified.</p>
 
-      <p class="warning-btns">
-        <button type="button" id="back-to-exam">Back to Exam</button>
-        <button type="button" id="exit-exam">Exit Anyways</button>
-          </p>
-      </div>
+            <p class="warning-btns">
+                <button type="button" id="back-to-exam">Back to Exam</button>
+                <button type="button" id="exit-exam">Exit Anyways</button>
+            </p>
+        </div>
     </div>
-  </body>
-  <script src="./js/takeexam.js" type="module"></script>
+</body>
+<script>
+<?php
+  $userData = [
+    'examineeName' => $_POST["examineeName"],
+    "examineeEmail" => $_POST["examineeEmail"],
+    "examineeID" => $_POST["examineeID"],
+    "sex" => $_POST["sex"],
+    "examKey" => $_POST["examKey"],
+    "examineeSection" => $_POST["examineeSection"],
+  ]
+  ?>
+const userData = <?php echo json_encode($userData) ?>
+</script>
+<script src="./js/takeexam.js" type="module"></script>
 
 </html>
