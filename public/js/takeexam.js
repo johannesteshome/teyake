@@ -65,6 +65,7 @@ startExam.addEventListener("click", (evt) => {
   })
     .then((r) => r.json())
     .then((response) => {
+      console.log(response);
       inProgressExamID = response.id;
 
       console.log(JSON.stringify(allExams[0]));

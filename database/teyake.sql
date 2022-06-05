@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2022 at 10:14 AM
+-- Generation Time: Jun 05, 2022 at 01:00 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -38,7 +38,9 @@ CREATE TABLE `answer` (
 --
 
 INSERT INTO `answer` (`ID`, `ExamKey`, `AnswerList`) VALUES
-(4, 'NDAX8', '[1]');
+(8, 'BIVke', '[3,2,1]'),
+(9, 'beEit', '[3,1]'),
+(10, 'WQusP', '[1,3,1]');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,9 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`Name`, `CourseID`, `ExamKey`, `QuestionID`, `AnswerID`, `ExaminerID`, `Status`, `Duration`, `Date`) VALUES
-('test', NULL, 'NDAX8', 9, 4, 1, 'open', 12, '2026-05-22');
+('Test 2', NULL, 'beEit', 14, 9, 1, 'open', 15, '2003-06-22'),
+('Exam1', NULL, 'BIVke', 13, 8, 1, 'open', 30, '2003-06-22'),
+('New Test', NULL, 'WQusP', 15, 10, 1, 'open', 20, '2003-06-22');
 
 -- --------------------------------------------------------
 
@@ -108,6 +112,20 @@ CREATE TABLE `examinee` (
   `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `SchoolID` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `examinee`
+--
+
+INSERT INTO `examinee` (`ID`, `FullName`, `Email`, `Section`, `DeptID`, `InstID`, `ExamKey`, `Sex`, `Score`, `AnswerList`, `SchoolID`) VALUES
+(55, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 2, '[3,1]', '123'),
+(60, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 1, '[1,1]', '123'),
+(61, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 0, '[]', '123'),
+(92, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 1, '[1,1]', '123'),
+(111, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
+(112, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
+(113, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
+(114, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123');
 
 -- --------------------------------------------------------
 
@@ -133,8 +151,31 @@ CREATE TABLE `examiner` (
 --
 
 INSERT INTO `examiner` (`ID`, `FullName`, `Email`, `Password`, `Sex`, `DeptID`, `InstID`, `PhoneNo`, `ImageURL`, `verified`) VALUES
-(1, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$xw5lPmWnGLK3GePi98To4.iRmfB527q6QPhpkr4EboINC/nzk0xGW', 'M', NULL, NULL, 912121212, NULL, 1),
-(5, 'Shewe Yefetene', 'assefayohannes123@gmail.com', '$2y$10$SE8u0P6OT54bx3WS.MaSUOKdjBc0Koja83bR0c.UkbexVqzlqT9Uy', 'M', NULL, NULL, 912121212, NULL, 1);
+(1, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$58j0zYP0/TkLtiSg0Sji6eltxiir6KZ1DinHbh8NExEbPCHfOCD2G', 'M', NULL, NULL, 912121212, NULL, 1),
+(5, 'Shewe Yefetene', 'assefayohannes123@gmail.com', '$2y$10$SE8u0P6OT54bx3WS.MaSUOKdjBc0Koja83bR0c.UkbexVqzlqT9Uy', 'M', NULL, NULL, 912121212, NULL, 1),
+(6, 'Shewe seks', 'assefayohannes5@gmail.com', '$2y$10$7WL3F50MN0q/s88aQhxDeeY7MKSH86a5pZK.4yjWwKNuTgIpOfHkO', 'M', NULL, NULL, 912121212, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inprogressexams`
+--
+
+CREATE TABLE `inprogressexams` (
+  `id` int(11) NOT NULL,
+  `Email` varchar(60) NOT NULL,
+  `ExamKey` varchar(5) NOT NULL,
+  `AnswerList` longtext NOT NULL,
+  `EndTime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inprogressexams`
+--
+
+INSERT INTO `inprogressexams` (`id`, `Email`, `ExamKey`, `AnswerList`, `EndTime`) VALUES
+(33, '123', 'beEit', '0', '2022-06-05 12:37:32'),
+(34, 'mail@mail.com', 'beEit', '[1,1]', '2022-06-05 14:11:18');
 
 -- --------------------------------------------------------
 
@@ -175,7 +216,9 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`ID`, `ExamKey`, `QuestionList`) VALUES
-(9, 'NDAX8', '[[\"alstkdfa\",\"asdg\",\"asdga\",null,null,null]]');
+(13, 'BIVke', '[[\"What is X?\",\"12\",\"55\",\"76\",null,null],[\"This is the what. you know?\",\"Yes\",\"No\",null,null,null],[\"Final one, Are you on?\",\"Fo Sho!\",\"Heeeell Nah\",null,null,null]]'),
+(14, 'beEit', '[[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",null,null],[\"Applebeans\",\"Based\",\"Cap\",null,null,null]]'),
+(15, 'WQusP', '[[\"Test the what?\",\"Big Yes\",\"Nah fam\",null,null,null],[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",null,null],[\"Applebeans\",\"Based\",\"Cap\",null,null,null]]');
 
 --
 -- Indexes for dumped tables
@@ -229,6 +272,12 @@ ALTER TABLE `examiner`
   ADD KEY `examiner_inst_id` (`InstID`);
 
 --
+-- Indexes for table `inprogressexams`
+--
+ALTER TABLE `inprogressexams`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `institution`
 --
 ALTER TABLE `institution`
@@ -249,7 +298,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -267,13 +316,19 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `examinee`
 --
 ALTER TABLE `examinee`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `examiner`
 --
 ALTER TABLE `examiner`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `inprogressexams`
+--
+ALTER TABLE `inprogressexams`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `institution`
@@ -285,7 +340,7 @@ ALTER TABLE `institution`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
