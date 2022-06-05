@@ -64,7 +64,7 @@ if($count == 0){
                 <nav>
                     <ul class="primary-nav flex">
                         <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="signin.php">Sign In</a></li>
+                        <li class="nav-active"><a href="signup.php">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>

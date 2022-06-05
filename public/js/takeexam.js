@@ -18,6 +18,8 @@ const erorrLabel = document.getElementById("errorMsg");
 const startExam = document.getElementById("startExam");
 const overlay = document.querySelector(".overlay");
 const pageContainer = document.querySelector(".container");
+let ansContainer;
+let inProgressExamID = null;
 
 let leaveExamWarningTimeout = null;
 let warningTimerInterval = null;
@@ -51,27 +53,43 @@ if (!!localStorage.getItem("teachers")) {
 let student = new Student();
 let currentExam;
 
-function fullScreen(){
-  document.documentElement.requestFullscreen();
+function fullScreen() {
+  // document.documentElement.requestFullscreen();
   pageContainer.classList.remove("blur");
   overlay.classList.add("hidden");
-
 }
-startExam.addEventListener("click", (evt)=>{
-  console.log(currentExam);
-  console.log(JSON.stringify(allExams[0]));
-  
-  currentExam = JSON.parse(document.getElementById("current-exam").textContent);
-  console.log(currentExam);
-  document.querySelector("#submit-exam").classList.remove("hidden");
-  document.querySelector("main").classList.remove("hidden");
-  showExam();
-  fullScreen();
+startExam.addEventListener("click", (evt) => {
+  fetch("/teyake/public/exam-progress.php", {
+    method: "post",
+    body: JSON.stringify({ ...userData, addEntry: true }),
+  })
+    .then((r) => r.json())
+    .then((response) => {
+      console.log(response);
+      inProgressExamID = response.id;
+
+      console.log(JSON.stringify(allExams[0]));
+      currentExam = JSON.parse(
+        document.getElementById("current-exam").textContent
+      );
+      document.querySelector("#submit-exam").classList.remove("hidden");
+      document.querySelector("main").classList.remove("hidden");
+      showExam();
+      fullScreen();
+      if (answers) {
+        ansContainer = document.querySelectorAll(".q-container");
+        if (typeof answers != Object) {
+          let ans = JSON.parse(answers);
+          console.log(typeof ans);
+          ans.forEach((answer, i) => {
+            ansContainer[i].childNodes[answer].childNodes[0].checked = true;
+            console.log(ansContainer[i]);
+            // console.log(ansContainer[i]);
+          });
+        }
+      }
+    });
 });
-
-
-
-
 
 // enterBtn.addEventListener("click", function (evt) {
 //   evt.preventDefault();
@@ -125,55 +143,55 @@ startExam.addEventListener("click", (evt)=>{
 //   }
 // });
 
-document.querySelector("#back-to-exam").addEventListener("click", function () {
-  document.documentElement.requestFullscreen();
-});
+// document.querySelector("#back-to-exam").addEventListener("click", function () {
+//   document.documentElement.requestFullscreen();
+// });
 
-document.querySelector("#exit-exam").addEventListener("click", exitExam);
+// document.querySelector("#exit-exam").addEventListener("click", exitExam);
 
-function exitExam() {
-  hideModal();
-  console.log("exitting Exam");
-  document.querySelector("#submit-exam").click();
-  clearTimers();
-}
+// function exitExam() {
+//   hideModal();
+//   console.log("exitting Exam");
+//   document.querySelector("#submit-exam").click();
+//   clearTimers();
+// }
 
-function hideModal() {
-  warningModal.classList.add("hidden");
-}
+// function hideModal() {
+//   warningModal.classList.add("hidden");
+// }
 
-function showModal() {
-  warningModal.classList.remove("hidden");
-}
+// function showModal() {
+//   warningModal.classList.remove("hidden");
+// }
 
-function clearTimers() {
-  if (leaveExamWarningTimeout) {
-    clearTimeout(leaveExamWarningTimeout);
-  }
-  if (warningTimerInterval) {
-    clearInterval(warningTimerInterval);
-  }
-}
+// function clearTimers() {
+//   if (leaveExamWarningTimeout) {
+//     clearTimeout(leaveExamWarningTimeout);
+//   }
+//   if (warningTimerInterval) {
+//     clearInterval(warningTimerInterval);
+//   }
+// }
 
 function showExam() {
-    document.addEventListener("fullscreenchange", (event) => {
-      if (document.fullscreenElement) {
-        clearTimers();
-        warningSeconds = 11;
-        hideModal();
-      } else {
-        console.log("not full screen");
-        remainingSeconds.textContent = 10;
-        showModal();
-        leaveExamWarningTimeout = setTimeout(() => {
-          exitExam();
-        }, warningSeconds * 1000);
-        warningTimerInterval = setInterval(() => {
-          warningSeconds--;
-          remainingSeconds.textContent = warningSeconds;
-        }, 1000);
-      }
-    });
+  document.addEventListener("fullscreenchange", (event) => {
+    if (document.fullscreenElement) {
+      clearTimers();
+      warningSeconds = 11;
+      hideModal();
+    } else {
+      console.log("not full screen");
+      remainingSeconds.textContent = 10;
+      showModal();
+      leaveExamWarningTimeout = setTimeout(() => {
+        exitExam();
+      }, warningSeconds * 1000);
+      warningTimerInterval = setInterval(() => {
+        warningSeconds--;
+        remainingSeconds.textContent = warningSeconds;
+      }, 1000);
+    }
+  });
 
   let examTitle = document.createElement("h1");
   examTitle.textContent = currentExam.name;
@@ -201,6 +219,28 @@ function showExam() {
         question[j]
       }`;
 
+      choice.addEventListener("input", function (evt) {
+        const answers = [];
+
+        let ansContainer = document.querySelectorAll(".q-container");
+        ansContainer.forEach((question, i) => {
+          question.childNodes.forEach((choice, j) => {
+            if (choice.childNodes[0].checked) {
+              answers[i] = j;
+            }
+          });
+        });
+
+        fetch("/teyake/public/exam-progress.php", {
+          method: "post",
+          body: JSON.stringify({
+            examId: inProgressExamID,
+            answers,
+            trackProgress: true,
+          }),
+        });
+      });
+
       choiceContainer.appendChild(choice);
       choiceContainer.appendChild(choiceText);
       // console.log(choiceContainer);
@@ -213,25 +253,45 @@ function showExam() {
   console.log(student);
 }
 
-document.querySelector("#submit-exam").addEventListener("click", function (evt) {
-  evt.preventDefault();
-  let ansContainer = document.querySelectorAll(".q-container");
-  ansContainer.forEach((question, i) => {
-    question.childNodes.forEach((choice, j) => {
-      if (choice.childNodes[0].checked) {
-        student.answers[i] = j;
-      }
+document
+  .querySelector("#submit-exam")
+  .addEventListener("click", function (evt) {
+    evt.preventDefault();
+    ansContainer = document.querySelectorAll(".q-container");
+    ansContainer.forEach((question, i) => {
+      question.childNodes.forEach((choice, j) => {
+        if (choice.childNodes[0].checked) {
+          student.answers[i] = j;
+        }
+      });
     });
+
+    // fetch("/teyake/public/remove-progress.php", {
+    //   method: "post",
+    //   body: JSON.stringify({
+    //     removeProgress: true,
+    //     email: userData["email"],
+    //     key: userData["key"],
+    //   }),
+    // })
+    //   .then((r) => r.json())
+    //   .then((response) => {});
+    let currExaminee = 0;
+    if (document.getElementById("current-examinee").textContent == 0) {
+    }
+    const ExamAnswer = [
+      student.answers,
+      currentExam.key,
+      document.getElementById("current-examinee").textContent,
+      userData["email"],
+    ];
+    console.log(ExamAnswer);
+    document.getElementById("examineeAnswers").value =
+      JSON.stringify(ExamAnswer);
+    document.forms[0].submit();
+    // showResult();
+    // student = null;
   });
-
-  const ExamAnswer = [student.answers, currentExam.key, document.getElementById("current-examinee").textContent];
-  console.log(ExamAnswer)
-  document.getElementById("examineeAnswers").value = JSON.stringify(ExamAnswer);
-  document.forms[0].submit();
-  // showResult();
-  // student = null;
-
-});
 // function showResult() {
 //   document.querySelector(".result").classList.remove("hidden");
 //   resultStudName.textContent = student.name;

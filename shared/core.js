@@ -1,5 +1,4 @@
 // Declaring the classes for use across the site.
-
 class Student {
   constructor(name, id, email, examkey) {
     this.name = name;

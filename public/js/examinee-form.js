@@ -14,7 +14,10 @@ const resultMax = document.querySelector("#result-max");
 const finishExam = document.querySelector("#finish-exam");
 const warningModal = document.querySelector("#warning-modal");
 const remainingSeconds = document.querySelector("#remainingSeconds");
-const erorrLabel = document.getElementById("errorMsg");
+const errorLabel = document.getElementById("errorMsg");
+const inProgressLink = document.getElementById("in-progress-link");
+const institutionSelect = document.getElementById("institution");
+const sexSelect = document.getElementById("sex");
 
 let studKey = "-1";
 if (!!localStorage.getItem("studKey")) {
@@ -24,7 +27,6 @@ if (!!localStorage.getItem("studKey")) {
 if (studKey != "-1") {
   document.querySelector("#exam-key").value = studKey;
 }
-let student = new Student();
 
 enterBtn.addEventListener("click", function (evt) {
   evt.preventDefault();
@@ -34,14 +36,24 @@ enterBtn.addEventListener("click", function (evt) {
   const namePattern = new RegExp(/^\w+.[ ]\w+.$/);
 
   if (!emailPattern.test(studEmail.value)) {
-    erorrLabel.innerText = "Invalid Email Address.";
+    errorLabel.innerText = "Invalid Email Address.";
     studEmail.focus();
     return;
   }
 
   if (!namePattern.test(studName.value)) {
-    erorrLabel.innerText = "Invalid Full Name";
+    errorLabel.innerText = "Invalid Full Name";
     studName.focus();
+    return;
+  }
+
+  if (sexSelect.value === "") {
+    errorLabel.innerText = "Please select a Gender";
+    return;
+  }
+
+  if (institutionSelect.value === "") {
+    errorLabel.innerText = "Please select an Institution";
     return;
   }
 
@@ -51,8 +63,35 @@ enterBtn.addEventListener("click", function (evt) {
     studEmail.value == "" ||
     studID.value == ""
   ) {
-    erorrLabel.innerText = "Empty Fields";
+    errorLabel.innerText = "Empty Fields";
     return;
   }
-  document.forms[0].submit();
+
+  fetch("/teyake/public/check-existing-examinee.php", {
+    method: "post",
+    body: JSON.stringify({ email: studEmail.value, examKey: inputKey.value }),
+  })
+    .then((r) => r.json())
+    .then((response) => {
+      if (response) {
+        errorLabel.innerText = "You cannot enter this exam";
+      } else {
+        document.forms[0].submit();
+        // console.log(entering);
+      }
+    });
+});
+inProgressLink.addEventListener("click", () => {
+  document.querySelector(".in-progress-window").classList.remove("hidden");
+});
+
+let isShowingOverlay = false;
+document.querySelector(".overlay").addEventListener("click", () => {
+  isShowingOverlay = true;
+  document.querySelector(".in-progress-window").classList.add("hidden");
+});
+window.addEventListener("keydown", (evt) => {
+  if (evt.key == "Escape" && isShowingOverlay) {
+    document.querySelector(".in-progress-window").classList.add("hidden");
+  }
 });
