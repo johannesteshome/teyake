@@ -41,7 +41,7 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
         <div class="modal">
             <div class="modal-content">
                 <h1 style="text-align: center">Enter Exam</h1>
-                <form action="takeexam.php" method="POST" class="flex flex-col gap-4 examinee-form">
+                <form action="takeexam.php?new-exam=true" method="POST" class="flex flex-col gap-4 examinee-form">
                     <input type="text" placeholder="Name" id="student-name" name="examineeName" required
                         value="Yohannes Assefa" />
                     <input type="email" placeholder="Email" id="student-email" name="examineeEmail" required
@@ -76,9 +76,10 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
         <div class="in-progress-window hidden">
             <div class="overlay"></div>
             <div class="in-progress-modal">
-                <h3 class="text-center">Enter your ID</h3>
+                <h3 class="text-center">Enter your Email</h3>
                 <form action="in-progress.php" method="POST">
-                    <input type=" text" name="examineeID">
+                    <input type=" text" name="email" placeholder="Email">
+                    <input type="hidden" name="key" value="<?php echo $exam_key ?>">
                     <button type="submit">Go</button>
                 </form>
             </div>
