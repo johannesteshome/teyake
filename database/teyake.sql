@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2022 at 07:44 PM
+-- Generation Time: Jun 06, 2022 at 08:23 PM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,6 +55,20 @@ CREATE TABLE `course` (
   `DeptID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`ID`, `Name`, `DeptID`) VALUES
+(1, 'Internet Programming', 2),
+(2, 'Advanced Programming', 2),
+(3, 'Data Structure', 2),
+(4, 'Computer Architecture', 2),
+(5, 'Software requirement', 2),
+(6, 'Introduction to programming', 2),
+(7, 'Discrete Mathematics', 2),
+(8, 'Dynamics', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -63,9 +77,21 @@ CREATE TABLE `course` (
 
 CREATE TABLE `department` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(30) NOT NULL,
-  `InstID` int(11) NOT NULL
+  `Name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`ID`, `Name`) VALUES
+(2, 'Software Engineering'),
+(3, 'Electrical engineering'),
+(8, 'Mechanical Engineering'),
+(9, 'Architecture'),
+(10, 'Electro-Mechanical Engineering'),
+(11, 'Civil Engineering'),
+(12, 'Food Engineering');
 
 -- --------------------------------------------------------
 
@@ -231,8 +257,7 @@ ALTER TABLE `course`
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `dept_inst_id` (`InstID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `exam`
@@ -293,13 +318,13 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `examinee`
@@ -346,12 +371,6 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `course`
   ADD CONSTRAINT `course_dept_id` FOREIGN KEY (`DeptID`) REFERENCES `department` (`ID`);
-
---
--- Constraints for table `department`
---
-ALTER TABLE `department`
-  ADD CONSTRAINT `dept_inst_id` FOREIGN KEY (`InstID`) REFERENCES `institution` (`ID`);
 
 --
 -- Constraints for table `exam`

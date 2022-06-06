@@ -66,11 +66,15 @@
   max-width: 15rem;
 }
 
-#institution {
-  margin-bottom: 1rem;
+#institution,
+#department,
+#course {
+  margin-block: 1rem;
+  min-width: 30%;
 }
 
-#save-edit-btn {
+#save-edit-btn,
+#back-btn {
   align-self: center;
 }
 
@@ -101,4 +105,42 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+}
+.btns-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+label {
+  min-width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.in-progress-modal {
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 100;
+  padding: 2rem;
+}
+
+.in-progress-modal h3 {
+  margin-bottom: 1rem;
+}
+.in-progress-modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.in-progress-modal form * {
+  width: 90%;
 }

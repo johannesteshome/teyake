@@ -1,19 +1,16 @@
 <?php
-
- 
         session_start();
-
         if($_SESSION['login'] != 'ok'){
           header("Location: signin.php");
         }
 
         $conn= mysqli_connect("localhost","root",'',"teyake");// create a connection to database
         $user_id = $_SESSION['id'];
-        $sql_email = "SELECT Email FROM examiner WHERE id =$user_id";
-$result = mysqli_query($conn, $sql_email);
-$row = mysqli_fetch_assoc($result);
-$user_email = $row['Email'];
-$user_email_dir = str_replace(".", "_", $user_email);
+        $sql_email = "SELECT * FROM examiner WHERE id =$user_id";
+        $result = mysqli_query($conn, $sql_email);
+        $row = mysqli_fetch_assoc($result);
+        $user_email = $row['Email'];
+        $user_email_dir = str_replace(".", "_", $user_email);
 
 if(isset($_POST['upload'])){
 
@@ -38,6 +35,7 @@ if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $target)){
 
 }
       
+
 
 $user_id = $_SESSION['id'];
 
@@ -84,7 +82,7 @@ $image_url = $row['ImageURL'];
     <div class="container">
         <div class="box">
             <h2 id="head">My Profile</h2>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
                 <div class="paded">
                     <div class="profile-pic">
                         <label for="confirm" class="profile-pic-label" style="cursor: pointer;">
@@ -103,28 +101,57 @@ $image_url = $row['ImageURL'];
                         </label>
                     </div>
                     <label for="name">Name </label>
-                    <input type="text" name="name" id="name" class="text" />
-
-
-                    <label for="name">Username </label>
-                    <input type="text" name="name" id="username" class="text" />
+                    <input type="text" name="name" id="name" class="text" value="<?php echo $row["FullName"] ?>" />
 
 
                     <label for="phone">Phone Number </label>
-                    <input type="tel" name="name" id="phone" class="text" />
+                    <input type="tel" name="name" id="phone" class="text" value="<?php echo $row["PhoneNo"] ?>" />
 
 
                     <label for="email">Email </label>
-                    <input type="email" name="email" id="email" class="text" placeholder="Email" min="6" max="32" />
+                    <input type="email" name="email" id="email" class="text" placeholder="Email" min="6" max="32"
+                        value="<?php echo $row["Email"] ?>" />
 
-                    <label for="institution">Institution </label>
-                    <label for="course">Course</label>
-                    <label for="institution">Institution </label>
-                    <input type="text" name="institution" id="institution" class="text" />
+                    <div for="institution">Institution
+                        <select name="institution" id="institution">
+                            <option value="" disabled>Select an Institution</option>
+                            <?php 
+                            $retrieve_institution_query = "SELECT Name, ID FROM institution";
+                            $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);                            
+                                while($row = mysqli_fetch_assoc($retrieve_institution_result)){
+                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                }
+                                ?>
+                        </select>
+                    </div>
+                    <div for="department">Department
+                        <select name="department" id="department">
+                            <option value="" disabled>Select a Department</option>
+                            <?php 
+                            $retrieve_department_query = "SELECT Name, ID FROM department";
+                            $retrieve_department_result = mysqli_query($conn, $retrieve_department_query);                            
+                                while($row = mysqli_fetch_assoc($retrieve_department_result)){
+                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                }
+                                ?>
+                        </select>
+                        <button type="button" id="add-new-dep">Add New</button>
+                    </div>
+                    <div for="course">Course
+                        <select name="course" id="course">
+                            <option value="" disabled>Select a Course</option>
+                            <?php 
+                            $retrieve_course_query = "SELECT Name, ID FROM course";
+                            $retrieve_course_result = mysqli_query($conn, $retrieve_course_query);                            
+                                while($row = mysqli_fetch_assoc($retrieve_course_result)){
+                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                }
+                                ?>
+                        </select>
+                        <button type="button" id="add-new-course">Add New</button>
+                    </div>
 
                     <p id="errorMsg"></p>
-
-
 
                     <div class="password-container">
                         <label for="password">Password</label>
@@ -132,7 +159,7 @@ $image_url = $row['ImageURL'];
                         <div class="password-changer">
                             <label for="password">Previous Password:</label>
                             <input type="password" class="text" name="pass" id="prev-password-input"
-                                placeholder="Input Previous Password" />
+                                placeholder="Input Previous Password" autocomplete="off" />
                             <label for="password">Password:</label>
                             <input type="password" class="text" name="pass" id="password-input"
                                 placeholder="Input New Password" />
@@ -140,22 +167,42 @@ $image_url = $row['ImageURL'];
                             <label for="comfirm">Confirm Password:</label>
                             <input type="password" class="text" name="comfirm" id="comfirm-password"
                                 placeholder="Comfirm Entered Password" />
-
+                            <button type="button" id="save-pass">Save Password</button>
                             <p id="PasserrorMsg"></p>
                             <!-- <input type="button" name="password" id="save-pass" class="btn" value="Save" /> -->
                         </div>
                     </div>
-
-
-
-                    <button type="submit" name="upload" id="save-edit-btn" class="btn">Save</button>
-
-
+                    <div class="btns-container">
+                        <button type="submit" name="upload" id="save-edit-btn" class="btn">Save</button>
+                        <button type="button" id="back-btn" class="btn">Back</button>
+                    </div>
                 </div>
             </form>
-
+            <div class="add-dep-window hidden">
+                <div class="overlay"></div>
+                <div class="in-progress-modal">
+                    <h3 class="text-center">Enter the Department</h3>
+                    <form action="">
+                        <input type=" text" name="department" placeholder="Department" id="dep-input">
+                        <button type="button" id="add-dep">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="add-course-window hidden">
+                <div class="overlay"></div>
+                <div class="in-progress-modal">
+                    <h3 class="text-center">Enter the Course</h3>
+                    <form action="">
+                        <input type=" text" name="course" placeholder="Course" id="course-input">
+                        <button type="button" id="add-course">Add</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+    const userID = <?php echo $user_id?>
+    </script>
 </body>
 
 </html>

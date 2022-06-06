@@ -44,11 +44,13 @@ body {
 }
 .in-progress-modal form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .in-progress-modal form * {
-  width: 90%;
+  display: block;
+  width: 100%;
 }
 
 .examinee-form input {

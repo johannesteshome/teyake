@@ -104,6 +104,13 @@
                             <p class="text-primary">Front-end Developer</p>
                         </div>
                     </div>
+                    <div class="team-member flex flex-col">
+                        <div class="img-team-mb"></div>
+                        <div class="card-txt-container">
+                            <h3 class="text-secondary">Yohannes Abebe</h3>
+                            <p class="text-primary">Front-end Developer</p>
+                        </div>
+                    </div>
 
 
                 </div>

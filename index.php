@@ -75,7 +75,6 @@
                         <li class="nav-active"><a href="#">Home</a></li>
                         <li><a href="./public/support.php">How it Works</a></li>
                         <li><a href="./public/about_us.php">About Us</a></li>
-
                     </ul>
                 </nav>
             </div>
