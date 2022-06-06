@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2022 at 01:00 PM
+-- Generation Time: Jun 06, 2022 at 07:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -40,7 +40,8 @@ CREATE TABLE `answer` (
 INSERT INTO `answer` (`ID`, `ExamKey`, `AnswerList`) VALUES
 (8, 'BIVke', '[3,2,1]'),
 (9, 'beEit', '[3,1]'),
-(10, 'WQusP', '[1,3,1]');
+(10, 'WQusP', '[1,3,1]'),
+(11, 'duuAM', '[1,4]');
 
 -- --------------------------------------------------------
 
@@ -89,8 +90,9 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`Name`, `CourseID`, `ExamKey`, `QuestionID`, `AnswerID`, `ExaminerID`, `Status`, `Duration`, `Date`) VALUES
-('Test 2', NULL, 'beEit', 14, 9, 1, 'open', 15, '2003-06-22'),
+('Test 2', NULL, 'beEit', 14, 9, 1, 'close', 30, '2003-06-22'),
 ('Exam1', NULL, 'BIVke', 13, 8, 1, 'open', 30, '2003-06-22'),
+('The Then Them', NULL, 'duuAM', 16, 11, 1, 'open', 40, '2006-06-22'),
 ('New Test', NULL, 'WQusP', 15, 10, 1, 'open', 20, '2003-06-22');
 
 -- --------------------------------------------------------
@@ -108,8 +110,8 @@ CREATE TABLE `examinee` (
   `InstID` int(11) DEFAULT NULL,
   `ExamKey` varchar(25) NOT NULL,
   `Sex` char(1) NOT NULL,
-  `Score` float DEFAULT NULL,
-  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `Score` float DEFAULT 0,
+  `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '[]',
   `SchoolID` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -118,14 +120,8 @@ CREATE TABLE `examinee` (
 --
 
 INSERT INTO `examinee` (`ID`, `FullName`, `Email`, `Section`, `DeptID`, `InstID`, `ExamKey`, `Sex`, `Score`, `AnswerList`, `SchoolID`) VALUES
-(55, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 2, '[3,1]', '123'),
-(60, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 1, '[1,1]', '123'),
-(61, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 0, '[]', '123'),
-(92, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', 1, '[1,1]', '123'),
-(111, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
-(112, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
-(113, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123'),
-(114, 'Yohannes Assefa', 'mail@mail.com', 'D', NULL, 1, 'beEit', 'M', NULL, NULL, '123');
+(174, 'Yohannes Assefa', 'yohannes@mail.com', 'D', NULL, 1, 'BIVke', 'M', 1, '[null,2,2]', '0704/12'),
+(175, 'Yohannes Assefa', 'yohannes@mail.com', 'D', NULL, 1, 'beEit', 'M', 1, '[3,2]', '0704/12');
 
 -- --------------------------------------------------------
 
@@ -151,7 +147,7 @@ CREATE TABLE `examiner` (
 --
 
 INSERT INTO `examiner` (`ID`, `FullName`, `Email`, `Password`, `Sex`, `DeptID`, `InstID`, `PhoneNo`, `ImageURL`, `verified`) VALUES
-(1, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$58j0zYP0/TkLtiSg0Sji6eltxiir6KZ1DinHbh8NExEbPCHfOCD2G', 'M', NULL, NULL, 912121212, NULL, 1),
+(1, 'Yohannes Assefa', 'yoniassefayoni@gmail.com', '$2y$10$58j0zYP0/TkLtiSg0Sji6eltxiir6KZ1DinHbh8NExEbPCHfOCD2G', 'M', NULL, NULL, 912121212, 'yoniassefayoni@gmail.com1654535862.png', 1),
 (5, 'Shewe Yefetene', 'assefayohannes123@gmail.com', '$2y$10$SE8u0P6OT54bx3WS.MaSUOKdjBc0Koja83bR0c.UkbexVqzlqT9Uy', 'M', NULL, NULL, 912121212, NULL, 1),
 (6, 'Shewe seks', 'assefayohannes5@gmail.com', '$2y$10$7WL3F50MN0q/s88aQhxDeeY7MKSH86a5pZK.4yjWwKNuTgIpOfHkO', 'M', NULL, NULL, 912121212, NULL, 0);
 
@@ -168,14 +164,6 @@ CREATE TABLE `inprogressexams` (
   `AnswerList` longtext NOT NULL,
   `EndTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `inprogressexams`
---
-
-INSERT INTO `inprogressexams` (`id`, `Email`, `ExamKey`, `AnswerList`, `EndTime`) VALUES
-(33, '123', 'beEit', '0', '2022-06-05 12:37:32'),
-(34, 'mail@mail.com', 'beEit', '[1,1]', '2022-06-05 14:11:18');
 
 -- --------------------------------------------------------
 
@@ -218,7 +206,8 @@ CREATE TABLE `question` (
 INSERT INTO `question` (`ID`, `ExamKey`, `QuestionList`) VALUES
 (13, 'BIVke', '[[\"What is X?\",\"12\",\"55\",\"76\",null,null],[\"This is the what. you know?\",\"Yes\",\"No\",null,null,null],[\"Final one, Are you on?\",\"Fo Sho!\",\"Heeeell Nah\",null,null,null]]'),
 (14, 'beEit', '[[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",null,null],[\"Applebeans\",\"Based\",\"Cap\",null,null,null]]'),
-(15, 'WQusP', '[[\"Test the what?\",\"Big Yes\",\"Nah fam\",null,null,null],[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",null,null],[\"Applebeans\",\"Based\",\"Cap\",null,null,null]]');
+(15, 'WQusP', '[[\"Test the what?\",\"Big Yes\",\"Nah fam\",null,null,null],[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",null,null],[\"Applebeans\",\"Based\",\"Cap\",null,null,null]]'),
+(16, 'duuAM', '[[\"What is the?\",\"Naaa Bruv\",\"Yee\",null,null,null],[\"This is a second one?\",\"Maybe\",\"Probably\",\"Yes\",\"Nope\",null]]');
 
 --
 -- Indexes for dumped tables
@@ -298,7 +287,7 @@ ALTER TABLE `question`
 -- AUTO_INCREMENT for table `answer`
 --
 ALTER TABLE `answer`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -316,7 +305,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `examinee`
 --
 ALTER TABLE `examinee`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `examiner`
@@ -328,7 +317,7 @@ ALTER TABLE `examiner`
 -- AUTO_INCREMENT for table `inprogressexams`
 --
 ALTER TABLE `inprogressexams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `institution`
@@ -340,7 +329,7 @@ ALTER TABLE `institution`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

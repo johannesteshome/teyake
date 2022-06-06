@@ -9,8 +9,8 @@ body {
   display: grid;
   place-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
-  background-image: url(../assets/backdrop2.jpg);
+  overflow: hidden;
+  background-image: url(../media/backdrop2.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -163,8 +163,9 @@ main {
   display: none;
 }
 .countdown {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+  position: fixed;
+  font-size: 2rem;
+  bottom: 2rem;
+  left: 2rem;
   z-index: 10;
 }

@@ -179,6 +179,9 @@ select {
 .transition {
   transition: 200ms ease-in-out;
 }
+.no-pointer-events {
+  pointer-events: none;
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

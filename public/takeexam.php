@@ -2,19 +2,15 @@
   include_once "../shared/includes/database.php";
   include_once "../shared/core.php";
 
-    
-
   // var_dump($_POST);
     if(isset($_GET["inProgress"]) && $_GET["inProgress"] == "true"){
       $exam_key = $_GET["key"];
       $inprogress_email = $_POST['email'];
-      var_dump($_POST);
-
       $rec_question_row = mysqli_query($conn, "SELECT ID FROM examinee WHERE ExamKey = '".$exam_key."' AND Email = '".$inprogress_email."'");
-      
       $row = mysqli_fetch_assoc($rec_question_row);
       $last_id = $row["ID"];
     }
+    
     if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
       $exam_key = $_POST["examKey"];
       $insert_examinee_query = $conn->prepare('INSERT INTO examinee (FullName, Email, SchoolID, Sex, ExamKey, Section) VALUES (?,?,?,?,?, ?)');
@@ -92,7 +88,7 @@
                 </div>
                 <button id="submit-exam" type="submit" class="hidden">Submit</button>
             </form>
-            <p class="countdown">12:00</p>
+            <p class="countdown"></p>
         </main>
     </div>
     <div class="result hidden">
@@ -136,12 +132,15 @@ if(isset($_GET['new-exam']) && $_GET["new-exam"] == "true"){
   }
   if (isset($_POST['answer-list'])) {
       $answers = $_POST['answer-list'];
+      $remaining = $_POST['remaining'];
   }else{
     $answers = [];
+    $remaining = 0;
   }
   ?>
 const userData = <?php echo json_encode($userData) ?>;
 const answers = <?php echo json_encode($answers) ?>;
+const remaining = <?php echo json_decode($remaining)?>;
 </script>
 <script>
 </script>

@@ -89,3 +89,16 @@
 .password-changer p {
   color: red;
 }
+
+.profile-pic {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-pic-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
