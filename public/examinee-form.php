@@ -10,7 +10,7 @@ $exam_key = $_GET["exam-key"];
 
 $dummy_key = $exam_key;
 
-$retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = '".$exam_key."'";
+$retrieve_exam_query = "SELECT * FROM exam WHERE ExamKey = '".$exam_key."' AND Status = 'open'";
 $retrieve_exam_row = mysqli_query($conn, $retrieve_exam_query);
 if (!mysqli_num_rows($retrieve_exam_row)) {
   header('Location: ../index.php?exam=none');

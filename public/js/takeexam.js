@@ -25,33 +25,37 @@ let leaveExamWarningTimeout = null;
 let warningTimerInterval = null;
 let warningSeconds = 11;
 
-let studKey = "-1";
-if (!!localStorage.getItem("studKey")) {
-  studKey = localStorage.getItem("studKey");
-}
-
-let allExams = [];
-if (!!localStorage.getItem("exams")) {
-  allExams = JSON.parse(localStorage.getItem("exams"));
-}
-let totalExams = allExams.length;
-
-let allStudents = [];
-if (!!localStorage.getItem("students")) {
-  allStudents = JSON.parse(localStorage.getItem("students"));
-}
-let totalStudents = allStudents.length;
-
-let allTeachers = [];
-if (!!localStorage.getItem("teachers")) {
-  allTeachers = JSON.parse(localStorage.getItem("teachers"));
-}
-
-// if (studKey != "-1") {
-//   document.querySelector("#exam-key").value = studKey;
-// }
 let student = new Student();
 let currentExam;
+
+currentExam = JSON.parse(document.getElementById("current-exam").textContent);
+let countdown;
+if (remaining) {
+  countdown = Math.floor(remaining / 1000);
+} else {
+  countdown = currentExam.duration * 60;
+}
+console.log(countdown);
+
+function startTimer(duration, display) {
+  var timer = duration,
+    minutes,
+    seconds;
+  const countdown = setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+
+    if (--timer < 0) {
+      clearInterval(countdown);
+      document.querySelector("#submit-exam").click();
+    }
+  }, 1000);
+}
 
 function fullScreen() {
   // document.documentElement.requestFullscreen();
@@ -68,25 +72,25 @@ startExam.addEventListener("click", (evt) => {
       console.log(response);
       inProgressExamID = response.id;
 
-      console.log(JSON.stringify(allExams[0]));
-      currentExam = JSON.parse(
-        document.getElementById("current-exam").textContent
-      );
+      // console.log(JSON.stringify(allExams[0]));
+
       document.querySelector("#submit-exam").classList.remove("hidden");
       document.querySelector("main").classList.remove("hidden");
       showExam();
       fullScreen();
+      startTimer(countdown, document.querySelector(".countdown"));
       if (answers) {
         ansContainer = document.querySelectorAll(".q-container");
-        if (typeof answers != Object) {
-          let ans = JSON.parse(answers);
-          console.log(typeof ans);
-          ans.forEach((answer, i) => {
-            ansContainer[i].childNodes[answer].childNodes[0].checked = true;
-            console.log(ansContainer[i]);
-            // console.log(ansContainer[i]);
-          });
-        }
+        let ans = JSON.parse(answers);
+        console.log(ans);
+        ans.forEach((answer, i) => {
+          if (answer == null) return;
+          console.log(i);
+          console.log(ansContainer[i]);
+          ansContainer[i].childNodes[answer].childNodes[0].checked = true;
+          // console.log(ansContainer[i]);
+        });
+        // }
       }
     });
 });

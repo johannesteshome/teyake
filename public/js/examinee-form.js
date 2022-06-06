@@ -74,7 +74,7 @@ enterBtn.addEventListener("click", function (evt) {
     .then((r) => r.json())
     .then((response) => {
       if (response) {
-        errorLabel.innerText = "You cannot enter this exam";
+        errorLabel.innerText = "You have already taken this exam!";
       } else {
         document.forms[0].submit();
         // console.log(entering);

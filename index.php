@@ -133,7 +133,7 @@
                     equips you with all the power and function you need to create exams
                     for your students, your way.
                 </p>
-                <a href="./public/signup.php"><button class="intro-btn btn">Sign Up For Your Free Trial</button></a>
+                <a href="./public/signup.php"><button class="intro-btn btn">Sign Up</button></a>
                 <a href="./public/support.php"><button class="intro-btn btn">See how it works</button></a>
 
             </div>
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <a href="public/support.php"><button class="btn card-list-btn" onclick="">How it works</button></a>
-                
+
             </div>
             <!-- End of card list -->
             <div class="credits" id="testimonals">
