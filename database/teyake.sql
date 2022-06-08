@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2022 at 08:47 PM
+-- Generation Time: Jun 08, 2022 at 09:59 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -135,7 +135,7 @@ INSERT INTO `exam` (`Name`, `CourseID`, `ExamKey`, `QuestionID`, `AnswerID`, `Ex
 ('The Then Them', NULL, 'duuAM', 16, 11, 1, 'open', 40, '2006-06-22'),
 ('test', NULL, 'gXqzY', 17, 12, 1, 'open', 15, '2008-06-22'),
 ('This is New', NULL, 'iCkIi', 19, 14, 5, 'open', 25, '2022-06-08'),
-('test11', NULL, 'KfYOa', 18, 13, 1, 'open', 60, '2022-06-08'),
+('test11', NULL, 'KfYOa', 18, 13, 1, 'close', 60, '2022-06-08'),
 ('New Test', NULL, 'WQusP', 15, 10, 1, 'open', 20, '2003-06-22');
 
 -- --------------------------------------------------------
@@ -149,7 +149,6 @@ CREATE TABLE `examinee` (
   `FullName` varchar(60) NOT NULL,
   `Email` varchar(60) NOT NULL,
   `Section` varchar(2) DEFAULT NULL,
-  `DeptID` int(11) DEFAULT NULL,
   `InstID` int(11) DEFAULT NULL,
   `ExamKey` varchar(25) NOT NULL,
   `Sex` char(1) NOT NULL,
@@ -157,6 +156,15 @@ CREATE TABLE `examinee` (
   `AnswerList` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `SchoolID` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `examinee`
+--
+
+INSERT INTO `examinee` (`ID`, `FullName`, `Email`, `Section`, `InstID`, `ExamKey`, `Sex`, `Score`, `AnswerList`, `SchoolID`) VALUES
+(1, 'Yohannes Fantahun', 'fantish@mail.com', 'A', 3, 'WQusP', 'M', 2, '[1,2,1]', '0702/12'),
+(5, 'test person', 'test@mail.com', 'A', 2, 'duuAM', 'M', 0, '[2,2]', '111'),
+(6, 'Abex Abelew', 'abex@mail.com', 'e', 2, 'duuAM', 'M', 1, '[1,2]', '111');
 
 -- --------------------------------------------------------
 
@@ -309,6 +317,12 @@ ALTER TABLE `exam`
   ADD KEY `exam_question_id` (`QuestionID`);
 
 --
+-- Indexes for table `examinee`
+--
+ALTER TABLE `examinee`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `examiner`
 --
 ALTER TABLE `examiner`
@@ -371,6 +385,12 @@ ALTER TABLE `department`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `examinee`
+--
+ALTER TABLE `examinee`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `examiner`
 --
 ALTER TABLE `examiner`
@@ -380,7 +400,7 @@ ALTER TABLE `examiner`
 -- AUTO_INCREMENT for table `inprogressexams`
 --
 ALTER TABLE `inprogressexams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `institution`

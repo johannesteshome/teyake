@@ -91,14 +91,7 @@
             <p class="countdown"></p>
         </main>
     </div>
-    <div class="result hidden">
-        <div class="result-box flex flex-col items-center justify-center">
-            <h2 class="text-center" id="result-student-name">Student Name</h2>
-            <h3 class="text-center" id="result-exam-name">Exam name</h3>
-            <p>You scored <span id="score">6</span>/<span id="result-max">10</span> </p>
-            <a href="../index.php" id="finish-exam"><button>Done</button></a>
-        </div>
-    </div>
+
 
     <div class="warning-modal hidden" id="warning-modal">
         <div class="warning-modal-content">
@@ -145,5 +138,6 @@ const remaining = <?php echo json_decode($remaining)?>;
 <script>
 </script>
 <script src="./js/takeexam.js" type="module"></script>
+</script>
 
 </html>

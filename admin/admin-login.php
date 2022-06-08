@@ -50,31 +50,28 @@ if($count == 0){
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up | Teyake</title>
-    <link rel="stylesheet" href="css/style-reset.css" />
-    <link rel="stylesheet" href="css/signin.css" />
+    <link rel="stylesheet" href="../public/css/style-reset.css" />
+    <link rel="stylesheet" href="../public/css/signin.css" />
 </head>
 
 <body>
     <div class="container text-white">
-
-
         <div class="header">
             <div class="header-left">
                 <img src="../public/media/images/teyake_white_fill.png" class="logo" />
                 <nav>
                     <ul class="primary-nav flex">
                         <li class=""><a href="../index.php">Home</a></li>
-                        <li class="nav-active"><a href="signin.php">Sign In</a></li>
+                        <!-- <li class="nav-active"><a href="signup.php">Sign Up</a></li> -->
                     </ul>
                 </nav>
             </div>
             <div class="header-right flex items-center">
                 <div class="sign-in flex gap-4">
-                    <a href="signup.php"><button type="button">Sign Up</button></a>
                     <!-- <button type="button">Sign Up</button> -->
                 </div>
                 <!-- Exam Key input Section -->
-                <div class="flex flex-col items-center gap-2">
+                <!-- <div class="flex flex-col items-center gap-2">
                     <form action="#" class="enter-exam-head flex text-center items-center">
                         <div class="enter-exam-input">
                             <input type="text" name="exam-key" id="exam-key" placeholder="Enter Exam Key" />
@@ -83,16 +80,13 @@ if($count == 0){
                             </button>
                         </div>
                     </form>
-                </div>
+                </div> -->
                 <!-- End of exam key input section -->
             </div>
         </div>
-
-
-
         <main class="sign-in-page flex items-center justify-center">
             <div class="login-container flex flex-col items-center justify-center">
-                <h1>Sign In</h1>
+                <h1>Admin Sign In</h1>
                 <form class="text-primary flex flex-col" method="post" action="">
                     <div class="inputs">
                         <label for="uname">
@@ -103,14 +97,12 @@ if($count == 0){
                                 placeholder="Password" />
                         </label>
                     </div>
-                    <a style="color:white" href="forgot-password.php">Forgot Password?</a>
                     <span id="errorMsg">
                         <php? echo $error; ?>
                     </span>
                     <button type="submit">Sign In</button>
                 </form>
             </div>
-            <a href="../admin/admin-login.php">Administrator Login</a>
         </main>
     </div>
 </body>

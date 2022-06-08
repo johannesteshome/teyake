@@ -41,14 +41,12 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
             <div class="modal-content">
                 <h1 style="text-align: center">Enter Exam</h1>
                 <form action="takeexam.php?new-exam=true" method="POST" class="flex flex-col gap-4 examinee-form">
-                    <input type="text" placeholder="Name" id="student-name" name="examineeName" required
-                        value="Yohannes Assefa" />
-                    <input type="email" placeholder="Email" id="student-email" name="examineeEmail" required
-                        value="yohannes@mail.com" />
-                    <input type="text" placeholder="ID" id="student-id" name="examineeID" required value="0704/12" />
+                    <input type="text" placeholder="Name" id="student-name" name="examineeName" required />
+                    <input type="email" placeholder="Email" id="student-email" name="examineeEmail" required />
+                    <input type="text" placeholder="ID" id="student-id" name="examineeID" required />
                     <select name="sex" id="sex">
-                        <option value="" disabled>Gender</option>
-                        <option value="M" selected>Male</option>
+                        <option value="" disabled selected>Gender</option>
+                        <option value="M">Male</option>
                         <option value="F">Female</option>
                     </select>
                     <select name="institution" id="institution">
@@ -58,17 +56,19 @@ $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);
                 echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
               }
               ?>
-                        <option value="none">Not Listed</option>
+                        <!-- <option value="none">Not Listed</option> -->
                     </select>
-                    <input type="text" placeholder="Section" id="student-section" name="examineeSection" maxlength="1"
-                        value="D" />
+                    <input type="text" placeholder="Section" id="student-section" name="examineeSection"
+                        maxlength="1" />
                     <input type="text" placeholder="Key" id="key" value="<?php echo $dummy_key ?>" disabled />
                     <input type="hidden" placeholder="Key" id="exam-key" name="examKey"
                         value="<?php echo $exam_key ?>" />
                     <button type="submit" id="enter-exam">Enter</button>
                 </form>
                 <p id="errorMsg"></p>
-                <p id="in-progress-link">In Progress?</p>
+                <p id="in-progress-link" style="padding:0.5rem;border:1px solid black;border-radius:0.5rem">Do you have
+                    an Exam in progress?
+                </p>
             </div>
         </div>
         <div class="in-progress-window hidden">
