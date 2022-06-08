@@ -190,7 +190,7 @@ document.getElementById("add-dep").addEventListener("click", () => {
       dep: document.getElementById("dep-input").value,
     }),
   })
-    .then((r) => r.json())
+    // .then((r) => r.json())
     .then((response) => {
       if (response) {
         window.open("../my_profile.php", "_parent");
@@ -210,7 +210,7 @@ document.getElementById("add-course").addEventListener("click", () => {
       course: document.getElementById("course-input").value,
     }),
   })
-    .then((r) => r.json())
+    // .then((r) => r.json())
     .then((response) => {
       if (response) {
         window.open("../my_profile.php", "_parent");
