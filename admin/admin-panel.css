@@ -808,3 +808,6 @@ th {
     min-width: 100vw;
   }
 } */
+.table-btn svg {
+  pointer-events: none;
+}

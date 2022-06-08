@@ -88,6 +88,7 @@ request.addEventListener("change", (evt) => {
         .then((r) => r.json())
         .then((response) => {
           loadRequest(response);
+          loadReference("D");
         });
       break;
     case "I":
@@ -100,6 +101,7 @@ request.addEventListener("change", (evt) => {
         .then((r) => r.json())
         .then((response) => {
           loadRequest(response);
+          loadReference("I");
         });
       break;
     case "C":
@@ -112,6 +114,7 @@ request.addEventListener("change", (evt) => {
         .then((r) => r.json())
         .then((response) => {
           loadRequest(response);
+          loadReference("C");
         });
       break;
   }
@@ -148,4 +151,125 @@ function loadRequest(data) {
   });
 
   request.innerHTML = display;
+
+  RequestHandle();
+}
+
+function RequestHandle() {
+  document.querySelectorAll(".table-btn-appr").forEach((item) => {
+    console.log(item);
+    item.addEventListener("click", (evt) => {
+      let ExtractedData =
+        document.querySelector(".table-btn-appr").parentElement.parentElement
+          .firstChild.innerHTML;
+
+      let Rtype = document.querySelector("#request-type").value;
+
+      fetch("/teyake/admin/handle-request.php", {
+        method: "post",
+        body: JSON.stringify({
+          type: Rtype,
+          approve: true,
+          data: ExtractedData,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          document.querySelector(
+            ".table-btn-appr"
+          ).parentElement.parentElement.innerHTML = "";
+
+          loadReference(Rtype);
+        });
+    });
+  });
+  document.querySelectorAll(".table-btn-disappr").forEach((item) => {
+    console.log(item);
+    item.addEventListener("click", (evt) => {
+      let ExtractedData =
+        document.querySelector(".table-btn-appr").parentElement.parentElement
+          .firstChild.innerHTML;
+
+      let Rtype = document.querySelector("#request-type").value;
+
+      fetch("/teyake/admin/handle-request.php", {
+        method: "post",
+        body: JSON.stringify({
+          type: Rtype,
+          drop: true,
+          data: ExtractedData,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          document.querySelector(
+            ".table-btn-appr"
+          ).parentElement.parentElement.innerHTML = "";
+        });
+    });
+  });
+}
+
+RequestHandle();
+
+function loadReference(str) {
+  switch (str) {
+    case "D":
+      fetch("/teyake/admin/handle-reference.php", {
+        method: "post",
+        body: JSON.stringify({
+          displayDep: true,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          alterReferenceView(response);
+        });
+      break;
+    case "I":
+      fetch("/teyake/admin/handle-reference.php", {
+        method: "post",
+        body: JSON.stringify({
+          displayInst: true,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          alterReferenceView(response);
+        });
+      break;
+    case "C":
+      fetch("/teyake/admin/handle-reference.php", {
+        method: "post",
+        body: JSON.stringify({
+          displayCourse: true,
+        }),
+      })
+        .then((r) => r.json())
+        .then((response) => {
+          alterReferenceView(response);
+        });
+      break;
+  }
+}
+
+function alterReferenceView(data) {
+  const req = document.getElementById("reference-body");
+  document.querySelectorAll("reference-item").forEach((item) => {
+    item.innerHTML = "";
+  });
+  if ("status" in data) {
+    req.innerHTML = "";
+    req.innerHTML = `<tr><td>No Result</td></tr>`;
+    return;
+  }
+  req.innerHTML = "";
+  let display = "";
+  data.forEach((str, i) => {
+    display += `<tr class="reference-item"><td>${i + 1}</td><td>${
+      str[0]
+    }</td></tr>`;
+  });
+
+  req.innerHTML = display;
 }

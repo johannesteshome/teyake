@@ -33,6 +33,32 @@ if(isset($payload["displayCourse"]) && $payload["displayCourse"]){
     
 
 }
+if(isset($payload["approve"]) && $payload["approve"]){
+    $table = '';
+    switch($payload['type']){
+        case 'I';
+        $table = 'institution';
+        break;
+        case 'C';
+        $table = 'course';
+        break;
+        case 'D';
+        $table = 'department';
+        break;
+    }
+
+    $response = mysqli_query($conn, "DELETE FROM requests WHERE type='".$payload['type']."' AND input='".$payload['data']."'");
+    $input = $payload["data"];
+    $insert_exam_query = $conn->prepare('INSERT INTO '.$table.' (Name) VALUES (?)');
+    $insert_exam_query->bind_param("s", $input);
+    $insert_exam_query->execute();
+    echo json_encode(true);
+
+}
+if(isset($payload["drop"]) && $payload["drop"]){
+    $response = mysqli_query($conn, "DELETE FROM requests WHERE type='".$payload['type']."' AND input='".$payload['data']."'");
+    echo json_encode(true);
+}
 
 
 // ?>

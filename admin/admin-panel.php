@@ -471,22 +471,25 @@ $writer->save('Examinees_List.xlsx');
                     <table class="required-table">
                         <thead>
 
-                            <th>Department ID</th>
-                            <th>Action</th>
+                            <th>No</th>
+                            <th>Name</th>
                         </thead>
-                        <?php 
-                         $result_deps = mysqli_query($conn, $dep_list);
+                        <tbody id="reference-body">
 
-                        while($row_deps = mysqli_fetch_assoc($result_deps)){
-                        echo '<tr>';
-                        echo '<td>'.$row_deps['ID'].'</td>';
-                        echo '<td>'.$row_deps['Name'].'</td>';
-                        echo '</tr>';
-        
-                                    }
-                        
-                        ?>
+                            <?php 
+                             $result_deps = mysqli_query($conn, $dep_list);
+                            $num = 1;
+                            while($row_deps = mysqli_fetch_assoc($result_deps)){
+                            echo '<tr>';
+                            echo '<td>'.$num++.'</td>';
+                            echo '<td>'.$row_deps['Name'].'</td>';
+                            echo '</tr>';
+            
+                                        }
+                            
+                            ?>
 
+                        </tbody>
 
 
 
