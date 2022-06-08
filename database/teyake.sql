@@ -443,8 +443,8 @@ ALTER TABLE `exam`
 -- Constraints for table `examiner`
 --
 ALTER TABLE `examiner`
-  ADD CONSTRAINT `examiner_course_id` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
-  ADD CONSTRAINT `examiner_dept_id` FOREIGN KEY (`DeptID`) REFERENCES `department` (`ID`),
+  -- ADD CONSTRAINT `examiner_course_id` FOREIGN KEY (`CourseID`) REFERENCES `course` (`ID`),
+  -- ADD CONSTRAINT `examiner_dept_id` FOREIGN KEY (`DeptID`) REFERENCES `department` (`ID`),
   ADD CONSTRAINT `examiner_inst_id` FOREIGN KEY (`InstID`) REFERENCES `institution` (`ID`);
 
 --
