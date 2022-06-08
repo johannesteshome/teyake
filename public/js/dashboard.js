@@ -467,11 +467,6 @@ document
     test = null;
     window.open("./dashboard.php", "_parent");
   });
-document.querySelector("#back-exam").addEventListener("click", function (evt) {
-  evt.preventDefault();
-  addExamPage.classList.remove("hidden");
-  writeExamPage.classList.add("hidden");
-});
 //
 //Display Results Page
 //
@@ -585,7 +580,7 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
     const listingTable = document.getElementById("listingTable");
 
     let current_page = 1;
-    let records_per_page = 5;
+    let records_per_page = 2;
 
     this.init = function () {
       addElements();
@@ -688,7 +683,7 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
           console.log(q);
           cont.classList.add("selected-question-item");
           cont.innerHTML = `<p>${q}</p>
-          <button type="button" class="remove-selected"> - </button>`;
+          <button type="button" class="remove-selected"></button>`;
 
           console.log(document.querySelectorAll(".remove-selected"));
 

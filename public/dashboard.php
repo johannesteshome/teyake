@@ -327,7 +327,7 @@ include_once "../shared/includes/database.php";
                             </form>
                         </div>
                         <form action="cancelExam()" method="POST" enctype=”multipart/form-data”>
-                            <button id="back-exam" type="button">Go Back</button>
+                            <!-- <button id="back-exam" type="button">Go Back</button> -->
                             <button id="cancel-exam" type="button">Cancel Exam</button>
                         </form>
 
