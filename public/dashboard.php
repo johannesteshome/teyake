@@ -327,6 +327,7 @@ include_once "../shared/includes/database.php";
                             </form>
                         </div>
                         <form action="cancelExam()" method="POST" enctype=”multipart/form-data”>
+                            <button id="back-exam" type="button">Go Back</button>
                             <button id="cancel-exam" type="button">Cancel Exam</button>
                         </form>
 
@@ -417,7 +418,7 @@ include_once "../shared/includes/database.php";
                         <h2 class="text-center">Exam Preview</h2>
                         <div class="preview-btns flex gap-4">
                             <button type="button" id="done-preview">Done</button>
-                            <button type="button" id="cancel-preview">Cancel</button>
+                            <button type="button" id="cancel-preview">Cancel Exam</button>
                             <button type="button" id="close-preview">Go Back</button>
                         </div>
                         <div class="preview-question-list"></div>

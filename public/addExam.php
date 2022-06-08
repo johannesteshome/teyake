@@ -22,18 +22,19 @@
         }
         $answers = json_encode($answers);
         //SENDING EXAM DATA
-
+        
         $examName = $exam->name;
         $examKey =  $exam->key;
         $examiner_id = $_SESSION['id'];
         $examStatus = $exam->status;
         $examDuration = $_POST['exam-duration'];
-        $examDate = date("d/m/y");
+      
+        
         $questions = json_encode($exam->questions);
 
 
-        $insert_exam_query = $conn->prepare('INSERT INTO exam (Name, ExamKey, ExaminerID, Status, Duration, Date) VALUES (?,?,?,?,?,?)');
-        $insert_exam_query->bind_param("ssisis", $examName, $examKey, $examiner_id, $examStatus, $examDuration, $examDate);
+        $insert_exam_query = $conn->prepare('INSERT INTO exam (Name, ExamKey, ExaminerID, Status, Duration) VALUES (?,?,?,?,?)');
+        $insert_exam_query->bind_param("ssisi", $examName, $examKey, $examiner_id, $examStatus, $examDuration);
         $insert_exam_query->execute();
         
         

@@ -106,6 +106,7 @@ svg {
 }
 .primary-nav > * {
   padding: 0.5rem;
+  color: #fff;
 }
 .primary-nav li:hover {
   border-bottom: 2px solid #fff;
@@ -294,10 +295,6 @@ li {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-}
-
-a {
-  color: black;
 }
 
 #errorMsg {

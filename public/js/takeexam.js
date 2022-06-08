@@ -28,6 +28,20 @@ let warningSeconds = 11;
 let student = new Student();
 let currentExam;
 
+// window.onload = function () {
+//   reloadP();
+//   var reloading = sessionStorage.getItem("reloading");
+//   if (reloading) {
+//     sessionStorage.removeItem("reloading");
+//     window.open("/teyake/public/examinee-form.php", "_parent");
+//   }
+// };
+
+// function reloadP() {
+//   sessionStorage.setItem("reloading", "true");
+//   document.location.reload();
+// }
+
 currentExam = JSON.parse(document.getElementById("current-exam").textContent);
 let countdown;
 if (remaining) {

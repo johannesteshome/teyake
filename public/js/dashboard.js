@@ -467,6 +467,11 @@ document
     test = null;
     window.open("./dashboard.php", "_parent");
   });
+document.querySelector("#back-exam").addEventListener("click", function (evt) {
+  evt.preventDefault();
+  addExamPage.classList.remove("hidden");
+  writeExamPage.classList.add("hidden");
+});
 //
 //Display Results Page
 //
@@ -531,28 +536,24 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
   function Pagination() {
     let allExams;
     allExams = JSON.parse(document.getElementById("all-exams").textContent);
-    let tempQuestions =[];
+    let tempQuestions = [];
     allExams.forEach((exam) => {
       exam.questions.forEach((question) => {
         tempQuestions.push(question);
       });
     });
 
-
     let allQuestions = [];
 
     for (let i = 0; i < tempQuestions.length; i++) {
       let already = false;
-      for (let j = i+1; j < tempQuestions.length; j++) {
-        if(tempQuestions[i][0]==tempQuestions[j][0])
-          already = true; 
+      for (let j = i + 1; j < tempQuestions.length; j++) {
+        if (tempQuestions[i][0] == tempQuestions[j][0]) already = true;
       }
-      if(!already){
+      if (!already) {
         allQuestions.push(tempQuestions[i]);
       }
-      
     }
-    
 
     examBankSearch.addEventListener("input", filterQuesitons);
     let filteredQuestions = allQuestions;
@@ -584,7 +585,7 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
     const listingTable = document.getElementById("listingTable");
 
     let current_page = 1;
-    let records_per_page = 2;
+    let records_per_page = 5;
 
     this.init = function () {
       addElements();
@@ -681,22 +682,20 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
         });
       });
       addToSelected.forEach((item) => {
-        
-        
         item.addEventListener("click", function () {
           let cont = document.createElement("div");
           let q = item.nextElementSibling.textContent;
-          console.log(q)
+          console.log(q);
           cont.classList.add("selected-question-item");
           cont.innerHTML = `<p>${q}</p>
-          <button type="button" class="remove-selected"></button>`;
+          <button type="button" class="remove-selected"> - </button>`;
 
           console.log(document.querySelectorAll(".remove-selected"));
 
           document.querySelector(".selected-questions-list").appendChild(cont);
           document.querySelectorAll(".remove-selected").forEach((item) => {
             item.addEventListener("click", function (e) {
-              console.log(e, "hello")
+              console.log(e, "hello");
               e.target.parentNode.remove();
             });
           });
@@ -815,9 +814,9 @@ document.querySelectorAll(".result-tile").forEach((tile) => {
         });
       });
 
-      document.querySelectorAll('.remove-selected').forEach((item)=>{
+      document.querySelectorAll(".remove-selected").forEach((item) => {
         item.click();
-      })
+      });
     }
   }
   let pagination = new Pagination();
@@ -832,5 +831,4 @@ document
   .getElementById("selected-questions-btn")
   .addEventListener("click", function () {
     document.querySelector(".selected-questions").classList.toggle("hide");
-
   });
