@@ -99,7 +99,7 @@ function usernameTaken(uname) {
 // });
 
 document.getElementById("back-btn").addEventListener("click", () => {
-  window.open("../dashboard.php", "_parent");
+  window.open("./dashboard.php", "_parent");
 });
 
 document.getElementById("save-pass").addEventListener("click", () => {
@@ -149,31 +149,55 @@ document.getElementById("save-pass").addEventListener("click", () => {
   });
   error.innerText = "";
 });
+
+let showingCourseOverlay = false;
 document.getElementById("add-new-course").addEventListener("click", () => {
+  showingCourseOverlay = true;
   document.querySelector(".add-course-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
 });
-let isShowingOverlay = false;
-document.querySelector(".overlay").addEventListener("click", () => {
-  isShowingOverlay = true;
+document.querySelector(".course-overlay").addEventListener("click", () => {
   document.querySelector(".add-course-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
 });
 window.addEventListener("keydown", (evt) => {
-  if (evt.key == "Escape" && isShowingOverlay) {
+  if (evt.key == "Escape" && showingCourseOverlay) {
     document.querySelector(".add-course-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
   }
 });
 
+let showingDeptOverlay = false;
 document.getElementById("add-new-dep").addEventListener("click", () => {
+  showingDeptOverlay = true;
   document.querySelector(".add-dep-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
 });
-
-document.querySelector(".overlay").addEventListener("click", () => {
-  isShowingOverlay = true;
+document.querySelector(".dep-overlay").addEventListener("click", () => {
   document.querySelector(".add-dep-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
 });
 window.addEventListener("keydown", (evt) => {
-  if (evt.key == "Escape" && isShowingOverlay) {
+  if (evt.key == "Escape" && showingDeptOverlay) {
     document.querySelector(".add-dep-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
+  }
+});
+
+let showingInstOverlay = false;
+document.getElementById("add-new-inst").addEventListener("click", () => {
+  showingInstOverlay = true;
+  document.querySelector(".add-inst-window").classList.remove("hidden");
+  document.querySelector("html").classList.add("no-overflow");
+});
+document.querySelector(".inst-overlay").addEventListener("click", () => {
+  document.querySelector(".add-inst-window").classList.add("hidden");
+  document.querySelector("html").classList.remove("no-overflow");
+});
+window.addEventListener("keydown", (evt) => {
+  if (evt.key == "Escape" && showingInstOverlay) {
+    document.querySelector(".add-inst-window").classList.add("hidden");
+    document.querySelector("html").classList.remove("no-overflow");
   }
 });
 
@@ -193,7 +217,7 @@ document.getElementById("add-dep").addEventListener("click", () => {
     // .then((r) => r.json())
     .then((response) => {
       if (response) {
-        window.open("../my_profile.php", "_parent");
+        window.open("./my_profile.php", "_parent");
       }
     });
 });
@@ -213,7 +237,27 @@ document.getElementById("add-course").addEventListener("click", () => {
     // .then((r) => r.json())
     .then((response) => {
       if (response) {
-        window.open("../my_profile.php", "_parent");
+        window.open("./my_profile.php", "_parent");
+      }
+    });
+});
+document.getElementById("add-inst").addEventListener("click", () => {
+  if (document.getElementById("institution-input").value == "") {
+    console.log("err");
+    return;
+  }
+
+  fetch("/teyake/public/add-dep-course.php", {
+    method: "post",
+    body: JSON.stringify({
+      addInst: true,
+      institution: document.getElementById("institution-input").value,
+    }),
+  })
+    // .then((r) => r.json())
+    .then((response) => {
+      if (response) {
+        window.open("./my_profile.php", "_parent");
       }
     });
 });

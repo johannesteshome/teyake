@@ -115,11 +115,18 @@ label {
   min-width: 100%;
 }
 
-.overlay {
+.no-overflow {
+  overflow: hidden;
+}
+
+.dep-overlay,
+.course-overlay,
+.inst-overlay {
   position: absolute;
   z-index: 10;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
 }
 .in-progress-modal {
   width: 300px;

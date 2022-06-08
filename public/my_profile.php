@@ -11,16 +11,17 @@
         $row = mysqli_fetch_assoc($result);
         $user_email = $row['Email'];
         $user_email_dir = str_replace(".", "_", $user_email);
+        $instID = $row["InstID"];
+        $deptID = $row["DeptID"];
+        $courseID = $row["CourseID"];
 
 if(isset($_POST['upload'])){
-
-
-
-echo $user_id;
-
 $filename = $_FILES['uploadfile']['name'];
 $ext = pathinfo($filename, PATHINFO_EXTENSION);
-mkdir('uploads/' . $user_email_dir);
+
+if(!file_exists('uploads/' . $user_email_dir)){
+    mkdir('uploads/' . $user_email_dir);
+}
 $image_name = $user_email.time().'.'.$ext;
 $destination_path = getcwd().DIRECTORY_SEPARATOR;;
 $target = $destination_path.'uploads/' . $user_email_dir.'/'.$image_name;
@@ -114,41 +115,43 @@ $image_url = $row['ImageURL'];
 
                     <div for="institution">Institution
                         <select name="institution" id="institution">
-                            <option value="" disabled>Select an Institution</option>
+                            <option value="" disabled selected>Select an Institution</option>
                             <?php 
                             $retrieve_institution_query = "SELECT Name, ID FROM institution";
                             $retrieve_institution_result = mysqli_query($conn, $retrieve_institution_query);                            
                                 while($row = mysqli_fetch_assoc($retrieve_institution_result)){
-                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                    echo "<option ".($instID==$row["ID"]? " selected ":" ")." value=\"".$row["ID"]."\">".$row["Name"]."</option>";
                                 }
+
                                 ?>
                         </select>
+                        <button type="button" id="add-new-inst">Request New</button>
                     </div>
                     <div for="department">Department
                         <select name="department" id="department">
-                            <option value="" disabled>Select a Department</option>
+                            <option value="" disabled selected>Select a Department</option>
                             <?php 
                             $retrieve_department_query = "SELECT Name, ID FROM department";
                             $retrieve_department_result = mysqli_query($conn, $retrieve_department_query);                            
                                 while($row = mysqli_fetch_assoc($retrieve_department_result)){
-                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                    echo "<option ".($deptID==$row["ID"]? " selected " : ""). "value=\"".$row["ID"]."\">".$row["Name"]."</option>";
                                 }
                                 ?>
                         </select>
-                        <button type="button" id="add-new-dep">Add New</button>
+                        <button type="button" id="add-new-dep">Request New</button>
                     </div>
                     <div for="course">Course
                         <select name="course" id="course">
-                            <option value="" disabled>Select a Course</option>
+                            <option value="" disabled selected>Select a Course</option>
                             <?php 
                             $retrieve_course_query = "SELECT Name, ID FROM course";
                             $retrieve_course_result = mysqli_query($conn, $retrieve_course_query);                            
                                 while($row = mysqli_fetch_assoc($retrieve_course_result)){
-                                    echo "<option value=\"".$row["ID"]."\">".$row["Name"]."</option>";
+                                    echo "<option ".($courseID==$row["ID"]? " selected " : ""). "value=\"".$row["ID"]."\">".$row["Name"]."</option>";
                                 }
                                 ?>
                         </select>
-                        <button type="button" id="add-new-course">Add New</button>
+                        <button type="button" id="add-new-course">Request New</button>
                     </div>
 
                     <p id="errorMsg"></p>
@@ -179,7 +182,7 @@ $image_url = $row['ImageURL'];
                 </div>
             </form>
             <div class="add-dep-window hidden">
-                <div class="overlay"></div>
+                <div class="dep-overlay"></div>
                 <div class="in-progress-modal">
                     <h3 class="text-center">Enter the Department</h3>
                     <form action="">
@@ -189,12 +192,22 @@ $image_url = $row['ImageURL'];
                 </div>
             </div>
             <div class="add-course-window hidden">
-                <div class="overlay"></div>
+                <div class="course-overlay"></div>
                 <div class="in-progress-modal">
                     <h3 class="text-center">Enter the Course</h3>
                     <form action="">
                         <input type=" text" name="course" placeholder="Course" id="course-input">
                         <button type="button" id="add-course">Add</button>
+                    </form>
+                </div>
+            </div>
+            <div class="add-inst-window hidden">
+                <div class="inst-overlay"></div>
+                <div class="in-progress-modal">
+                    <h3 class="text-center">Enter the Course</h3>
+                    <form action="">
+                        <input type=" text" name="institution" placeholder="Institution" id="institution-input">
+                        <button type="button" id="add-inst">Add</button>
                     </form>
                 </div>
             </div>
