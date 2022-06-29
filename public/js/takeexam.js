@@ -72,7 +72,7 @@ function startTimer(duration, display) {
 }
 
 function fullScreen() {
-  // document.documentElement.requestFullscreen();
+  document.documentElement.requestFullscreen();
   pageContainer.classList.remove("blur");
   overlay.classList.add("hidden");
 }
@@ -174,22 +174,22 @@ startExam.addEventListener("click", (evt) => {
 //   clearTimers();
 // }
 
-// function hideModal() {
-//   warningModal.classList.add("hidden");
-// }
+function hideModal() {
+  warningModal.classList.add("hidden");
+}
 
-// function showModal() {
-//   warningModal.classList.remove("hidden");
-// }
+function showModal() {
+  warningModal.classList.remove("hidden");
+}
 
-// function clearTimers() {
-//   if (leaveExamWarningTimeout) {
-//     clearTimeout(leaveExamWarningTimeout);
-//   }
-//   if (warningTimerInterval) {
-//     clearInterval(warningTimerInterval);
-//   }
-// }
+function clearTimers() {
+  if (leaveExamWarningTimeout) {
+    clearTimeout(leaveExamWarningTimeout);
+  }
+  if (warningTimerInterval) {
+    clearInterval(warningTimerInterval);
+  }
+}
 
 function showExam() {
   document.addEventListener("fullscreenchange", (event) => {
