@@ -60,6 +60,7 @@ Our team consists of
 4. Tsion Moges 
 5. Yohannes Fantahun 
 6. Yohannes Abebe.
+7. Yohannes Mengistu
 # Technologies Used
 We used different technologies to develope our project. 
 - Telegram: we used this social media platform as a collaboration tool. This made it feasible for team members who may not be working in the same space to keep updated             in real time.
